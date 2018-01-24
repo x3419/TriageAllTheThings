@@ -74,4 +74,9 @@ Anyone interesting in forensically analyzing a computer. This could be done for 
     - This is a huge area of confusion and risk, because there are MANY types of forensic artifacts on various operating systems. I have not tried all the tools that I am going to utilize, so I don't know what format type each tool will output. This endeavour will be experimental and may not be completed. 
 - Go unit testing
     - I don't have any experience doing unit tests in Go (or much in any language, for that manner), so testing will be an area of uncertainty. I have located the appropriate documentation, and have the resources to learn what will be necessary. 
-   
+
+**Un-answered Questions**
+- Have you ever used Kali Linux? (random, but seems relevant)
+    - Yes! I grew up messing around with Backtrack Linux (which eventually turned into Kali). I had no idea what I was doing but slowly became less of a script kiddie the more I messed around.
+- What will using your tool look like? GUI? Unified command line interface?
+    - This tool will be a unified command line interface. This is done because in an IR scenario, it's important to have a mechanism by which the user can quickly use the tool in an explicit manner. Furthermore, it want to allow the possibility for future developers to add to this project and implement it within other tools.    
