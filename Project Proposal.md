@@ -1,0 +1,75 @@
+# **Capstone Final Proposal**
+
+
+### Metadata
+
+**Name:** Digital Forensics and Incident Response Triage Tool
+**Developer:** Alex Bernier
+
+### Project Overview
+
+In today’s world, information security is one of the top growing industries due to reasons that you can probably guess – intellectual property, research and development, or anything else that can be stored on computers are prized assets. With cyber intrusion headlines sweeping the news every day, it’s clear that the approach of most people toward tech security leaves a lot to be desired. When a breach inevitably happens, what does one do? If you’re smart and can afford it, you might consider hiring a cyber security firm to deal with the problem for you – what do they do, though?
+
+When approached with this problem, cyber security firms generally perform an Incident Response (IR) engagement. They take hard drive images of all potentially infected machines (or investigate them physically in-person), use a variety of open source tools to dig into the operating system to find forensic artifacts, and they analyze those artifacts to determine valuable intelligence. This intelligence can provide insight into how the adversaries breached the machines, whether they established lateral movement to other machines, and what activity they performed – specifically, an important detail on their activity would be what type of data they were able to exfiltrate, which allows the company to make important decisions on future steps to take. Lastly, after identifying all this information, they can help clean up the infected systems and ensure that future attacks can be mitigated.
+
+**What is the purpose?**
+  - Aggregate many artifact collection tools into a single tool, thereby eliminating an IR analyst having to run each tool individually, saving time and manpower
+    - Each tool has various command line arguments, which is a large roadblock when running these tools individually
+- I believe that this project would give me a great way to learn various forensic artifacts, their importance, and the type of analysis that would be conducted using them. There are similar triage tools that exist, and they might work just as well as what I would make, but it would be a great learning opportunity.
+
+
+**Features and specifics:**
+  - Group A
+    - Operating System compatibility: Windows
+    - Configuration file specifies:
+        - Which forensic artifacts/tools to use
+        - Destination directory
+        - Other miscellaneous tool options
+    - Export artifacts to a server (SFTP)
+        - If large in size, will export to disk (such as USB drive) instead
+        - Uses identifier (such as machine name) to separate and sort forensic evidence
+  - Group B
+    - Operating System compatibility: GNU/Linux
+  - Group C
+    - Operating System compatibility: Mac OSX
+    - Combine artifact formats together uniformally 
+
+**What this project will not do:**
+  - Make your computer secure
+  - Automatically analyze forensic artifacts
+    - This step must be taken manually by an analyst
+
+**Tools to be utilized:**
+https://www.dfir.training/tools/forensic-utilities-windows
+
+
+**Who's the audience?**
+Anyone interesting in forensically analyzing a computer. This could be done for learning puproses, or in a real-world IR professional scenario. 
+
+**Similar Existing Work:**
+https://github.com/mantarayforensics/mantaray
+https://github.com/travisfoley/dfirtriage
+https://github.com/AJMartel/IRTriage
+https://github.com/rshipp/ir-triage-toolkit
+
+**Technology:**
+- Language: Go
+    - Multi-platform
+    - Dependency-free
+- Testing
+    - Go unit tests
+    - https://golang.org/pkg/testing/
+- Project Depndencies
+    - Should synchronize automatically when using "go install"
+- Code Style
+    - Gofmt is a tool that automatically formats Go source code
+    - https://blog.golang.org/go-fmt-your-code
+- Quality Control
+    - Gofmt and unit tests will confirm that the code is functioning and formatted as expected.
+    
+**Risk Areas**
+- Combining artifact formats uniformally
+    - This is a huge area of confusion and risk, because there are MANY types of forensic artifacts on various operating systems. I have not tried all the tools that I am going to utilize, so I don't know what format type each tool will output. This endeavour will be experimental and may not be completed. 
+- Go unit testing
+    - I don't have any experience doing unit tests in Go (or much in any language, for that manner), so testing will be an area of uncertainty. I have located the appropriate documentation, and have the resources to learn what will be necessary. 
+   
