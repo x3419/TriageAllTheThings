@@ -17,6 +17,7 @@ When approached with this problem, cyber security firms generally perform an Inc
   - Aggregate many artifact collection tools into a single tool, thereby eliminating an IR analyst having to run each tool individually, saving time and manpower
     - Each tool has various command line arguments, which is a large roadblock when running these tools individually
 - I believe that this project would give me a great way to learn various forensic artifacts, their importance, and the type of analysis that would be conducted using them. There are similar triage tools that exist, and they might work just as well as what I would make, but it would be a great learning opportunity.
+- What makes this project different than existing ones, is that it's created using Go. This provides a lean, dependency-free, multi-platform environment which is ideal for incident response scenarios - you never know what type of computer might be infected.
 
 
 **Features and specifics:**
