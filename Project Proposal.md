@@ -79,4 +79,4 @@ Anyone interesting in forensically analyzing a computer. This could be done for 
 - Have you ever used Kali Linux? (random, but seems relevant)
     - Yes! I grew up messing around with Backtrack Linux (which eventually turned into Kali). I had no idea what I was doing but slowly became less of a script kiddie the more I messed around.
 - What will using your tool look like? GUI? Unified command line interface?
-    - This tool will be a unified command line interface. This is done because in an IR scenario, it's important to have a mechanism by which the user can quickly use the tool in an explicit manner. Furthermore, it want to allow the possibility for future developers to add to this project and implement it within other tools.    
+    - This tool will be a unified command line interface. This is done because in an IR scenario, it's important to have a mechanism by which the user can quickly use the tool in an explicit manner. Furthermore, I want to allow the possibility for future developers to add to this project and implement it within other tools.    
