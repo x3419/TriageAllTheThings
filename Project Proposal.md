@@ -19,6 +19,8 @@ When approached with this problem, cyber security firms generally perform an Inc
 - I believe that this project would give me a great way to learn various forensic artifacts, their importance, and the type of analysis that would be conducted using them. There are similar triage tools that exist, and they might work just as well as what I would make, but it would be a great learning opportunity.
 - What makes this project different than existing ones, is that it's created using Go. This provides a lean, dependency-free, multi-platform environment which is ideal for incident response scenarios - you never know what type of computer might be infected.
 
+**Previous Experience**
+Over the summer I interned at a company called Crowdstrike, a cybersecurity firm in the DC area. During that internship I learned about digital forensics, IR, and other security related topics. I learned how an IR team is organized and communicates, how they deal with problems that arise and the reporting procedure upon completion. 
 
 **Features and specifics:**
   - Group A
