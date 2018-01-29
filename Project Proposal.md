@@ -111,6 +111,8 @@ Anyone interesting in forensically analyzing a computer. This could be done for 
 - https://github.com/AJMartel/IRTriage
 - https://github.com/rshipp/ir-triage-toolkit
 
+The projects listed above all accomplish the same goal as this tool - to provide an interface by which an incident responder can quickly, effeciently and effectively gather forensic evidence on a computer suspected of being misused. None of the projects are written in Go, which makes this project unique. Having it be written in Go provides more flexibility due to the ability for contributors to add functionality in a high-level language across all (popular) operating systems. In this way, this project is an improvement. In raw functionality (and not necessarily extendability), this tool will work the same as the listed projects (though with some different tools being integrated).
+
 **Technology:**
 - Language: Go
     - Multi-platform
