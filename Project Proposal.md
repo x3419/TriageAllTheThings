@@ -33,9 +33,44 @@ When approached with this problem, cyber security firms generally perform an Inc
     - Tool integreation:
         - bulk_extractor
             - a computer forensics tool that scans a disk image, a file, or a directory of files and extracts useful information without parsing the file system or file system structures.
-        
+        - fiwalk
+            - a batch forensics analysis program written in C that uses a forensics toolkit called SleuthKit
+        - frag_find
+            - a program for finding blocks of one or more master files in a disk image file
+        - tcpflow
+            - a program that captures data transmitted as part of TCP connections (flows), and stores the data in a way that is convenient for protocol analysis and debugging
+        - afxml
+            - converts metadata for disk images into a readable format
+        - SleuthKit
+            - a toolkit with a variety of applications
+                - memory analysis
+                - file system forensics
+                - registry hive dumping
+        - MFTDump
+            - dumps the master file table
+        - NirSoft WinPrefetch
+            - dumps the windows prefetch, which contains information on active and historial processes running
   - Group B
     - Operating System compatibility: GNU/Linux
+    - Tool integreation:
+        - ps
+            - dump a list of running processes
+        - mrutools
+            - linux MRU (most recently used) forensic tool
+        - Linux-Forensics-Tool
+            - gathers:
+                - date
+                - netstat
+                - ps
+                - lsof
+                - route
+                - arp
+                - ifconfig
+                - top
+                - w
+                - last
+                - uname
+                - lsmod
   - Group C
     - Operating System compatibility: Mac OSX
     - Combine artifact formats together uniformally 
