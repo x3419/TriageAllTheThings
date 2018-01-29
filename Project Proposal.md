@@ -30,6 +30,10 @@ When approached with this problem, cyber security firms generally perform an Inc
     - Export artifacts to a server (SFTP)
         - If large in size, will export to disk (such as USB drive) instead
         - Uses identifier (such as machine name) to separate and sort forensic evidence
+    - Tool integreation:
+        - bulk_extractor
+            - a computer forensics tool that scans a disk image, a file, or a directory of files and extracts useful information without parsing the file system or file system structures.
+        
   - Group B
     - Operating System compatibility: GNU/Linux
   - Group C
