@@ -63,7 +63,6 @@ When approached with this problem, cyber security firms generally perform an Inc
             - gathers data using:
                 - date
                 - netstat
-                - ps
                 - lsof
                 - route
                 - arp
