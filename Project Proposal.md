@@ -50,6 +50,8 @@ When approached with this problem, cyber security firms generally perform an Inc
             - dumps the master file table
         - NirSoft WinPrefetch
             - dumps the windows prefetch, which contains information on active and historial processes running
+        - RegRipper
+            - an open source tool, written in Perl, for extracting/parsing information (keys, values, data) from the Registry and presenting it for analysis
   - Group B
     - Operating System compatibility: GNU/Linux
     - Tool integreation:
@@ -58,7 +60,7 @@ When approached with this problem, cyber security firms generally perform an Inc
         - mrutools
             - linux MRU (most recently used) forensic tool
         - Linux-Forensics-Tool
-            - gathers:
+            - gathers data using:
                 - date
                 - netstat
                 - ps
@@ -71,17 +73,33 @@ When approached with this problem, cyber security firms generally perform an Inc
                 - last
                 - uname
                 - lsmod
+    - BulkExtractor
+        - a computer forensics tool that scans a disk image, a file, or a directory of files and extracts useful information without parsing the file system or file system structures.
+    - ENT
+        - a tool for calculating entropy on the filesystem, indicating whether files are encrypted
+    - Fdupes
+        - a program for identifying duplicate files residing
+within specified directorie
+    - Foremost
+        - a tool used to recover files based on their headers, footers, and internal data structures
   - Group C
     - Operating System compatibility: Mac OSX
     - Combine artifact formats together uniformally 
-
+    - OS X Audiotr
+        - a free Mac OS X computer forensics tool
+    - Knock Knock
+        - displays persistent items (scripts, commands, binaries, etc.), that are set to execute automatically on OS X
+    - Pac4Mac
+        - a forensics framework allowing extraction and analysis session informations in highlighting the real risks in term of information leak
+    - Mac OS X Keychain Forensic Tool
+        - can extract user credential in a Keychain file with Master Key or user password in forensically sound manner
+    - OSXCollector
+        -  another broad forensic evidence collection & analysis toolkit for OSX
+        
 **What this project will not do:**
   - Make your computer secure
   - Automatically analyze forensic artifacts
     - This step must be taken manually by an analyst
-
-**Tools to be utilized:**
-https://www.dfir.training/tools/forensic-utilities-windows
 
 
 **Who's the audience?**
@@ -101,18 +119,20 @@ Anyone interesting in forensically analyzing a computer. This could be done for 
     - Go unit tests
     - https://golang.org/pkg/testing/
 - Project Depndencies
-    - Should synchronize automatically when using "go install"
+    - Should synchronize and resolve dependencies automatically when using "go install"
 - Code Style
     - Gofmt is a tool that automatically formats Go source code
     - https://blog.golang.org/go-fmt-your-code
 - Quality Control
-    - Gofmt and unit tests will confirm that the code is functioning and formatted as expected.
+    - Gofmt and unit tests will confirm that the code is functioning and formatted uniformally and as expected.
     
 **Risk Areas**
 - Combining artifact formats uniformally
     - This is a huge area of confusion and risk, because there are MANY types of forensic artifacts on various operating systems. I have not tried all the tools that I am going to utilize, so I don't know what format type each tool will output. This endeavour will be experimental and may not be completed. 
 - Go unit testing
     - I don't have any experience doing unit tests in Go (or much in any language, for that manner), so testing will be an area of uncertainty. I have located the appropriate documentation, and have the resources to learn what will be necessary. 
+- Tool integreation
+    - Many of the tools that I plan on integrating I have never used, so there's a high likelihood that problems will arise. When this occurs, I'll continue to troubleshoot. If problems persist, I will naturally have to replace the tool with another candidate that accomplishes the same goal. 
 
 **Un-answered Questions**
 - Have you ever used Kali Linux? (random, but seems relevant)
