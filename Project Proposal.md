@@ -85,16 +85,17 @@ within specified directorie
   - Group C
     - Operating System compatibility: Mac OSX
     - Combine artifact formats together uniformally 
-    - OS X Audiotr
-        - a free Mac OS X computer forensics tool
-    - Knock Knock
-        - displays persistent items (scripts, commands, binaries, etc.), that are set to execute automatically on OS X
-    - Pac4Mac
-        - a forensics framework allowing extraction and analysis session informations in highlighting the real risks in term of information leak
-    - Mac OS X Keychain Forensic Tool
-        - can extract user credential in a Keychain file with Master Key or user password in forensically sound manner
-    - OSXCollector
-        -  another broad forensic evidence collection & analysis toolkit for OSX
+    - Tool integreation:
+        - OS X Audiotr
+            - a free Mac OS X computer forensics tool
+        - Knock Knock
+            - displays persistent items (scripts, commands, binaries, etc.), that are set to execute automatically on OS X
+        - Pac4Mac
+            - a forensics framework allowing extraction and analysis session informations in highlighting the real risks in term of information leak
+        - Mac OS X Keychain Forensic Tool
+            - can extract user credential in a Keychain file with Master Key or user password in forensically sound manner
+        - OSXCollector
+            -  another broad forensic evidence collection & analysis toolkit for OSX
         
 **What this project will not do:**
   - Make your computer secure
