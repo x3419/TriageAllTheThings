@@ -20,7 +20,7 @@ When approached with this problem, cyber security firms generally perform an Inc
 - What makes this project different than existing ones, is that it's created using Go. This provides a lean, dependency-free, multi-platform environment which is ideal for incident response scenarios - you never know what type of computer might be infected.
 
 **Previous Experience**
-Over the summer I interned at a company called Crowdstrike, a cybersecurity firm in the DC area. During that internship I learned about digital forensics, IR, and other security related topics. I learned how an IR team is organized and communicates, how they deal with problems that arise and the reporting procedure upon completion. 
+Over the summer I interned at a company called Crowdstrike, a cybersecurity firm in the DC area. During that internship I learned about digital forensics, IR, and other security related topics. I learned how an IR team is organized and communicates, how they deal with problems that arise and the reporting procedure upon completion. Furthermore, I completed the SANS GIAC Malware Reverse Engineering certification recently (SANS scholarship) and learned how malware works. I learned about what type of activity they have on the filesystem, and other indicators of attack. Within the classroom, the Computing Systems course series was an excellent way to learn how the internals of operating systems work - it gave me insight into how compilers work and how they interact with the operating system and memory. This is important because in order to understand malware, you must understand software - learning from the bottom up is always the most comprehensive approach. 
 
 **Features and specifics:**
   - Group A
