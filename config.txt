@@ -1,0 +1,31 @@
+{
+    "WindowsTools": {
+        "bulk_extractor": true,
+        "fiwalk": true,
+        "frag_find": true,
+        "tcpflow": true,
+        "afxml": true,
+        "SleuthKit": true,
+        "MFTDump": true,
+        "WinPrefetch": true,
+        "RegRipper": true,
+    }
+    
+    "LinuxTools": {
+        "ps": false,
+        "mrutools": false,
+        "Linux-Forensics-Tool": false,
+        "BulkExtractor": false,
+        "ENT": false,
+        "Fdupes": false,
+        "Foremost": false,
+    }
+    
+    "OSXTools": {
+        "OSXAudiotr": false,
+        "KnockKnock": false,
+        "Pac4Mac": false,
+        "KeychainForensicTool": false,
+        "OSXCollector": false,
+    }
+}
