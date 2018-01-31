@@ -13,11 +13,15 @@ func main() {
 
 	configPathPtr := flag.String("config", "config.txt", "Loction of the configuration file")
 	flag.Parse()
-	config Config = parseConfig(*configPathPtr) // returns config
+	config Config = parseConfig(*configPathPtr)
 	
 	if runtime.GOOS == "windows" {
 		windowsTools(config)
-	} //else if untime.GOOS == 
+	} else if untime.GOOS == "linux" {
+		fmt.Println("GNU/Linux compatibility coming soon!")
+	} else if untime.GOOS == "darwin" {
+		fmt.Println("OSX compatibility coming soon!")
+	}
 
 }
 
@@ -39,6 +43,6 @@ func parseConfig(configFile string) Config {
 
 }
 
-func windowsTools() {
-
+func windowsTools(config Config) {
+	
 }
