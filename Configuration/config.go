@@ -1,26 +1,27 @@
 package Configuration
 
 type Config struct {
-	winTools WindowsTools
-	nixTools LinuxTools
-	macTools OSXTools
+	BulkExtractor Tool
+	WinTools WindowsTools
+	NixTools LinuxTools
+	MacTools OSXTools
 }
 
 type WindowsTools struct {
-	bulk_extractor bool
-	fiwalk bool
-	frag_find bool
-	tcpflow bool
-	afxml bool
-	SleuthKit bool
-	MFTDump bool
-	WinPrefetch bool
-	RegRipper bool
+	BulkExtractor Tool
+	Fiwalk Tool
+	Frag_find Tool
+	Tcpflow Tool
+	Afxml Tool
+	SleuthKit Tool
+	MFTDump Tool
+	WinPrefetch Tool
+	RegRipper Tool
 }
 
 type LinuxTools struct {
-	ps bool
-	mrutools bool
+	Ps bool
+	Mrutools bool
 	LinuxForensicsTool bool
 	BulkExtractor bool
 	ENT bool
@@ -35,3 +36,9 @@ type OSXTools struct {
 	KeychainForensicTool bool
 	OSXCollector bool
 }
+
+type Tool struct {
+	Enabled bool
+	Args string
+}
+

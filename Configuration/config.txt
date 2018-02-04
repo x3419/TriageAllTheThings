@@ -1,17 +1,45 @@
 {
-    "WindowsTools": {
-        "bulk_extractor": true,
-        "fiwalk": true,
-        "frag_find": true,
-        "tcpflow": true,
-        "afxml": true,
-        "SleuthKit": true,
-        "MFTDump": true,
-        "WinPrefetch": true,
-        "RegRipper": true
+    "WinTools": {
+        "BulkExtractor" : {
+            "Enabled": true,
+            "Args": "blah"
+        },
+        "fiwalk" : {
+                    "Enabled": true,
+                    "Args": "blah"
+        },
+
+        "frag_find" : {
+                    "Enabled": true,
+                    "Args": "blah"
+        },
+        "tcpflow" : {
+                    "Enabled": true,
+                    "Args": "blah"
+        },
+        "afxml" : {
+                    "Enabled": true,
+                    "Args": "blah"
+        },
+        "SleuthKit" : {
+                    "Enabled": true,
+                    "Args": "blah"
+        },
+        "MFTDump" : {
+                    "Enabled": true,
+                    "Args": "blah"
+        },
+        "WinPrefetch" : {
+                    "Enabled": true,
+                    "Args": "blah"
+        },
+        "RegRipper" : {
+                    "Enabled": true,
+                    "Args": "blah"
+        }
     },
     
-    "LinuxTools": {
+    "NixTools": {
         "ps": false,
         "mrutools": false,
         "Linux-Forensics-Tool": false,
@@ -21,7 +49,7 @@
         "Foremost": false
     },
     
-    "OSXTools": {
+    "MacTools": {
         "OSXAudiotr": false,
         "KnockKnock": false,
         "Pac4Mac": false,

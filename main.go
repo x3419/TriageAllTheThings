@@ -7,13 +7,14 @@ import (
 	"encoding/json"
 	"runtime"
 	Configuration "Capstone/Configuration"
+	Windows "Capstone/Windows"
 )
 
 
 
 func main() {
 
-	configPathPtr := flag.String("config", "Configuration/config.txt", "Loction of the configuration file")
+	configPathPtr := flag.String("config", "Configuration/config.txt", "Location of the configuration file")
 	flag.Parse()
 	var config Configuration.Config = parseConfig(*configPathPtr)
 	
@@ -46,5 +47,11 @@ func parseConfig(configFile string) Configuration.Config {
 }
 
 func windowsTools(config Configuration.Config) {
-	
+
+	win := config.WinTools
+
+	if win.BulkExtractor.Enabled {
+
+		Windows.BulkExtractor(win.BulkExtractor.Args)
+	}
 }
