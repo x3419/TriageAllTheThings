@@ -40,4 +40,3 @@ type Tool struct {
 	Enabled bool
 	Args string
 }
-

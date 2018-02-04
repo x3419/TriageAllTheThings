@@ -17,7 +17,7 @@ func main() {
 	configPathPtr := flag.String("config", "Configuration/config.txt", "Location of the configuration file")
 	flag.Parse()
 	var config Configuration.Config = parseConfig(*configPathPtr)
-	
+
 	if runtime.GOOS == "windows" {
 		windowsTools(config)
 	} else if runtime.GOOS == "linux" {
@@ -31,18 +31,18 @@ func main() {
 
 func parseConfig(configFile string) Configuration.Config {
 
-	b, err := ioutil.ReadFile(configFile) 
-    if err != nil {
-        fmt.Println("Unable to open config file: ", err)
-    }
+	b, err := ioutil.ReadFile(configFile)
+	if err != nil {
+		fmt.Println("Unable to open config file: ", err)
+	}
 
-    myConfig := Configuration.Config{}
+	myConfig := Configuration.Config{}
 
-    if err := json.Unmarshal(b, &myConfig); err != nil {
-        fmt.Println("Error!\n", err)
-    }
+	if err := json.Unmarshal(b, &myConfig); err != nil {
+		fmt.Println("Error!\n", err)
+	}
 
-    return myConfig
+	return myConfig
 
 }
 

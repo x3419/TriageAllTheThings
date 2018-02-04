@@ -2,13 +2,13 @@
    "WinTools":{
       "BulkExtractor":{
          "Enabled":true,
-         "Args":"blah"
+         "Args":"-o Output/BulkExtractor -R C:/"
       },
       "fiwalk":{
          "Enabled":true,
          "Args":"blah"
       },
-      "frag_find":{
+      "Frag_find":{
          "Enabled":true,
          "Args":"blah"
       },
