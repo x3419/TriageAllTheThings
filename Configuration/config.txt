@@ -1,59 +1,88 @@
 {
-    "WinTools": {
-        "BulkExtractor" : {
-            "Enabled": true,
-            "Args": "blah"
-        },
-        "fiwalk" : {
-                    "Enabled": true,
-                    "Args": "blah"
-        },
-
-        "frag_find" : {
-                    "Enabled": true,
-                    "Args": "blah"
-        },
-        "tcpflow" : {
-                    "Enabled": true,
-                    "Args": "blah"
-        },
-        "afxml" : {
-                    "Enabled": true,
-                    "Args": "blah"
-        },
-        "SleuthKit" : {
-                    "Enabled": true,
-                    "Args": "blah"
-        },
-        "MFTDump" : {
-                    "Enabled": true,
-                    "Args": "blah"
-        },
-        "WinPrefetch" : {
-                    "Enabled": true,
-                    "Args": "blah"
-        },
-        "RegRipper" : {
-                    "Enabled": true,
-                    "Args": "blah"
-        }
-    },
-    
-    "NixTools": {
-        "ps": false,
-        "mrutools": false,
-        "Linux-Forensics-Tool": false,
-        "BulkExtractor": false,
-        "ENT": false,
-        "Fdupes": false,
-        "Foremost": false
-    },
-    
-    "MacTools": {
-        "OSXAudiotr": false,
-        "KnockKnock": false,
-        "Pac4Mac": false,
-        "KeychainForensicTool": false,
-        "OSXCollector": false
-    }
+   "WinTools":{
+      "BulkExtractor":{
+         "Enabled":true,
+         "Args":"blah"
+      },
+      "fiwalk":{
+         "Enabled":true,
+         "Args":"blah"
+      },
+      "frag_find":{
+         "Enabled":true,
+         "Args":"blah"
+      },
+      "tcpflow":{
+         "Enabled":true,
+         "Args":"blah"
+      },
+      "afxml":{
+         "Enabled":true,
+         "Args":"blah"
+      },
+      "SleuthKit":{
+         "Enabled":true,
+         "Args":"blah"
+      },
+      "MFTDump":{
+         "Enabled":true,
+         "Args":"blah"
+      },
+      "WinPrefetch":{
+         "Enabled":true,
+         "Args":"blah"
+      },
+      "RegRipper":{
+         "Enabled":true,
+         "Args":"blah"
+      }
+   },
+   "NixTools":{
+      "ps":{
+         "Enabled":true,
+         "Args":"blah"
+      },
+      "mrutools":{
+         "Enabled":true,
+         "Args":"blah"
+      },
+      "LinuxForensicsTool":{
+         "Enabled":true,
+         "Args":"blah"
+      },
+      "ENT":{
+         "Enabled":true,
+         "Args":"blah"
+      },
+      "Fdupes":{
+         "Enabled":true,
+         "Args":"blah"
+      },
+      "Foremost":{
+         "Enabled":true,
+         "Args":"blah"
+      }
+   },
+   "MacTools":{
+      "OSXAudiotr":{
+         "Enabled":true,
+         "Args":"blah"
+      },
+      "KnockKnock":{
+         "Enabled":true,
+         "Args":"blah"
+      },
+      "Pac4Mac":{
+         "Enabled":true,
+         "Args":"blah"
+      },
+      "KeychainForensicTool":{
+         "Enabled":true,
+         "Args":"blah"
+      },
+      "OSXCollector":{
+         "Enabled":true,
+         "Args":"blah"
+      }
+   }
 }

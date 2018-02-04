@@ -20,21 +20,21 @@ type WindowsTools struct {
 }
 
 type LinuxTools struct {
-	Ps bool
-	Mrutools bool
-	LinuxForensicsTool bool
-	BulkExtractor bool
-	ENT bool
-	Fdupes bool
-	Foremost bool
+	Ps Tool
+	Mrutools Tool
+	LinuxForensicsTool Tool
+	BulkExtractor Tool
+	ENT Tool
+	Fdupes Tool
+	Foremost Tool
 }
 
 type OSXTools struct {
-	OSXAudiotr bool
-	KnockKnock bool
-	Pac4Mac bool
-	KeychainForensicTool bool
-	OSXCollector bool
+	OSXAudiotr Tool
+	KnockKnock Tool
+	Pac4Mac Tool
+	KeychainForensicTool Tool
+	OSXCollector Tool
 }
 
 type Tool struct {

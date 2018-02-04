@@ -51,7 +51,6 @@ func windowsTools(config Configuration.Config) {
 	win := config.WinTools
 
 	if win.BulkExtractor.Enabled {
-
 		Windows.BulkExtractor(win.BulkExtractor.Args)
 	}
 }
