@@ -5,35 +5,37 @@ import (
 	"flag"
 	"io/ioutil"
 	"encoding/json"
+	"runtime"
+	Configuration "Capstone/Configuration"
 )
 
-    
+
 
 func main() {
 
-	configPathPtr := flag.String("config", "config.txt", "Loction of the configuration file")
+	configPathPtr := flag.String("config", "Configuration/config.txt", "Loction of the configuration file")
 	flag.Parse()
-	config Config = parseConfig(*configPathPtr)
+	var config Configuration.Config = parseConfig(*configPathPtr)
 	
 	if runtime.GOOS == "windows" {
 		windowsTools(config)
-	} else if untime.GOOS == "linux" {
+	} else if runtime.GOOS == "linux" {
 		fmt.Println("GNU/Linux compatibility coming soon!")
-	} else if untime.GOOS == "darwin" {
+	} else if runtime.GOOS == "darwin" {
 		fmt.Println("OSX compatibility coming soon!")
 	}
 
 }
 
 
-func parseConfig(configFile string) Config {
+func parseConfig(configFile string) Configuration.Config {
 
 	b, err := ioutil.ReadFile(configFile) 
     if err != nil {
         fmt.Println("Unable to open config file: ", err)
     }
 
-    myConfig := Config{}
+    myConfig := Configuration.Config{}
 
     if err := json.Unmarshal(b, &myConfig); err != nil {
         fmt.Println("Error!\n", err)
@@ -43,6 +45,6 @@ func parseConfig(configFile string) Config {
 
 }
 
-func windowsTools(config Config) {
+func windowsTools(config Configuration.Config) {
 	
 }

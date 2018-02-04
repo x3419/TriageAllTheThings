@@ -8,8 +8,8 @@
         "SleuthKit": true,
         "MFTDump": true,
         "WinPrefetch": true,
-        "RegRipper": true,
-    }
+        "RegRipper": true
+    },
     
     "LinuxTools": {
         "ps": false,
@@ -18,14 +18,14 @@
         "BulkExtractor": false,
         "ENT": false,
         "Fdupes": false,
-        "Foremost": false,
-    }
+        "Foremost": false
+    },
     
     "OSXTools": {
         "OSXAudiotr": false,
         "KnockKnock": false,
         "Pac4Mac": false,
         "KeychainForensicTool": false,
-        "OSXCollector": false,
+        "OSXCollector": false
     }
 }

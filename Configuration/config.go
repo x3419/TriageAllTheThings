@@ -1,4 +1,4 @@
-package main
+package Configuration
 
 type Config struct {
 	winTools WindowsTools
