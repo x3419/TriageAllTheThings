@@ -1,7 +1,6 @@
 package Configuration
 
 type Config struct {
-	BulkExtractor Tool
 	WinTools WindowsTools
 	NixTools LinuxTools
 	MacTools OSXTools
