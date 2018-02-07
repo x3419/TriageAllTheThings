@@ -53,4 +53,8 @@ func windowsTools(config Configuration.Config) {
 	if win.BulkExtractor.Enabled {
 		Windows.BulkExtractor(win.BulkExtractor.Args)
 	}
+	if win.Fiwalk.Enabled {
+		Windows.Fiwalk(win.Fiwalk.Args)
+	}
+
 }
