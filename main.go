@@ -56,5 +56,77 @@ func windowsTools(config Configuration.Config) {
 	if win.Fiwalk.Enabled {
 		Windows.Fiwalk(win.Fiwalk.Args)
 	}
+	if win.Blkcalc.Enabled {
+		Windows.Blkcalc(win.Blkcalc.Args)
+	}
+	if win.Blkcat.Enabled {
+		Windows.Blkcat(win.Blkcat.Args)
+	}
+	if win.Blkls.Enabled {
+		Windows.Blkls(win.Blkls.Args)
+	}
+	if win.Blkstat.Enabled {
+		Windows.Blkstat(win.Blkstat.Args)
+	}
+	if win.Fcat.Enabled {
+		Windows.Fcat(win.Fcat.Args)
+	}
+	if win.Ffind.Enabled {
+		Windows.Ffind(win.Ffind.Args)
+	}
+	if win.Fls.Enabled {
+		Windows.Fls(win.Fls.Args)
+	}
+	if win.Fsstat.Enabled {
+		Windows.Fsstat(win.Fsstat.Args)
+	}
+	if win.Hfind.Enabled {
+		Windows.Hfind(win.Hfind.Args)
+	}
+	if win.Icat.Enabled {
+		Windows.Icat(win.Icat.Args)
+	}
+	if win.Ifind.Enabled {
+		Windows.Ifind(win.Ifind.Args)
+	}
+	if win.Ils.Enabled {
+		Windows.Ils(win.Ils.Args)
+	}
+	if win.Imgcat.Enabled {
+		Windows.Img_cat(win.Imgcat.Args)
+	}
+	if win.Imgstat.Enabled {
+		Windows.Img_stat(win.Imgstat.Args)
+	}
+	if win.Istat.Enabled {
+		Windows.Istat(win.Istat.Args)
+	}
+	if win.Jcat.Enabled {
+		Windows.Jcat(win.Jcat.Args)
+	}
+	if win.Jls.Enabled {
+		Windows.Img_cat(win.Jls.Args)
+	}
+	if win.Mmcat.Enabled {
+		Windows.Mmcat(win.Mmcat.Args)
+	}
+	if win.Mmls.Enabled {
+		Windows.Mmls(win.Mmls.Args)
+	}
+	if win.Mmstat.Enabled {
+		Windows.Mmstat(win.Mmstat.Args)
+	}
+	if win.TskCompareDir.Enabled {
+		Windows.Tsk_comparedir(win.TskCompareDir.Args)
+	}
+	if win.TskGetTimes.Enabled {
+		Windows.Tsk_gettimes(win.TskCompareDir.Args)
+	}
+	if win.TskLoaddb.Enabled {
+		Windows.Tsk_loaddb(win.TskCompareDir.Args)
+	}
+	if win.TskRecover.Enabled {
+		Windows.Tsk_recover(win.TskRecover.Args)
+	}
 
 }
