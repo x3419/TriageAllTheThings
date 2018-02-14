@@ -158,7 +158,7 @@ func Tsk_recover(args string) {
 	runDefault(cmd)
 }
 
-func tcpflow(args string) {
+func Tcpflow(args string) {
 	cmd :=  cmdTool(args, "tcpflow.exe")
 	runDefault(cmd)
 }
@@ -174,6 +174,8 @@ func mrutools(args string) {
 	cmd :=  cmdTool(args, "mrutools.exe")
 	runDefault(cmd)
 }
+
+
 
 func runDefault(cmd *exec.Cmd) {
 	stdout, _ := cmd.StdoutPipe()
