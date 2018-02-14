@@ -128,5 +128,8 @@ func windowsTools(config Configuration.Config) {
 	if win.TskRecover.Enabled {
 		Windows.Tsk_recover(win.TskRecover.Args)
 	}
+	if win.Tcpflow.Enabled {
+		Windows.Tcpflow(win.Tcpflow.Args)
+	}
 
 }
