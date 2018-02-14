@@ -164,6 +164,11 @@ func tcpflow(args string) {
 }
 
 
+func WinPrefetch(args string) {
+	cmd :=  cmdTool(args, "winprefetch.exe")
+	runDefault(cmd)
+}
+
 func runDefault(cmd *exec.Cmd) {
 	stdout, _ := cmd.StdoutPipe()
 	cmd.Start()
