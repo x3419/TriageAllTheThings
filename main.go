@@ -131,5 +131,11 @@ func windowsTools(config Configuration.Config) {
 	if win.Tcpflow.Enabled {
 		Windows.Tcpflow(win.Tcpflow.Args)
 	}
+	if win.WinPrefetch.Enabled {
+		Windows.WinPrefetch(win.WinPrefetch.Args)
+	}
+	if win.Mrutools.Enabled {
+		Windows.Mrutools(win.Mrutools.Args)
+	}
 
 }
