@@ -35,121 +35,131 @@ func Fiwalk(args string) {
 	runDefault(cmd)
 }
 
-func blkcalc(args string) {
+func Blkcalc(args string) {
 	cmd :=  cmdTool(args, "sleuthkit\\bin\\blkcalc.exe")
 	runDefault(cmd)
 }
 
-func blkcat(args string) {
+func Blkcat(args string) {
 	cmd :=  cmdTool(args, "sleuthkit\\bin\\blkcat.exe")
 	runDefault(cmd)
 }
 
-func blkstat(args string) {
+func Blkls(args string) {
+	cmd :=  cmdTool(args, "sleuthkit\\bin\\blkls.exe")
+	runDefault(cmd)
+}
+
+func Blkstat(args string) {
 	cmd :=  cmdTool(args, "sleuthkit\\bin\\blkstat.exe")
 	runDefault(cmd)
 }
 
-func fcat(args string) {
+func Fcat(args string) {
 	cmd :=  cmdTool(args, "sleuthkit\\bin\\fcat.exe")
 	runDefault(cmd)
 }
 
-func ffind(args string) {
+func Ffind(args string) {
 	cmd :=  cmdTool(args, "sleuthkit\\bin\\ffind.exe")
 	runDefault(cmd)
 }
 
-func fls(args string) {
+func Fls(args string) {
 	cmd :=  cmdTool(args, "sleuthkit\\bin\\fls.exe")
 	runDefault(cmd)
 }
 
-func fsstat(args string) {
+func Fsstat(args string) {
 	cmd :=  cmdTool(args, "sleuthkit\\bin\\fsstat.exe")
 	runDefault(cmd)
 }
 
-func hfind(args string) {
+func Hfind(args string) {
 	cmd :=  cmdTool(args, "sleuthkit\\bin\\hfind.exe")
 	runDefault(cmd)
 }
 
-func icat(args string) {
+func Icat(args string) {
 	cmd :=  cmdTool(args, "sleuthkit\\bin\\icat.exe")
 	runDefault(cmd)
 }
 
-func ifind(args string) {
+func Ifind(args string) {
 	cmd :=  cmdTool(args, "sleuthkit\\bin\\ifind.exe")
 	runDefault(cmd)
 }
 
-func ils(args string) {
+func Ils(args string) {
 	cmd :=  cmdTool(args, "sleuthkit\\bin\\ils.exe")
 	runDefault(cmd)
 }
 
-func img_cat(args string) {
+func Img_cat(args string) {
 	cmd :=  cmdTool(args, "sleuthkit\\bin\\img_cat.exe")
 	runDefault(cmd)
 }
 
-func img_stat(args string) {
+func Img_stat(args string) {
 	cmd :=  cmdTool(args, "sleuthkit\\bin\\img_stat.exe")
 	runDefault(cmd)
 }
 
-func istat(args string) {
+func Istat(args string) {
 	cmd :=  cmdTool(args, "sleuthkit\\bin\\istat.exe")
 	runDefault(cmd)
 }
 
-func jcat(args string) {
+func Jcat(args string) {
 	cmd :=  cmdTool(args, "sleuthkit\\bin\\jcat.exe")
 	runDefault(cmd)
 }
 
-func jls(args string) {
+func Jls(args string) {
 	cmd :=  cmdTool(args, "sleuthkit\\bin\\jls.exe")
 	runDefault(cmd)
 }
 
-func mmcat(args string) {
+func Mmcat(args string) {
 	cmd :=  cmdTool(args, "sleuthkit\\bin\\mmcat.exe")
 	runDefault(cmd)
 }
 
-func mmls(args string) {
+func Mmls(args string) {
 	cmd :=  cmdTool(args, "sleuthkit\\bin\\mmls.exe")
 	runDefault(cmd)
 }
 
-func mmstat(args string) {
+func Mmstat(args string) {
 	cmd :=  cmdTool(args, "sleuthkit\\bin\\mmstat.exe")
 	runDefault(cmd)
 }
 
 
-func tsk_comparedir(args string) {
+func Tsk_comparedir(args string) {
 	cmd :=  cmdTool(args, "sleuthkit\\bin\\tsk_comparedir.exe")
 	runDefault(cmd)
 }
 
-func tsk_gettimes(args string) {
+func Tsk_gettimes(args string) {
 	cmd :=  cmdTool(args, "sleuthkit\\bin\\tsk_gettimes.exe")
 	runDefault(cmd)
 }
 
 
-func tsk_loaddb(args string) {
+func Tsk_loaddb(args string) {
 	cmd :=  cmdTool(args, "sleuthkit\\bin\\tsk_loaddb.exe")
 	runDefault(cmd)
 }
 
 
-func tsk_recover(args string) {
+func Tsk_recover(args string) {
 	cmd :=  cmdTool(args, "sleuthkit\\bin\\tsk_recover.exe")
+	runDefault(cmd)
+}
+
+func tcpflow(args string) {
+	cmd :=  cmdTool(args, "tcpflow.exe")
 	runDefault(cmd)
 }
 
