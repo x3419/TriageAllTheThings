@@ -12,10 +12,35 @@ type WindowsTools struct {
 	Frag_find Tool
 	Tcpflow Tool
 	Afxml Tool
-	SleuthKit Tool
 	MFTDump Tool
 	WinPrefetch Tool
 	RegRipper Tool
+	Blkcalc Tool
+	Blkcat Tool
+	Blkls Tool
+	Blkstat Tool
+	Fcat Tool
+	Ffind Tool
+	Fls Tool
+	Fsstat Tool
+	Hfind Tool
+	Icat Tool
+	Ifind Tool
+	Ils Tool
+	Imgcat Tool
+	Imgstat Tool
+	Istat Tool
+	Jcat Tool
+	Jls Tool
+	Mmcat Tool
+	Mmls Tool
+	Mmstat Tool
+	TskCompareDir Tool
+	TskGetTimes Tool
+	TskLoaddb Tool
+	TskRecover Tool
+
+
 }
 
 type LinuxTools struct {
