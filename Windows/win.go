@@ -169,6 +169,12 @@ func WinPrefetch(args string) {
 	runDefault(cmd)
 }
 
+
+func mrutools(args string) {
+	cmd :=  cmdTool(args, "mrutools.exe")
+	runDefault(cmd)
+}
+
 func runDefault(cmd *exec.Cmd) {
 	stdout, _ := cmd.StdoutPipe()
 	cmd.Start()
