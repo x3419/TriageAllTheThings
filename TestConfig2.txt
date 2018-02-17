@@ -1,0 +1,16 @@
+{
+   "WinTools":{
+      "BulkExtractor":{
+         "Enabled":true,
+         "Args":"-o Output/BulkExtractor -R C:/"
+      },
+      "RandomNewTool":{
+         "Enabled":true,
+         "Args":"blah"
+      }
+   },
+   "NixTools":{
+   },
+   "MacTools":{
+   }
+}

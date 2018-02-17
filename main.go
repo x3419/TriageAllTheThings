@@ -8,6 +8,8 @@ import (
 	"runtime"
 	Configuration "Capstone/Configuration"
 	Windows "Capstone/Windows"
+	Linux "Capstone/Linux"
+	"strings"
 )
 
 
@@ -16,7 +18,9 @@ func main() {
 
 	configPathPtr := flag.String("config", "Configuration/config.txt", "Location of the configuration file")
 	flag.Parse()
-	var config Configuration.Config = parseConfig(*configPathPtr)
+	var config Configuration.Config = ParseConfig(*configPathPtr)
+
+	fmt.Println(strings.Title(runtime.GOOS) + " OS detected\nEnabled tools will begin to run in parallel. This may take some time and will slow the system down, so please be patient.")
 
 	if runtime.GOOS == "windows" {
 		windowsTools(config)
@@ -24,12 +28,14 @@ func main() {
 		fmt.Println("GNU/Linux compatibility coming soon!")
 	} else if runtime.GOOS == "darwin" {
 		fmt.Println("OSX compatibility coming soon!")
+	} else {
+		fmt.Println(strings.Title(runtime.GOOS) + " OS is not supported in this project.")
 	}
 
 }
 
 
-func parseConfig(configFile string) Configuration.Config {
+func ParseConfig(configFile string) Configuration.Config {
 
 	b, err := ioutil.ReadFile(configFile)
 	if err != nil {
@@ -39,7 +45,8 @@ func parseConfig(configFile string) Configuration.Config {
 	myConfig := Configuration.Config{}
 
 	if err := json.Unmarshal(b, &myConfig); err != nil {
-		fmt.Println("Error!\n", err)
+		fmt.Println("Error! Problem parsing the configuration file - please ensure that it reflects the example on Github.\n", err)
+		return Configuration.Config{}
 	}
 
 	return myConfig
@@ -49,6 +56,7 @@ func parseConfig(configFile string) Configuration.Config {
 func windowsTools(config Configuration.Config) {
 
 	win := config.WinTools
+	nix := config.NixTools
 
 	if win.BulkExtractor.Enabled {
 		Windows.BulkExtractor(win.BulkExtractor.Args)
@@ -134,8 +142,9 @@ func windowsTools(config Configuration.Config) {
 	if win.WinPrefetch.Enabled {
 		Windows.WinPrefetch(win.WinPrefetch.Args)
 	}
-	if win.Mrutools.Enabled {
-		Windows.Mrutools(win.Mrutools.Args)
+	if nix.Mrutools.Enabled {
+		Linux.Mrutools(nix.Mrutools.Args)
 	}
 
 }
+
