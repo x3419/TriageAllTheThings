@@ -1,16 +1,25 @@
 package Linux
 
 import (
-	//Main "Capstone"
 	"os/exec"
 	"bufio"
 	"fmt"
 	"regexp"
+	"os"
 )
 
-func Mrutools(args string) {
-	cmd :=  cmdTool(args, "fiwalk-0.6.3.exe")
-	runDefault(cmd)
+func Ps(args string) {
+	var (
+		cmdOut []byte
+		err    error
+	)
+	cmdName := "ps"
+	if cmdOut, err = exec.Command(cmdName).Output(); err != nil {
+		fmt.Fprintln(os.Stderr, "There was an error running ps ", err)
+		os.Exit(1)
+	}
+	sha := string(cmdOut)
+	fmt.Println(sha)
 }
 
 func runDefault(cmd *exec.Cmd) {
