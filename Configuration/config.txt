@@ -2,86 +2,86 @@
    "WinTools":{
       "BulkExtractor":{
          "Enabled":true,
-         "Args":"-o Output/BulkExtractor -R C:/"
+         "Args":"-o ../Output/BulkExtractor -R C:/"
       },
       "fiwalk":{
-         "Enabled":true,
+         "Enabled":false,
          "Args":"blah"
       },
       "Frag_find":{
-         "Enabled":true,
+         "Enabled":false,
          "Args":"blah"
       },
       "tcpflow":{
-         "Enabled":true,
+         "Enabled":false,
          "Args":"blah"
       },
       "afxml":{
-         "Enabled":true,
+         "Enabled":false,
          "Args":"blah"
       },
       "SleuthKit":{
-         "Enabled":true,
+         "Enabled":false,
          "Args":"blah"
       },
       "MFTDump":{
-         "Enabled":true,
+         "Enabled":false,
          "Args":"blah"
       },
       "WinPrefetch":{
-         "Enabled":true,
+         "Enabled":false,
          "Args":"blah"
       },
       "RegRipper":{
-         "Enabled":true,
+         "Enabled":false,
          "Args":"blah"
       }
    },
    "NixTools":{
       "ps":{
-         "Enabled":true,
+         "Enabled":false,
          "Args":"blah"
       },
       "mrutools":{
-         "Enabled":true,
+         "Enabled":false,
          "Args":"blah"
       },
       "LinuxForensicsTool":{
-         "Enabled":true,
+         "Enabled":false,
          "Args":"blah"
       },
       "ENT":{
-         "Enabled":true,
+         "Enabled":false,
          "Args":"blah"
       },
       "Fdupes":{
-         "Enabled":true,
+         "Enabled":false,
          "Args":"blah"
       },
       "Foremost":{
-         "Enabled":true,
+         "Enabled":false,
          "Args":"blah"
       }
    },
    "MacTools":{
       "OSXAudiotr":{
-         "Enabled":true,
+         "Enabled":false,
          "Args":"blah"
       },
       "KnockKnock":{
-         "Enabled":true,
+         "Enabled":false,
          "Args":"blah"
       },
       "Pac4Mac":{
-         "Enabled":true,
+         "Enabled":false,
          "Args":"blah"
       },
       "KeychainForensicTool":{
-         "Enabled":true,
+         "Enabled":false,
          "Args":"blah"
       },
       "OSXCollector":{
-         "Enabled":true,
+         "Enabled":false,
          "Args":"blah"
       }
    }
