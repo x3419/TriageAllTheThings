@@ -192,7 +192,7 @@ func runDefault(cmd *exec.Cmd) {
 
 
 func cmdTool(args string, tool string) *exec.Cmd {
-	myArgs := []string{"/C", "Windows\\" + tool}
+	myArgs := []string{"/C", "Tools\\" + tool}
 	r := regexp.MustCompile("[^\\s]+")
 	myArgs2 := r.FindAllString(args, -1)
 	myArgs = append(myArgs, myArgs2...)
