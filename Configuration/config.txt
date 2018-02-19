@@ -2,7 +2,7 @@
    "WinTools":{
       "BulkExtractor":{
          "Enabled":true,
-         "Args":"-o ../Output/BulkExtractor -R C:/"
+         "Args":"-o Output/BulkExtractor -R C:/"
       },
       "fiwalk":{
          "Enabled":false,
