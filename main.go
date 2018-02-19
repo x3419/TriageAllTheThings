@@ -58,6 +58,8 @@ func windowsTools(config Configuration.Config) {
 	win := config.WinTools
 	nix := config.NixTools
 
+	// Windows tools
+
 	if win.BulkExtractor.Enabled {
 		Windows.BulkExtractor(win.BulkExtractor.Args)
 	}
@@ -142,8 +144,11 @@ func windowsTools(config Configuration.Config) {
 	if win.WinPrefetch.Enabled {
 		Windows.WinPrefetch(win.WinPrefetch.Args)
 	}
-	if nix.Mrutools.Enabled {
-		Linux.Mrutools(nix.Mrutools.Args)
+
+	// GNU/Linux tools
+
+	if nix.Ps.Enabled {
+		Linux.Ps(nix.Ps.Args)
 	}
 
 }
