@@ -2,11 +2,11 @@
    "WinTools":{
       "BulkExtractor":{
          "Enabled":true,
-         "Args":"-o Output/BulkExtractor -R C:/"
+         "Args":"-o Output/BulkExtractor -R C:/Users/Analyst/Desktop/drive.001"
       },
       "fiwalk":{
-         "Enabled":false,
-         "Args":"blah"
+         "Enabled":true,
+         "Args":"C:/Users/Analyst/Desktop/drive.001"
       },
       "Frag_find":{
          "Enabled":false,
