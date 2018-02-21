@@ -8,6 +8,7 @@ import (
 	"strings"
 	"Capstone/Structs"
 	"io/ioutil"
+	"time"
 )
 
 
@@ -15,14 +16,25 @@ func BulkExtractorParse(cmd *exec.Cmd) {
 	stdout, _ := cmd.StdoutPipe()
 	cmd.Start()
 
+	first := time.Now()
+
 	scanner := bufio.NewScanner(stdout)
 	for scanner.Scan() {
 		m := scanner.Text()
-		if strings.Contains(m, "(") {
-			fmt.Println("BulkExtractor: " + m[strings.Index(m, "(") + 1:strings.Index(m,")")] + " Complete")
-			fmt.Println(m)
+
+		if ( strings.Contains(m, "(") && strings.Contains(m, "%)") ) {
+
+
+			now := time.Now()
+			if(now.Sub(first) > time.Second * 5) {
+				fmt.Println("BulkExtractor: " + m[strings.Index(m, "(") + 1:strings.Index(m,")")] + " Complete")
+				first = time.Now()
+			}
+
 		}
 	}
+
+	fmt.Println("BulkExtractor: Complete")
 
 	cmd.Wait()
 }
@@ -35,14 +47,23 @@ func WriteCmdResultToDisk(filename string) func(cmd *exec.Cmd) {
 
 		fullOutput := ""
 
+		first := time.Now()
+
 		scanner := bufio.NewScanner(stdout)
 		for scanner.Scan() {
 			m := scanner.Text()
-			fmt.Println(m)
+			now := time.Now()
+			if(now.Sub(first) > time.Second * 5) {
+				fmt.Println(filename[0:strings.Index(filename, ".")] + " looks like it's making progress...")
+				first = time.Now()
+			}
+
 			fullOutput += m + "\n"
 		}
 
 		cmd.Wait()
+
+		fmt.Println(strings.Title(filename[0:strings.Index(filename, ".")]) + ": Complete")
 
 
 		d1 := []byte(fullOutput)
@@ -61,7 +82,7 @@ func BulkExtractor(args string, tsks chan <- Structs.Result) {
 
 func Fiwalk(args string, tsks chan <- Structs.Result) {
 	cmd :=  cmdTool(args, "fiwalk-0.6.3.exe")
-	tsks <- Structs.Result{cmd, WriteCmdResultToDisk("fiwalk_output.txt")}
+	tsks <- Structs.Result{cmd, WriteCmdResultToDisk("fiwalk.txt")}
 }
 
 func Blkcalc(args string) {
