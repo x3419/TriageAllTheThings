@@ -31,9 +31,9 @@ func BulkExtractor(args string) {
 
 }
 
-func Fiwalk(args string) {
+func Fiwalk(args string, tsks chan <- *exec.Cmd) {
 	cmd :=  cmdTool(args, "fiwalk-0.6.3.exe")
-	runDefault(cmd)
+	tsks <- cmd
 }
 
 func Blkcalc(args string) {
@@ -198,7 +198,16 @@ func runDefault(cmd *exec.Cmd) {
 		wg.Add(1)
 		go func() {
 			for cmd := range tasks {
-				cmd.Run()
+				stdout, _ := cmd.StdoutPipe()
+				cmd.Start()
+
+				scanner := bufio.NewScanner(stdout)
+				for scanner.Scan() {
+					m := scanner.Text()
+					fmt.Println(m)
+				}
+
+				cmd.Wait()
 			}
 			wg.Done()
 		}()

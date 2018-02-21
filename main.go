@@ -10,6 +10,9 @@ import (
 	Windows "Capstone/Windows"
 	Linux "Capstone/Linux"
 	"strings"
+	"os/exec"
+	"sync"
+	"bufio"
 )
 
 
@@ -22,8 +25,32 @@ func main() {
 
 	fmt.Println(strings.Title(runtime.GOOS) + " OS detected\nEnabled tools will begin to run in parallel. This may take some time and will slow the system down, so please be patient.")
 
+	tasks := make(chan *exec.Cmd, 64)
+
+	// spawn four worker goroutines
+	var wg sync.WaitGroup
+	for i := 0; i < 4; i++ {
+		wg.Add(1)
+		go func() {
+			for cmd := range tasks {
+				stdout, _ := cmd.StdoutPipe()
+				cmd.Start()
+
+				scanner := bufio.NewScanner(stdout)
+				for scanner.Scan() {
+					m := scanner.Text()
+					fmt.Println(m)
+				}
+
+				cmd.Wait()
+			}
+			wg.Done()
+		}()
+	}
+
+
 	if runtime.GOOS == "windows" {
-		windowsTools(config)
+		windowsTools(config, tasks)
 	} else if runtime.GOOS == "linux" {
 		fmt.Println("GNU/Linux compatibility coming soon!")
 	} else if runtime.GOOS == "darwin" {
@@ -31,6 +58,10 @@ func main() {
 	} else {
 		fmt.Println(strings.Title(runtime.GOOS) + " OS is not supported in this project.")
 	}
+
+	close(tasks)
+	// wait for the workers to finish
+	wg.Wait()
 
 }
 
@@ -53,7 +84,7 @@ func ParseConfig(configFile string) Configuration.Config {
 
 }
 
-func windowsTools(config Configuration.Config) {
+func windowsTools(config Configuration.Config, tsks chan <- *exec.Cmd) {
 
 	win := config.WinTools
 	nix := config.NixTools
@@ -64,7 +95,7 @@ func windowsTools(config Configuration.Config) {
 		Windows.BulkExtractor(win.BulkExtractor.Args)
 	}
 	if win.Fiwalk.Enabled {
-		Windows.Fiwalk(win.Fiwalk.Args)
+		Windows.Fiwalk(win.Fiwalk.Args, tsks)
 	}
 	if win.Blkcalc.Enabled {
 		Windows.Blkcalc(win.Blkcalc.Args)
