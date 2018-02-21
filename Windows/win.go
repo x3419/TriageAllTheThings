@@ -6,6 +6,7 @@ import (
 	"regexp"
 	"bufio"
 	"strings"
+	"sync"
 )
 
 
@@ -178,16 +179,39 @@ func mrutools(args string) {
 
 
 func runDefault(cmd *exec.Cmd) {
-	stdout, _ := cmd.StdoutPipe()
-	cmd.Start()
+	//stdout, _ := cmd.StdoutPipe()
+	//cmd.Start()
+	//
+	//scanner := bufio.NewScanner(stdout)
+	//for scanner.Scan() {
+	//	m := scanner.Text()
+	//	fmt.Println(m)
+	//}
+	//
+	//cmd.Wait()
 
-	scanner := bufio.NewScanner(stdout)
-	for scanner.Scan() {
-		m := scanner.Text()
-		fmt.Println(m)
+	tasks := make(chan *exec.Cmd, 64)
+
+	// spawn four worker goroutines
+	var wg sync.WaitGroup
+	for i := 0; i < 4; i++ {
+		wg.Add(1)
+		go func() {
+			for cmd := range tasks {
+				cmd.Run()
+			}
+			wg.Done()
+		}()
 	}
 
-	cmd.Wait()
+	// generate some tasks
+
+	tasks <- cmd
+
+	close(tasks)
+
+	// wait for the workers to finish
+	wg.Wait()
 }
 
 
