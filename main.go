@@ -28,11 +28,11 @@ func main() {
 
 	// spawn four worker goroutines
 	var wg sync.WaitGroup
-	for i := 0; i < 4; i++ {
+	for i := 0; i < 10; i++ {
 		wg.Add(1)
 		go func() {
 			for results := range tasks {
-				results.Field2(results.Field1)
+				results.CommandFunc(results.Command)
 			}
 			wg.Done()
 		}()
