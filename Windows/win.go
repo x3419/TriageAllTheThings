@@ -7,6 +7,7 @@ import (
 	"bufio"
 	"strings"
 	"Capstone/Structs"
+	"io/ioutil"
 )
 
 
@@ -19,10 +20,37 @@ func BulkExtractorParse(cmd *exec.Cmd) {
 		m := scanner.Text()
 		if strings.Contains(m, "(") {
 			fmt.Println("BulkExtractor: " + m[strings.Index(m, "(") + 1:strings.Index(m,")")] + " Complete")
+			fmt.Println(m)
 		}
 	}
 
 	cmd.Wait()
+}
+
+func WriteCmdResultToDisk(filename string) func(cmd *exec.Cmd) {
+	return func(cmd *exec.Cmd) {
+
+		stdout, _ := cmd.StdoutPipe()
+		cmd.Start()
+
+		fullOutput := ""
+
+		scanner := bufio.NewScanner(stdout)
+		for scanner.Scan() {
+			m := scanner.Text()
+			fmt.Println(m)
+			fullOutput += m + "\n"
+		}
+
+		cmd.Wait()
+
+
+		d1 := []byte(fullOutput)
+		err := ioutil.WriteFile("./" + filename, d1, 0644)
+		if err != nil {
+			panic(err)
+		}
+	}
 }
 
 func BulkExtractor(args string, tsks chan <- Structs.Result) {
@@ -33,7 +61,7 @@ func BulkExtractor(args string, tsks chan <- Structs.Result) {
 
 func Fiwalk(args string, tsks chan <- Structs.Result) {
 	cmd :=  cmdTool(args, "fiwalk-0.6.3.exe")
-	tsks <- Structs.Result{cmd, runDefault}
+	tsks <- Structs.Result{cmd, WriteCmdResultToDisk("fiwalk_output.txt")}
 }
 
 func Blkcalc(args string) {
