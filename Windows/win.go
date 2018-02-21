@@ -6,7 +6,7 @@ import (
 	"regexp"
 	"bufio"
 	"strings"
-	"sync"
+	"Capstone/Structs"
 )
 
 
@@ -31,9 +31,9 @@ func BulkExtractor(args string) {
 
 }
 
-func Fiwalk(args string, tsks chan <- *exec.Cmd) {
+func Fiwalk(args string, tsks chan <- Structs.Result) {
 	cmd :=  cmdTool(args, "fiwalk-0.6.3.exe")
-	tsks <- cmd
+	tsks <- Structs.Result{cmd, runDefault}
 }
 
 func Blkcalc(args string) {
@@ -179,48 +179,16 @@ func mrutools(args string) {
 
 
 func runDefault(cmd *exec.Cmd) {
-	//stdout, _ := cmd.StdoutPipe()
-	//cmd.Start()
-	//
-	//scanner := bufio.NewScanner(stdout)
-	//for scanner.Scan() {
-	//	m := scanner.Text()
-	//	fmt.Println(m)
-	//}
-	//
-	//cmd.Wait()
+	stdout, _ := cmd.StdoutPipe()
+	cmd.Start()
 
-	tasks := make(chan *exec.Cmd, 64)
-
-	// spawn four worker goroutines
-	var wg sync.WaitGroup
-	for i := 0; i < 4; i++ {
-		wg.Add(1)
-		go func() {
-			for cmd := range tasks {
-				stdout, _ := cmd.StdoutPipe()
-				cmd.Start()
-
-				scanner := bufio.NewScanner(stdout)
-				for scanner.Scan() {
-					m := scanner.Text()
-					fmt.Println(m)
-				}
-
-				cmd.Wait()
-			}
-			wg.Done()
-		}()
+	scanner := bufio.NewScanner(stdout)
+	for scanner.Scan() {
+		m := scanner.Text()
+		fmt.Println(m)
 	}
 
-	// generate some tasks
-
-	tasks <- cmd
-
-	close(tasks)
-
-	// wait for the workers to finish
-	wg.Wait()
+	cmd.Wait()
 }
 
 

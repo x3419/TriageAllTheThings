@@ -9,10 +9,9 @@ import (
 	Configuration "Capstone/Configuration"
 	Windows "Capstone/Windows"
 	Linux "Capstone/Linux"
+	"Capstone/Structs"
 	"strings"
-	"os/exec"
 	"sync"
-	"bufio"
 )
 
 
@@ -25,24 +24,15 @@ func main() {
 
 	fmt.Println(strings.Title(runtime.GOOS) + " OS detected\nEnabled tools will begin to run in parallel. This may take some time and will slow the system down, so please be patient.")
 
-	tasks := make(chan *exec.Cmd, 64)
+	tasks := make(chan Structs.Result, 64)
 
 	// spawn four worker goroutines
 	var wg sync.WaitGroup
 	for i := 0; i < 4; i++ {
 		wg.Add(1)
 		go func() {
-			for cmd := range tasks {
-				stdout, _ := cmd.StdoutPipe()
-				cmd.Start()
-
-				scanner := bufio.NewScanner(stdout)
-				for scanner.Scan() {
-					m := scanner.Text()
-					fmt.Println(m)
-				}
-
-				cmd.Wait()
+			for results := range tasks {
+				results.Field2(results.Field1)
 			}
 			wg.Done()
 		}()
@@ -84,7 +74,7 @@ func ParseConfig(configFile string) Configuration.Config {
 
 }
 
-func windowsTools(config Configuration.Config, tsks chan <- *exec.Cmd) {
+func windowsTools(config Configuration.Config, tsks chan <- Structs.Result) {
 
 	win := config.WinTools
 	nix := config.NixTools
