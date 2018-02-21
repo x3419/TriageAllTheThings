@@ -67,7 +67,7 @@ func WriteCmdResultToDisk(filename string) func(cmd *exec.Cmd) {
 
 
 		d1 := []byte(fullOutput)
-		err := ioutil.WriteFile("./" + filename, d1, 0644)
+		err := ioutil.WriteFile("./Output/" + filename, d1, 0644)
 		if err != nil {
 			panic(err)
 		}
