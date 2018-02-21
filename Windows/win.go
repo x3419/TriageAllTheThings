@@ -10,11 +10,7 @@ import (
 )
 
 
-
-
-func BulkExtractor(args string) {
-
-	cmd :=  cmdTool(args, "bulk_extractor32.exe")
+func BulkExtractorParse(cmd *exec.Cmd) {
 	stdout, _ := cmd.StdoutPipe()
 	cmd.Start()
 
@@ -27,8 +23,12 @@ func BulkExtractor(args string) {
 	}
 
 	cmd.Wait()
+}
 
+func BulkExtractor(args string, tsks chan <- Structs.Result) {
 
+	cmd :=  cmdTool(args, "bulk_extractor32.exe")
+	tsks <- Structs.Result{cmd, BulkExtractorParse}
 }
 
 func Fiwalk(args string, tsks chan <- Structs.Result) {

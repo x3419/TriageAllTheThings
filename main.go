@@ -82,7 +82,7 @@ func windowsTools(config Configuration.Config, tsks chan <- Structs.Result) {
 	// Windows tools
 
 	if win.BulkExtractor.Enabled {
-		Windows.BulkExtractor(win.BulkExtractor.Args)
+		Windows.BulkExtractor(win.BulkExtractor.Args, tsks)
 	}
 	if win.Fiwalk.Enabled {
 		Windows.Fiwalk(win.Fiwalk.Args, tsks)
