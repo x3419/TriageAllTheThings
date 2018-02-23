@@ -20,7 +20,107 @@
          "Enabled":false,
          "Args":"blah"
       },
-      "SleuthKit":{
+      "Blkcalc":{
+         "Enabled":false,
+         "Args":"-d 64 C:\Users\Analyst\Desktop\test.dd"
+      },
+      "Blkcat":{
+         "Enabled":false,
+         "Args":"-f ntfs C:\Users\Analyst\Desktop\test.dd"
+      },
+      "Blkls":{
+         "Enabled":false,
+         "Args":"blah"
+      },
+      "Blkstat":{
+         "Enabled":false,
+         "Args":"blah"
+      },
+      "Fcat":{
+         "Enabled":false,
+         "Args":"blah"
+      },
+      "Ffind":{
+         "Enabled":false,
+         "Args":"blah"
+      },
+      "Fls":{
+         "Enabled":false,
+         "Args":"-o 64 C:\Users\Analyst\Desktop\test.dd"
+      },
+      "Fsstat":{
+         "Enabled":false,
+         "Args":"-o 64 C:\Users\Analyst\Desktop\test.dd"
+      },
+      "Hfind":{
+         "Enabled":false,
+         "Args":"blah"
+      },
+      "Icat":{
+         "Enabled":false,
+         "Args":"blah"
+      },
+      "Ifind":{
+         "Enabled":false,
+         "Args":"blah"
+      },
+      "Ils":{
+         "Enabled":false,
+         "Args":"blah"
+      },
+      "Imgcat":{
+         "Enabled":false,
+         "Args":"blah"
+      },
+      "Imgstat":{
+         "Enabled":false,
+         "Args":"C:\Users\Analyst\Desktop\test.dd"
+      },
+      "Istat":{
+         "Enabled":false,
+         "Args":"blah"
+      },
+      "Jcat":{
+         "Enabled":false,
+         "Args":"blah"
+      },
+      "Jls":{
+         "Enabled":false,
+         "Args":"blah"
+      },
+      "Mmcat":{
+         "Enabled":false,
+         "Args":"blah"
+      },
+      "Mmls":{
+         "Enabled":false,
+         "Args":"C:\Users\Analyst\Desktop\test.dd"
+      },
+      "Mmstat":{
+         "Enabled":false,
+         "Args":"blah"
+      },
+      "TskCompareDir":{
+         "Enabled":false,
+         "Args":"blah"
+      },
+      "TskGetTimes":{
+         "Enabled":false,
+         "Args":"blah"
+      },
+      "TskLoaddb":{
+         "Enabled":false,
+         "Args":"blah"
+      },
+      "TskRecover":{
+         "Enabled":false,
+         "Args":"blah"
+      },
+      "Tcpflow":{
+         "Enabled":false,
+         "Args":"blah"
+      },
+      "WinPrefetch":{
          "Enabled":false,
          "Args":"blah"
       },
