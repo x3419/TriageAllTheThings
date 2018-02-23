@@ -30,19 +30,19 @@
       },
       "Blkls":{
          "Enabled":false,
-         "Args":"blah"
+         "Args":"C:\Users\Analyst\Desktop\test.dd"
       },
       "Blkstat":{
          "Enabled":false,
-         "Args":"blah"
+         "Args":"C:\Users\Analyst\Desktop\test.dd 64"
       },
       "Fcat":{
          "Enabled":false,
-         "Args":"blah"
+         "Args":"C:\Users\Analyst\Desktop C:\Users\Analyst\Desktop\test.dd"
       },
       "Ffind":{
          "Enabled":false,
-         "Args":"blah"
+         "Args":"C:\Users\Analyst\Desktop\test.dd 64"
       },
       "Fls":{
          "Enabled":false,
@@ -54,15 +54,15 @@
       },
       "Hfind":{
          "Enabled":false,
-         "Args":"blah"
+         "Args":"C:\Users\Analyst\Desktop\test.dd mydb.db"
       },
       "Icat":{
          "Enabled":false,
-         "Args":"blah"
+         "Args":"C:\Users\Analyst\Desktop\test.dd 64"
       },
       "Ifind":{
          "Enabled":false,
-         "Args":"blah"
+         "Args":"-d 64 C:\Users\Analyst\Desktop\test.dd"
       },
       "Ils":{
          "Enabled":false,
