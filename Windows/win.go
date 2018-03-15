@@ -9,8 +9,10 @@ import (
 	"Capstone/Structs"
 	"io/ioutil"
 	"time"
-	"os"
+	"syscall"
 )
+
+const TCPFLOW_TIME_LIMIT = time.Hour * 2
 
 
 func BulkExtractorParse(cmd *exec.Cmd) {
@@ -36,6 +38,40 @@ func BulkExtractorParse(cmd *exec.Cmd) {
 	}
 
 	fmt.Println("BulkExtractor: Complete")
+
+	cmd.Wait()
+}
+
+func TcpFlowParse(cmd *exec.Cmd) {
+	stdout, _ := cmd.StdoutPipe()
+	cmd.Start()
+
+	first := time.Now()
+	totalTime := time.Now()
+
+	scanner := bufio.NewScanner(stdout)
+	lastPacketTotal := "0"
+	for scanner.Scan() {
+		m := scanner.Text()
+		if strings.Contains(m,"Packets     :") {
+			currPacketTotal := m[strings.Index(m, "Packets     :")+14: len(m)]
+
+			if ( currPacketTotal != lastPacketTotal ) {
+
+				now := time.Now()
+				if(now.Sub(first) > time.Second * 10) {
+					fmt.Println("Tcpflow: logged " + currPacketTotal + " packets")
+					first = time.Now()
+				}
+			}
+		}
+
+
+
+		if (time.Now().Sub(totalTime) > TCPFLOW_TIME_LIMIT) {
+			fmt.Println("TcpFlow limit exceeded. Pcap file written.")
+		}
+	}
 
 	cmd.Wait()
 }
@@ -211,15 +247,16 @@ func Tsk_recover(args string) {
 
 func Tcpflow(args string) {
 	cmd :=  cmdTool(args, "RawCap.exe")
-	runDefault(cmd)
+	//runDefault(cmd)
 
 	// Ideally we would want to use this:
-	//runQuiet("RawCap.exe", args)
+	cmd = makeCmdQuiet(cmd)
+	TcpFlowParse(cmd)
 }
 
 
 func WinPrefetch(args string) {
-	cmd :=  cmdTool(args, "winprefetch.exe")
+	cmd :=  cmdTool(args, "PECmd.exe")
 	runDefault(cmd)
 }
 
@@ -230,26 +267,10 @@ func mrutools(args string) {
 }
 
 // debugging code, not 100% working.
-func runQuiet(tool string, args string) {
-	var attr os.ProcAttr
-	attr.Sys.HideWindow = true
+func makeCmdQuiet(cmd *exec.Cmd) *exec.Cmd{
 
-	tool = "Tools\\" + tool
-	r := regexp.MustCompile("[^\\s]+")
-	myArgs := r.FindAllString(args, -1)
-
-	procAttr := new(os.ProcAttr)
-	procAttr.Sys.HideWindow = true
-
-	procAttr.Files = []*os.File{os.Stdin, os.Stdout, os.Stderr}
-	if process, err := os.StartProcess(tool, myArgs, procAttr); err != nil {
-		fmt.Printf("ERROR Unable to run %s: %s", tool, err.Error())
-	} else {
-		fmt.Printf("%s running as pid %d", tool, process.Pid)
-	}
-
-	p, _ := os.StartProcess("name", nil, &attr)
-	fmt.Println(p)
+	cmd.SysProcAttr = &syscall.SysProcAttr{HideWindow: true}
+	return cmd
 }
 
 func runDefault(cmd *exec.Cmd) {
@@ -261,7 +282,6 @@ func runDefault(cmd *exec.Cmd) {
 		m := scanner.Text()
 		fmt.Println(m)
 	}
-
 	cmd.Wait()
 }
 
