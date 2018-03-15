@@ -42,6 +42,27 @@ func BulkExtractorParse(cmd *exec.Cmd) {
 	cmd.Wait()
 }
 
+func WinPrefetchParse(cmd *exec.Cmd) {
+	stdout, _ := cmd.StdoutPipe()
+	cmd.Start()
+
+	scanner := bufio.NewScanner(stdout)
+	for scanner.Scan() {
+		m := scanner.Text()
+
+		if (strings.Contains(m, "Executable name")) {
+
+			fmt.Println("WinPrefetch: processing executable " + m[strings.Index(m, "Executable:") + 16:len(m)])
+			
+			time.Sleep(time.Second * 5)
+		}
+	}
+
+	fmt.Println("WinPrefetch: Complete")
+
+	cmd.Wait()
+}
+
 func TcpFlowParse(cmd *exec.Cmd) {
 	stdout, _ := cmd.StdoutPipe()
 	cmd.Start()
@@ -65,8 +86,6 @@ func TcpFlowParse(cmd *exec.Cmd) {
 				}
 			}
 		}
-
-
 
 		if (time.Now().Sub(totalTime) > TCPFLOW_TIME_LIMIT) {
 			fmt.Println("TcpFlow limit exceeded. Pcap file written.")
@@ -257,7 +276,7 @@ func Tcpflow(args string) {
 
 func WinPrefetch(args string) {
 	cmd :=  cmdTool(args, "PECmd.exe")
-	runDefault(cmd)
+	WinPrefetchParse(cmd)
 }
 
 
@@ -266,7 +285,7 @@ func mrutools(args string) {
 	runDefault(cmd)
 }
 
-// debugging code, not 100% working.
+
 func makeCmdQuiet(cmd *exec.Cmd) *exec.Cmd{
 
 	cmd.SysProcAttr = &syscall.SysProcAttr{HideWindow: true}
