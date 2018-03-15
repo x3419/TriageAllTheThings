@@ -22,47 +22,47 @@
       },
       "Blkcalc":{
          "Enabled":false,
-         "Args":"-d 64 C:\Users\Analyst\Desktop\test.dd"
+         "Args":"-d 64 C:/Users/Analyst/Desktop/test.dd"
       },
       "Blkcat":{
          "Enabled":false,
-         "Args":"-f ntfs C:\Users\Analyst\Desktop\test.dd"
+         "Args":"-f ntfs C:/Users/Analyst/Desktop/test.dd"
       },
       "Blkls":{
          "Enabled":false,
-         "Args":"C:\Users\Analyst\Desktop\test.dd"
+         "Args":"C:/Users/Analyst/Desktop/test.dd"
       },
       "Blkstat":{
          "Enabled":false,
-         "Args":"C:\Users\Analyst\Desktop\test.dd 64"
+         "Args":"C:/Users/Analyst/Desktop/test.dd 64"
       },
       "Fcat":{
          "Enabled":false,
-         "Args":"C:\Users\Analyst\Desktop C:\Users\Analyst\Desktop\test.dd"
+         "Args":"C:/Users/Analyst/Desktop C:/Users/Analyst/Desktop/test.dd"
       },
       "Ffind":{
          "Enabled":false,
-         "Args":"C:\Users\Analyst\Desktop\test.dd 64"
+         "Args":"C:/Users/Analyst/Desktop/test.dd 64"
       },
       "Fls":{
          "Enabled":false,
-         "Args":"-o 64 C:\Users\Analyst\Desktop\test.dd"
+         "Args":"-o 64 C:/Users/Analyst/Desktop/test.dd"
       },
       "Fsstat":{
          "Enabled":false,
-         "Args":"-o 64 C:\Users\Analyst\Desktop\test.dd"
+         "Args":"-o 64 C:/Users/Analyst/Desktop/test.dd"
       },
       "Hfind":{
          "Enabled":false,
-         "Args":"C:\Users\Analyst\Desktop\test.dd mydb.db"
+         "Args":"C:/Users/Analyst/Desktop/test.dd mydb.db"
       },
       "Icat":{
          "Enabled":false,
-         "Args":"C:\Users\Analyst\Desktop\test.dd 64"
+         "Args":"C:/Users/Analyst/Desktop/test.dd 64"
       },
       "Ifind":{
          "Enabled":false,
-         "Args":"-d 64 C:\Users\Analyst\Desktop\test.dd"
+         "Args":"-d 64 C:/Users/Analyst/Desktop/test.dd"
       },
       "Ils":{
          "Enabled":false,
@@ -74,7 +74,7 @@
       },
       "Imgstat":{
          "Enabled":false,
-         "Args":"C:\Users\Analyst\Desktop\test.dd"
+         "Args":"C:/Users/Analyst/Desktop/test.dd"
       },
       "Istat":{
          "Enabled":false,
@@ -94,7 +94,7 @@
       },
       "Mmls":{
          "Enabled":false,
-         "Args":"C:\Users\Analyst\Desktop\test.dd"
+         "Args":"C:/Users/Analyst/Desktop/test.dd"
       },
       "Mmstat":{
          "Enabled":false,
