@@ -9,6 +9,7 @@ import (
 	"Capstone/Structs"
 	"io/ioutil"
 	"time"
+	"os"
 )
 
 
@@ -209,8 +210,8 @@ func Tsk_recover(args string) {
 }
 
 func Tcpflow(args string) {
-	cmd :=  cmdTool(args, "tcpflow.exe")
-	runDefault(cmd)
+	//cmd :=  cmdTool(args, "RawCap.exe")
+	runQuiet("RawCap.exe", args)
 }
 
 
@@ -226,6 +227,28 @@ func mrutools(args string) {
 }
 
 
+func runQuiet(tool string, args string) {
+	var attr os.ProcAttr
+	attr.Sys.HideWindow = true
+
+	tool = "Tools\\" + tool
+	r := regexp.MustCompile("[^\\s]+")
+	myArgs := r.FindAllString(args, -1)
+
+	procAttr := new(os.ProcAttr)
+	procAttr.Sys.HideWindow = true
+
+	procAttr.Files = []*os.File{os.Stdin, os.Stdout, os.Stderr}
+	if process, err := os.StartProcess(tool, myArgs, procAttr); err != nil {
+		fmt.Printf("ERROR Unable to run %s: %s", tool, err.Error())
+	} else {
+		fmt.Printf("%s running as pid %d", tool, process.Pid)
+	}
+
+
+	p, _ := os.StartProcess("name", nil, &attr)
+	fmt.Println(p)
+}
 
 func runDefault(cmd *exec.Cmd) {
 	stdout, _ := cmd.StdoutPipe()
