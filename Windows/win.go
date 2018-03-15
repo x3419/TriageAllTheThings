@@ -210,8 +210,11 @@ func Tsk_recover(args string) {
 }
 
 func Tcpflow(args string) {
-	//cmd :=  cmdTool(args, "RawCap.exe")
-	runQuiet("RawCap.exe", args)
+	cmd :=  cmdTool(args, "RawCap.exe")
+	runDefault(cmd)
+
+	// Ideally we would want to use this:
+	//runQuiet("RawCap.exe", args)
 }
 
 
@@ -226,7 +229,7 @@ func mrutools(args string) {
 	runDefault(cmd)
 }
 
-
+// debugging code, not 100% working.
 func runQuiet(tool string, args string) {
 	var attr os.ProcAttr
 	attr.Sys.HideWindow = true
@@ -244,7 +247,6 @@ func runQuiet(tool string, args string) {
 	} else {
 		fmt.Printf("%s running as pid %d", tool, process.Pid)
 	}
-
 
 	p, _ := os.StartProcess("name", nil, &attr)
 	fmt.Println(p)
