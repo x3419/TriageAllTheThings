@@ -12,6 +12,8 @@ import (
 	"Capstone/Structs"
 	"strings"
 	"sync"
+
+	"github.com/andlabs/ui"
 )
 
 
@@ -37,6 +39,7 @@ func main() {
 			wg.Done()
 		}()
 	}
+
 
 
 	if runtime.GOOS == "windows" {
@@ -67,6 +70,7 @@ func ParseConfig(configFile string) Configuration.Config {
 
 	if err := json.Unmarshal(b, &myConfig); err != nil {
 		fmt.Println("Error! Problem parsing the configuration file - please ensure that it reflects the example on Github.\n", err)
+		panic(err)
 		return Configuration.Config{}
 	}
 
@@ -76,11 +80,43 @@ func ParseConfig(configFile string) Configuration.Config {
 
 func windowsTools(config Configuration.Config, tsks chan <- Structs.Result) {
 
+
+
+
+	//----------- GUI
+	err := ui.Main(func() {
+
+		myBox := ui.NewVerticalBox()
+		window := ui.NewWindow("Forensic Triager", 600, 350, false)
+		window.SetMargined(true)
+		window.SetChild(myBox)
+
+		right := ui.NewHorizontalBox()
+		text := ui.NewEntry()
+		right.Append(text, false)
+		myBox.Append(right, false)
+
+		window.OnClosing(func(*ui.Window) bool {
+			ui.Quit()
+			return true
+		})
+		window.Show()
+		go buildUi(myBox, config, tsks)
+	})
+	if err != nil {
+		panic(err)
+	}
+	//---------- GUI
+
+
+}
+
+func buildUi(myBox *ui.Box, config Configuration.Config, tsks chan <- Structs.Result) {
+
 	win := config.WinTools
 	nix := config.NixTools
 
 	// Windows tools
-
 	if win.BulkExtractor.Enabled {
 		Windows.BulkExtractor(win.BulkExtractor.Args, tsks)
 	}
@@ -165,6 +201,13 @@ func windowsTools(config Configuration.Config, tsks chan <- Structs.Result) {
 	if win.WinPrefetch.Enabled {
 		Windows.WinPrefetch(win.WinPrefetch.Args)
 	}
+	if win.MFTDump.Enabled {
+		ui.QueueMain(func() {
+			myBox.Append(ui.NewLabel("MFTDump"), false)
+			myBox.Append(ui.NewProgressBar(), false)
+		})
+		Windows.MftDump(win.MFTDump.Args)
+	}
 
 	// GNU/Linux tools
 
@@ -173,4 +216,3 @@ func windowsTools(config Configuration.Config, tsks chan <- Structs.Result) {
 	}
 
 }
-
