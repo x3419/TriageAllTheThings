@@ -13,7 +13,7 @@ import (
 	"strings"
 	"sync"
 
-	"github.com/andlabs/ui"
+	"github.com/ProtonMail/ui"
 )
 
 
@@ -78,10 +78,44 @@ func ParseConfig(configFile string) Configuration.Config {
 
 }
 
+func addToolToUI(args string, myBox *ui.Box, tool string, targetFunc func(string, *ui.Label,*ui.MultilineEntry) ) {
+
+
+	ui.QueueMain(func() {
+
+		newLable := ui.NewLabel("Last output:			\nStatus: Processing")
+		newText := ui.NewMultilineNonWrappingEntry()
+
+		group := ui.NewGroup(tool)
+		newBox := ui.NewHorizontalBox()
+
+		labelBox := ui.NewVerticalBox()
+		labelBox.SetPadded(true)
+		labelBox.Append(newLable, true)
+
+		textBox := ui.NewVerticalBox()
+		textBox.Append(newText, true)
+		textBox.SetPadded(true)
+
+		newBox.Append(labelBox, false)
+		newBox.Append(textBox, true)
+
+		group.SetChild(newBox)
+		group.SetMargined(true)
+
+		myBox.Append(group, true)
+		myBox.Append(ui.NewLabel(""), false)
+
+
+		//go targetFunc(args, newLable, newText)
+
+	})
+
+
+
+}
+
 func windowsTools(config Configuration.Config, tsks chan <- Structs.Result) {
-
-
-
 
 	//----------- GUI
 	err := ui.Main(func() {
@@ -90,11 +124,6 @@ func windowsTools(config Configuration.Config, tsks chan <- Structs.Result) {
 		window := ui.NewWindow("Forensic Triager", 600, 350, false)
 		window.SetMargined(true)
 		window.SetChild(myBox)
-
-		right := ui.NewHorizontalBox()
-		text := ui.NewEntry()
-		right.Append(text, false)
-		myBox.Append(right, false)
 
 		window.OnClosing(func(*ui.Window) bool {
 			ui.Quit()
@@ -199,14 +228,13 @@ func buildUi(myBox *ui.Box, config Configuration.Config, tsks chan <- Structs.Re
 		Windows.Tcpflow(win.Tcpflow.Args)
 	}
 	if win.WinPrefetch.Enabled {
-		Windows.WinPrefetch(win.WinPrefetch.Args)
+		//addToolToUI(win.WinPrefetch.Args, myBox, "WinPrefetch", Windows.WinPrefetch)
+		//Windows.WinPrefetch(win.WinPrefetch.Args)
 	}
 	if win.MFTDump.Enabled {
-		ui.QueueMain(func() {
-			myBox.Append(ui.NewLabel("MFTDump"), false)
-			myBox.Append(ui.NewProgressBar(), false)
-		})
-		Windows.MftDump(win.MFTDump.Args)
+
+		addToolToUI(win.MFTDump.Args, myBox, "MFTDump", Windows.MftDump)
+		//Windows.MftDump(win.MFTDump.Args, label, output)
 	}
 
 	// GNU/Linux tools
