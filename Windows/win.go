@@ -10,6 +10,7 @@ import (
 	"io/ioutil"
 	"time"
 	"syscall"
+	"github.com/ProtonMail/ui"
 )
 
 const TCPFLOW_TIME_LIMIT = time.Hour * 2
@@ -42,6 +43,31 @@ func BulkExtractorParse(cmd *exec.Cmd) {
 	cmd.Wait()
 }
 
+func MftDumpParse(cmd *exec.Cmd, label *ui.Label, output *ui.MultilineEntry) {
+	ui.QueueMain(func(){
+
+		output.Append("MftDump: Beggining dumping and parsing the Master File Table")
+		stdout, _ := cmd.StdoutPipe()
+		cmd.Start()
+
+		scanner := bufio.NewScanner(stdout)
+		for scanner.Scan() {
+			m := scanner.Text()
+
+			if (strings.Contains(m, "Executable name")) {
+
+				output.Append("Processing executable " + m[strings.Index(m, "Executable:") + 16:len(m)])
+				time.Sleep(time.Second * 5)
+			}
+		}
+
+		label.SetText(strings.Replace(label.Text(), "Processing", "Complete", -1))
+		cmd.Wait()
+
+	})
+
+}
+
 func WinPrefetchParse(cmd *exec.Cmd) {
 	stdout, _ := cmd.StdoutPipe()
 	cmd.Start()
@@ -53,7 +79,6 @@ func WinPrefetchParse(cmd *exec.Cmd) {
 		if (strings.Contains(m, "Executable name")) {
 
 			fmt.Println("WinPrefetch: processing executable " + m[strings.Index(m, "Executable:") + 16:len(m)])
-			
 			time.Sleep(time.Second * 5)
 		}
 	}
@@ -277,6 +302,11 @@ func Tcpflow(args string) {
 func WinPrefetch(args string) {
 	cmd :=  cmdTool(args, "PECmd.exe")
 	WinPrefetchParse(cmd)
+}
+
+func MftDump(args string, label *ui.Label, output *ui.MultilineEntry) {
+	cmd :=  cmdTool(args, "mftdump.exe")
+	MftDumpParse(cmd, label, output)
 }
 
 
