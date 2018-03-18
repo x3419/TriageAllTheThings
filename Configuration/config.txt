@@ -117,7 +117,7 @@
          "Args":"blah"
       },
       "Tcpflow":{
-         "Enabled":true,
+         "Enabled":false,
          "Args":"192.168.65.131 Output/ethernet_capture.pcap"
       },
       "WinPrefetch":{
