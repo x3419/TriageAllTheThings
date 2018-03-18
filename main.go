@@ -71,6 +71,7 @@ func ParseConfig(configFile string) Configuration.Config {
 func addToolToUI(myBox *ui.Box, tool string, label *ui.Label, output *ui.MultilineEntry) {
 
 
+
 	ui.QueueMain(func() {
 
 		group := ui.NewGroup(tool)
