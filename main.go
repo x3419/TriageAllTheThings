@@ -7,12 +7,9 @@ import (
 	"encoding/json"
 	"runtime"
 	Configuration "Capstone/Configuration"
-	//Windows "Capstone/Windows"
-	//Linux "Capstone/Linux"
 	"Capstone/Structs"
 	"strings"
 	"sync"
-	//"Capstone/Osutil"
 	"github.com/ProtonMail/ui"
 	"github.com/fatih/structs"
 
@@ -31,7 +28,7 @@ func main() {
 
 	tasks := make(chan Structs.Result, 64)
 
-	// spawn four worker goroutines
+	// spawn ten worker goroutines
 	var wg sync.WaitGroup
 	for i := 0; i < 10 ; i++ {
 		wg.Add(1)
@@ -43,22 +40,9 @@ func main() {
 		}()
 	}
 
-	windowsTools(config, tasks)
-	//
-	//if runtime.GOOS == "windows" {
-	//	windowsTools(config, tasks)
-	//} else if runtime.GOOS == "linux" {
-	//	fmt.Println("GNU/Linux compatibility coming soon!")
-	//} else if runtime.GOOS == "darwin" {
-	//	fmt.Println("OSX compatibility coming soon!")
-	//} else {
-	//	fmt.Println(strings.Title(runtime.GOOS) + " OS is not supported in this project.")
-	//}
-
-
-
-
+	makeGUI(config, tasks)
 	close(tasks)
+
 	// wait for the workers to finish
 	wg.Wait()
 
@@ -89,11 +73,6 @@ func addToolToUI(myBox *ui.Box, tool string, label *ui.Label, output *ui.Multili
 
 	ui.QueueMain(func() {
 
-
-
-		//newLable := ui.NewLabel("Last output:			\nStatus: Processing")
-		//newText := ui.NewMultilineNonWrappingEntry()
-
 		group := ui.NewGroup(tool)
 		newBox := ui.NewHorizontalBox()
 
@@ -119,7 +98,7 @@ func addToolToUI(myBox *ui.Box, tool string, label *ui.Label, output *ui.Multili
 
 }
 
-func windowsTools(config Configuration.Config, tsks chan <- Structs.Result) {
+func makeGUI(config Configuration.Config, tsks chan <- Structs.Result) {
 
 	//----------- GUI
 	err := ui.Main(func() {
@@ -130,7 +109,6 @@ func windowsTools(config Configuration.Config, tsks chan <- Structs.Result) {
 		window.SetMargined(true)
 
 		window.SetChild(myBox)
-
 
 		componentMap := make(map[string]Structs.UIComp)
 

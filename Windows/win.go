@@ -84,8 +84,6 @@ func WinPrefetchParse(cmd *exec.Cmd, label *ui.Label, output *ui.MultilineEntry)
 		for scanner.Scan() {
 			m := scanner.Text()
 
-			//output.Append(m + "\n")
-
 			if (strings.Contains(m, "Executable name")) {
 
 				output.Append("WinPrefetch: processing executable " + m[strings.Index(m, "Executable:") + 16:len(m)] + "\n")
