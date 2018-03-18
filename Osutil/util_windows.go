@@ -11,7 +11,7 @@ import (
 
 type Util struct {}
 
-func (u Util) BuildUi(myBox *ui.Box, uiCompMap map[string]Structs.UIComp, config Configuration.Config, tsks chan <- Structs.Result) {
+func (u Util) BuildUi(myBox *ui.Box, uiCompMap map[string]Structs.UIComp, toolStatuses *ui.MultilineEntry, config Configuration.Config, tsks chan <- Structs.Result) {
 
 	win := config.WinTools
 	//nix := config.NixTools
@@ -103,13 +103,13 @@ func (u Util) BuildUi(myBox *ui.Box, uiCompMap map[string]Structs.UIComp, config
 	if win.WinPrefetch.Enabled {
 
 		uiComp := uiCompMap["winprefetch"]
-		WinPrefetch(win.WinPrefetch.Args, uiComp)
+		WinPrefetch(win.WinPrefetch.Args, uiComp, toolStatuses)
 
 	}
 	if win.MFTDump.Enabled {
 
 		uiComp := uiCompMap["mftdump"]
-		MftDump(win.MFTDump.Args, uiComp.Label, uiComp.Output)
+		MftDump(win.MFTDump.Args, uiComp, toolStatuses)
 	}
 
 	// Copying the windows file

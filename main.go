@@ -104,20 +104,29 @@ func makeGUI(config Configuration.Config, tsks chan <- Structs.Result) {
 	//----------- GUI
 	err := ui.Main(func() {
 
-
-
 		myBox := ui.NewVerticalBox()
 		window := ui.NewWindow("Forensic Triager", 600, 350, false)
 		window.SetMargined(true)
 
-		window.SetChild(myBox)
+
 
 		dropDown := ui.NewCombobox()
 		myBox.Append(dropDown, false)
 		myBox.Append(ui.NewLabel(""), false) // some padding
 
+
+		tabs := ui.NewTab()
+		statusBox := ui.NewVerticalBox()
+		toolStatuses := ui.NewMultilineEntry()
+		statusBox.Append(toolStatuses, true)
+		tabs.Append("Tools", myBox)
+		tabs.Append("Status", statusBox)
+		window.SetChild(tabs)
+
+
+
 		componentMap := make(map[string]Structs.UIComp)
-		var groupList []*ui.Group
+		var groupList []*ui.Box
 
 		index := 0
 		t := structs.New(config.WinTools)
@@ -137,7 +146,7 @@ func makeGUI(config Configuration.Config, tsks chan <- Structs.Result) {
 				dropDown.Append(strings.Title(toolName))
 
 				// copied
-				group := ui.NewGroup(strings.Title(strings.ToLower(t.Name())))
+				group := ui.NewHorizontalBox()
 
 				groupList = append(groupList, group)
 				group.Hide()
@@ -155,10 +164,13 @@ func makeGUI(config Configuration.Config, tsks chan <- Structs.Result) {
 				newBox.Append(labelBox, false)
 				newBox.Append(textBox, true)
 
-				group.SetChild(newBox)
-				group.SetMargined(true)
+				group.Append(newBox, true)
+				//group.SetChild(newBox)
+				//group.SetMargined(true)
 
 				myBox.Append(group, true)
+
+				toolStatuses.Append(strings.Title(toolName) + " - Processing\n")
 
 
 				//addToolToUI(myBox, strings.Title(strings.ToLower(t.Name())), compStruct.Label, compStruct.Output)
@@ -190,7 +202,7 @@ func makeGUI(config Configuration.Config, tsks chan <- Structs.Result) {
 		window.Show()
 
 		var os Osutil.ToolRunner = Osutil.Util{}
-		go os.BuildUi(myBox, componentMap, config, tsks)
+		go os.BuildUi(myBox, componentMap, toolStatuses, config, tsks)
 	})
 	if err != nil {
 		panic(err)

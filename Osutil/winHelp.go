@@ -43,11 +43,11 @@ func BulkExtractorParse(cmd *exec.Cmd) {
 	cmd.Wait()
 }
 
-func MftDumpParse(cmd *exec.Cmd, label *ui.Label, output *ui.MultilineEntry) {
+func MftDumpParse(cmd *exec.Cmd, uiComp Structs.UIComp, toolStatuses *ui.MultilineEntry) {
 	ui.QueueMain(func(){
 
 		go func() {
-			output.Append("MftDump: Beggining dumping and parsing the Master File Table")
+			uiComp.Output.Append("MftDump: Beggining dumping and parsing the Master File Table")
 			stdout, _ := cmd.StdoutPipe()
 			cmd.Start()
 
@@ -55,25 +55,27 @@ func MftDumpParse(cmd *exec.Cmd, label *ui.Label, output *ui.MultilineEntry) {
 			for scanner.Scan() {
 				m := scanner.Text()
 
-				output.Append(m + "\n")
+				uiComp.Output.Append(m + "\n")
 				if (strings.Contains(m, "Executable name")) {
 
-					output.Append("Processing executable " + m[strings.Index(m, "Executable:") + 16:len(m)])
+					uiComp.Output.Append("Processing executable " + m[strings.Index(m, "Executable:") + 16:len(m)])
 					//time.Sleep(time.Second * 5)
 				}
 			}
 
-			label.SetText(strings.Replace(label.Text(), "Processing", "Complete", -1))
+			uiComp.Label.SetText(strings.Replace(uiComp.Label.Text(), "Processing", "Complete", -1))
+			toolStatuses.SetText(strings.Replace(toolStatuses.Text(), "Mftdump - Processing", "Mftdump - Complete", 1))
+			toolStatuses.SetText(strings.Replace(toolStatuses.Text(), "\n", "\r\n", 1))
+
+
 			cmd.Wait()
 		}()
-
-
 
 	})
 
 }
 
-func WinPrefetchParse(cmd *exec.Cmd, uiComp Structs.UIComp) {
+func WinPrefetchParse(cmd *exec.Cmd, uiComp Structs.UIComp, toolStatuses *ui.MultilineEntry) {
 
 	go func() {
 
@@ -92,6 +94,8 @@ func WinPrefetchParse(cmd *exec.Cmd, uiComp Structs.UIComp) {
 		}
 
 		uiComp.Label.SetText(strings.Replace(uiComp.Label.Text(), "Processing", "Complete", -1))
+		toolStatuses.SetText(strings.Replace(toolStatuses.Text(), "Winprefetch - Processing", "Winprefetch - Complete", 1))
+		toolStatuses.SetText(strings.Replace(toolStatuses.Text(), "\n", "\r\n", 1))
 
 		cmd.Wait()
 	}()
@@ -314,14 +318,14 @@ func Tcpflow(args string, label *ui.Label, output *ui.MultilineEntry) {
 }
 
 
-func WinPrefetch( args string, uiComp Structs.UIComp) {
+func WinPrefetch( args string, uiComp Structs.UIComp, toolStatuses *ui.MultilineEntry) {
 	cmd :=  cmdTool(args, "PECmd.exe")
-	WinPrefetchParse(cmd, uiComp)
+	WinPrefetchParse(cmd, uiComp, toolStatuses)
 }
 
-func MftDump(args string, label *ui.Label, output *ui.MultilineEntry) {
+func MftDump(args string, uiComp Structs.UIComp, toolStatuses *ui.MultilineEntry) {
 	cmd :=  cmdTool(args, "mftdump.exe")
-	MftDumpParse(cmd, label, output)
+	MftDumpParse(cmd, uiComp, toolStatuses)
 }
 
 

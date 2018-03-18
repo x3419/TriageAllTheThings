@@ -7,6 +7,6 @@ import (
 )
 
 type ToolRunner interface{
-	BuildUi(myBox *ui.Box, uiCompMap map[string]Structs.UIComp, config Configuration.Config, tsks chan <- Structs.Result)
+	BuildUi(myBox *ui.Box, uiCompMap map[string]Structs.UIComp, toolStatuses *ui.MultilineEntry, config Configuration.Config, tsks chan <- Structs.Result)
 }
 
