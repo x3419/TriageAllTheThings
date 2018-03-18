@@ -14,6 +14,7 @@ import (
 	"sync"
 
 	"github.com/ProtonMail/ui"
+	"github.com/fatih/structs"
 )
 
 
@@ -78,23 +79,23 @@ func ParseConfig(configFile string) Configuration.Config {
 
 }
 
-func addToolToUI(args string, myBox *ui.Box, tool string, targetFunc func(string, *ui.Label,*ui.MultilineEntry) ) {
+func addToolToUI(myBox *ui.Box, tool string, label *ui.Label, output *ui.MultilineEntry) {
 
 
 	ui.QueueMain(func() {
 
-		newLable := ui.NewLabel("Last output:			\nStatus: Processing")
-		newText := ui.NewMultilineNonWrappingEntry()
+		//newLable := ui.NewLabel("Last output:			\nStatus: Processing")
+		//newText := ui.NewMultilineNonWrappingEntry()
 
 		group := ui.NewGroup(tool)
 		newBox := ui.NewHorizontalBox()
 
 		labelBox := ui.NewVerticalBox()
 		labelBox.SetPadded(true)
-		labelBox.Append(newLable, true)
+		labelBox.Append(label, true)
 
 		textBox := ui.NewVerticalBox()
-		textBox.Append(newText, true)
+		textBox.Append(output, true)
 		textBox.SetPadded(true)
 
 		newBox.Append(labelBox, false)
@@ -107,11 +108,7 @@ func addToolToUI(args string, myBox *ui.Box, tool string, targetFunc func(string
 		myBox.Append(ui.NewLabel(""), false)
 
 
-		//go targetFunc(args, newLable, newText)
-
 	})
-
-
 
 }
 
@@ -125,12 +122,34 @@ func windowsTools(config Configuration.Config, tsks chan <- Structs.Result) {
 		window.SetMargined(true)
 		window.SetChild(myBox)
 
+		// we need to pass these around
+		//newLable := ui.NewLabel("Last output:			\nStatus: Processing")
+		//newText := ui.NewMultilineNonWrappingEntry()
+		//
+
+
+		componentMap := make(map[string]Structs.UIComp)
+
+		t := structs.New(config.WinTools)
+		tools := t.Fields()
+		for _, t := range tools {
+			enabled := t.Value().(Configuration.Tool).Enabled
+			if(enabled) {
+				//myTool := t.Value().(Configuration.Tool)
+				componentMap[strings.ToLower(t.Name())] = Structs.UIComp{
+					ui.NewLabel("Last output:			\nStatus: Processing"),
+					ui.NewMultilineNonWrappingEntry()}
+			}
+		}
+
+
+
 		window.OnClosing(func(*ui.Window) bool {
 			ui.Quit()
 			return true
 		})
 		window.Show()
-		go buildUi(myBox, config, tsks)
+		go buildUi(myBox, componentMap, config, tsks)
 	})
 	if err != nil {
 		panic(err)
@@ -140,7 +159,7 @@ func windowsTools(config Configuration.Config, tsks chan <- Structs.Result) {
 
 }
 
-func buildUi(myBox *ui.Box, config Configuration.Config, tsks chan <- Structs.Result) {
+func buildUi(myBox *ui.Box, uiCompMap map[string]Structs.UIComp, config Configuration.Config, tsks chan <- Structs.Result) {
 
 	win := config.WinTools
 	nix := config.NixTools
@@ -228,12 +247,16 @@ func buildUi(myBox *ui.Box, config Configuration.Config, tsks chan <- Structs.Re
 		Windows.Tcpflow(win.Tcpflow.Args)
 	}
 	if win.WinPrefetch.Enabled {
-		//addToolToUI(win.WinPrefetch.Args, myBox, "WinPrefetch", Windows.WinPrefetch)
-		//Windows.WinPrefetch(win.WinPrefetch.Args)
+
+		uiComp := uiCompMap["winprefetch"]
+		addToolToUI(myBox, "WinPrefetch", uiComp.Label, uiComp.Output)
+		//Windows.WinPrefetch(win.WinPrefetch.Args, label, output)
+
 	}
 	if win.MFTDump.Enabled {
 
-		addToolToUI(win.MFTDump.Args, myBox, "MFTDump", Windows.MftDump)
+		uiComp := uiCompMap["mftdump"]
+		addToolToUI(myBox, "MFTDump", uiComp.Label, uiComp.Output)
 		//Windows.MftDump(win.MFTDump.Args, label, output)
 	}
 
