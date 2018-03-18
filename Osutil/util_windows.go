@@ -103,14 +103,12 @@ func (u Util) BuildUi(myBox *ui.Box, uiCompMap map[string]Structs.UIComp, config
 	if win.WinPrefetch.Enabled {
 
 		uiComp := uiCompMap["winprefetch"]
-		//addToolToUI(myBox, "WinPrefetch", uiComp.Label, uiComp.Output)
-		WinPrefetch(win.WinPrefetch.Args, uiComp.Label, uiComp.Output)
+		WinPrefetch(win.WinPrefetch.Args, uiComp)
 
 	}
 	if win.MFTDump.Enabled {
 
 		uiComp := uiCompMap["mftdump"]
-		//addToolToUI(myBox, "MFTDump", uiComp.Label, uiComp.Output)
 		MftDump(win.MFTDump.Args, uiComp.Label, uiComp.Output)
 	}
 

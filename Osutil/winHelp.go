@@ -73,7 +73,7 @@ func MftDumpParse(cmd *exec.Cmd, label *ui.Label, output *ui.MultilineEntry) {
 
 }
 
-func WinPrefetchParse(cmd *exec.Cmd, label *ui.Label, output *ui.MultilineEntry) {
+func WinPrefetchParse(cmd *exec.Cmd, uiComp Structs.UIComp) {
 
 	go func() {
 
@@ -86,12 +86,12 @@ func WinPrefetchParse(cmd *exec.Cmd, label *ui.Label, output *ui.MultilineEntry)
 
 			if (strings.Contains(m, "Executable name")) {
 
-				output.Append("WinPrefetch: processing executable " + m[strings.Index(m, "Executable:") + 16:len(m)] + "\n")
+				uiComp.Output.Append("WinPrefetch: processing executable " + m[strings.Index(m, "Executable:") + 16:len(m)] + "\n")
 				//time.Sleep(time.Second * 5)
 			}
 		}
 
-		label.SetText(strings.Replace(label.Text(), "Processing", "Complete", -1))
+		uiComp.Label.SetText(strings.Replace(uiComp.Label.Text(), "Processing", "Complete", -1))
 
 		cmd.Wait()
 	}()
@@ -314,9 +314,9 @@ func Tcpflow(args string, label *ui.Label, output *ui.MultilineEntry) {
 }
 
 
-func WinPrefetch( args string, label *ui.Label, output *ui.MultilineEntry) {
+func WinPrefetch( args string, uiComp Structs.UIComp) {
 	cmd :=  cmdTool(args, "PECmd.exe")
-	WinPrefetchParse(cmd, label, output)
+	WinPrefetchParse(cmd, uiComp)
 }
 
 func MftDump(args string, label *ui.Label, output *ui.MultilineEntry) {

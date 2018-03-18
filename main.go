@@ -105,30 +105,83 @@ func makeGUI(config Configuration.Config, tsks chan <- Structs.Result) {
 	err := ui.Main(func() {
 
 
+
 		myBox := ui.NewVerticalBox()
 		window := ui.NewWindow("Forensic Triager", 600, 350, false)
 		window.SetMargined(true)
 
 		window.SetChild(myBox)
 
-		componentMap := make(map[string]Structs.UIComp)
+		dropDown := ui.NewCombobox()
+		myBox.Append(dropDown, false)
+		myBox.Append(ui.NewLabel(""), false) // some padding
 
+		componentMap := make(map[string]Structs.UIComp)
+		var groupList []*ui.Group
+
+		index := 0
 		t := structs.New(config.WinTools)
 		tools := t.Fields()
 		for _, t := range tools {
 			enabled := t.Value().(Configuration.Tool).Enabled
 			if(enabled) {
-				//myTool := t.Value().(Configuration.Tool)
+
 				toolName := strings.ToLower(t.Name())
 				compStruct := Structs.UIComp{
-					ui.NewLabel("Last output:	\nStatus: Processing"),
+					ui.NewLabel("Output:	\nStatus: Processing"),
 					ui.NewMultilineNonWrappingEntry()}
 
+				index++
 				componentMap[toolName] = compStruct
-				
-				addToolToUI(myBox, strings.Title(strings.ToLower(t.Name())), compStruct.Label, compStruct.Output)
+
+				dropDown.Append(strings.Title(toolName))
+
+				// copied
+				group := ui.NewGroup(strings.Title(strings.ToLower(t.Name())))
+
+				groupList = append(groupList, group)
+				group.Hide()
+
+				newBox := ui.NewHorizontalBox()
+
+				labelBox := ui.NewVerticalBox()
+				labelBox.SetPadded(true)
+				labelBox.Append(compStruct.Label, true)
+
+				textBox := ui.NewVerticalBox()
+				textBox.Append(compStruct.Output, true)
+				textBox.SetPadded(true)
+
+				newBox.Append(labelBox, false)
+				newBox.Append(textBox, true)
+
+				group.SetChild(newBox)
+				group.SetMargined(true)
+
+				myBox.Append(group, true)
+
+
+				//addToolToUI(myBox, strings.Title(strings.ToLower(t.Name())), compStruct.Label, compStruct.Output)
 			}
 		}
+
+		groupList[0].Show()
+		dropDown.SetSelected(0)
+
+		dropDown.OnSelected(func(c *ui.Combobox){
+
+			for i:=0; i < index; i++ {
+				if(c.Selected() == i){
+					groupList[i].Show()
+					for j:=0; j < index; j++ {
+						if(i != j){
+							groupList[j].Hide()
+						}
+					}
+				}
+			}
+
+		})
 
 		window.OnClosing(func(*ui.Window) bool {
 			ui.Quit()
