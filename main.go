@@ -137,7 +137,7 @@ func windowsTools(config Configuration.Config, tsks chan <- Structs.Result) {
 			if(enabled) {
 				//myTool := t.Value().(Configuration.Tool)
 				componentMap[strings.ToLower(t.Name())] = Structs.UIComp{
-					ui.NewLabel("Last output:			\nStatus: Processing"),
+					ui.NewLabel("Last output:	\nStatus: Processing"),
 					ui.NewMultilineNonWrappingEntry()}
 			}
 		}
@@ -244,20 +244,22 @@ func buildUi(myBox *ui.Box, uiCompMap map[string]Structs.UIComp, config Configur
 		Windows.Tsk_recover(win.TskRecover.Args)
 	}
 	if win.Tcpflow.Enabled {
-		Windows.Tcpflow(win.Tcpflow.Args)
+		uiComp := uiCompMap["tcpflow"]
+		addToolToUI(myBox, "tcpflow", uiComp.Label, uiComp.Output)
+		Windows.Tcpflow(win.Tcpflow.Args, uiComp.Label, uiComp.Output)
 	}
 	if win.WinPrefetch.Enabled {
 
 		uiComp := uiCompMap["winprefetch"]
 		addToolToUI(myBox, "WinPrefetch", uiComp.Label, uiComp.Output)
-		//Windows.WinPrefetch(win.WinPrefetch.Args, label, output)
+		Windows.WinPrefetch(win.WinPrefetch.Args, uiComp.Label, uiComp.Output)
 
 	}
 	if win.MFTDump.Enabled {
 
 		uiComp := uiCompMap["mftdump"]
 		addToolToUI(myBox, "MFTDump", uiComp.Label, uiComp.Output)
-		//Windows.MftDump(win.MFTDump.Args, label, output)
+		Windows.MftDump(win.MFTDump.Args, uiComp.Label, uiComp.Output)
 	}
 
 	// GNU/Linux tools

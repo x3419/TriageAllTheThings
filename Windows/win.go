@@ -46,7 +46,37 @@ func BulkExtractorParse(cmd *exec.Cmd) {
 func MftDumpParse(cmd *exec.Cmd, label *ui.Label, output *ui.MultilineEntry) {
 	ui.QueueMain(func(){
 
-		output.Append("MftDump: Beggining dumping and parsing the Master File Table")
+		go func() {
+			output.Append("MftDump: Beggining dumping and parsing the Master File Table")
+			stdout, _ := cmd.StdoutPipe()
+			cmd.Start()
+
+			scanner := bufio.NewScanner(stdout)
+			for scanner.Scan() {
+				m := scanner.Text()
+
+				output.Append(m + "\n")
+				if (strings.Contains(m, "Executable name")) {
+
+					output.Append("Processing executable " + m[strings.Index(m, "Executable:") + 16:len(m)])
+					//time.Sleep(time.Second * 5)
+				}
+			}
+
+			label.SetText(strings.Replace(label.Text(), "Processing", "Complete", -1))
+			cmd.Wait()
+		}()
+
+
+
+	})
+
+}
+
+func WinPrefetchParse(cmd *exec.Cmd, label *ui.Label, output *ui.MultilineEntry) {
+
+	go func() {
+
 		stdout, _ := cmd.StdoutPipe()
 		cmd.Start()
 
@@ -54,70 +84,57 @@ func MftDumpParse(cmd *exec.Cmd, label *ui.Label, output *ui.MultilineEntry) {
 		for scanner.Scan() {
 			m := scanner.Text()
 
+			//output.Append(m + "\n")
+
 			if (strings.Contains(m, "Executable name")) {
 
-				output.Append("Processing executable " + m[strings.Index(m, "Executable:") + 16:len(m)])
-				time.Sleep(time.Second * 5)
+				output.Append("WinPrefetch: processing executable " + m[strings.Index(m, "Executable:") + 16:len(m)] + "\n")
+				//time.Sleep(time.Second * 5)
 			}
 		}
 
 		label.SetText(strings.Replace(label.Text(), "Processing", "Complete", -1))
+
 		cmd.Wait()
-
-	})
+	}()
 
 }
 
-func WinPrefetchParse(cmd *exec.Cmd) {
-	stdout, _ := cmd.StdoutPipe()
-	cmd.Start()
+func TcpFlowParse(cmd *exec.Cmd, label *ui.Label, output *ui.MultilineEntry) {
 
-	scanner := bufio.NewScanner(stdout)
-	for scanner.Scan() {
-		m := scanner.Text()
+	go func() {
+		stdout, _ := cmd.StdoutPipe()
+		cmd.Start()
 
-		if (strings.Contains(m, "Executable name")) {
+		first := time.Now()
+		totalTime := time.Now()
 
-			fmt.Println("WinPrefetch: processing executable " + m[strings.Index(m, "Executable:") + 16:len(m)])
-			time.Sleep(time.Second * 5)
-		}
-	}
+		scanner := bufio.NewScanner(stdout)
+		lastPacketTotal := "0"
+		for scanner.Scan() {
+			m := scanner.Text()
+			if strings.Contains(m,"Packets     :") {
+				currPacketTotal := m[strings.Index(m, "Packets     :")+14: len(m)]
 
-	fmt.Println("WinPrefetch: Complete")
+				if ( currPacketTotal != lastPacketTotal ) {
 
-	cmd.Wait()
-}
-
-func TcpFlowParse(cmd *exec.Cmd) {
-	stdout, _ := cmd.StdoutPipe()
-	cmd.Start()
-
-	first := time.Now()
-	totalTime := time.Now()
-
-	scanner := bufio.NewScanner(stdout)
-	lastPacketTotal := "0"
-	for scanner.Scan() {
-		m := scanner.Text()
-		if strings.Contains(m,"Packets     :") {
-			currPacketTotal := m[strings.Index(m, "Packets     :")+14: len(m)]
-
-			if ( currPacketTotal != lastPacketTotal ) {
-
-				now := time.Now()
-				if(now.Sub(first) > time.Second * 10) {
-					fmt.Println("Tcpflow: logged " + currPacketTotal + " packets")
-					first = time.Now()
+					now := time.Now()
+					if(now.Sub(first) > time.Second * 10) {
+						output.Append("Tcpflow: logged " + currPacketTotal + " packets\n")
+						first = time.Now()
+					}
 				}
+			}
+
+			if (time.Now().Sub(totalTime) > TCPFLOW_TIME_LIMIT) {
+				output.Append("TcpFlow limit exceeded. Pcap file written.\n")
+				label.SetText(strings.Replace(label.Text(), "Processing", "Complete", -1))
 			}
 		}
 
-		if (time.Now().Sub(totalTime) > TCPFLOW_TIME_LIMIT) {
-			fmt.Println("TcpFlow limit exceeded. Pcap file written.")
-		}
-	}
+		cmd.Wait()
+	}()
 
-	cmd.Wait()
 }
 
 func WriteCmdResultToDisk(filename string) func(cmd *exec.Cmd) {
@@ -289,19 +306,19 @@ func Tsk_recover(args string) {
 	runDefault(cmd)
 }
 
-func Tcpflow(args string) {
+func Tcpflow(args string, label *ui.Label, output *ui.MultilineEntry) {
 	cmd :=  cmdTool(args, "RawCap.exe")
 	//runDefault(cmd)
 
 	// Ideally we would want to use this:
 	cmd = makeCmdQuiet(cmd)
-	TcpFlowParse(cmd)
+	TcpFlowParse(cmd, label, output)
 }
 
 
-func WinPrefetch(args string) {
+func WinPrefetch( args string, label *ui.Label, output *ui.MultilineEntry) {
 	cmd :=  cmdTool(args, "PECmd.exe")
-	WinPrefetchParse(cmd)
+	WinPrefetchParse(cmd, label, output)
 }
 
 func MftDump(args string, label *ui.Label, output *ui.MultilineEntry) {
