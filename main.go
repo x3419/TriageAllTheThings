@@ -148,7 +148,7 @@ func windowsTools(config Configuration.Config, tsks chan <- Structs.Result) {
 				componentMap[toolName] = compStruct
 
 				// this causes tcpflow to crash for some reason
-				addToolToUI(myBox, strings.ToLower(t.Name()), compStruct.Label, compStruct.Output)
+				addToolToUI(myBox, strings.Title(strings.ToLower(t.Name())), compStruct.Label, compStruct.Output)
 			}
 		}
 

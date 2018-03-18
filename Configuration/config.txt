@@ -1,11 +1,11 @@
 {
    "WinTools":{
       "BulkExtractor":{
-         "Enabled":true,
+         "Enabled":false,
          "Args":"-o Output/BulkExtractor -R C:/Users/Analyst/Desktop/drive.001"
       },
       "fiwalk":{
-         "Enabled":true,
+         "Enabled":false,
          "Args":"C:/Users/Analyst/Desktop/drive.001"
       },
       "Frag_find":{
@@ -117,20 +117,16 @@
          "Args":"blah"
       },
       "Tcpflow":{
-         "Enabled":false,
-         "Args":"blah"
+         "Enabled":true,
+         "Args":"192.168.65.131 Output/ethernet_capture.pcap"
       },
       "WinPrefetch":{
-         "Enabled":false,
-         "Args":"blah"
+         "Enabled":true,
+         "Args":"-d C:/Windows/Prefetch --csv \"C:/Users/Analyst/go/src/Capstone/Output/Prefetch\""
       },
       "MFTDump":{
-         "Enabled":false,
-         "Args":"blah"
-      },
-      "WinPrefetch":{
-         "Enabled":false,
-         "Args":"blah"
+         "Enabled":true,
+         "Args":"-o Output/MFT.txt C:/Users/Analyst/Desktop/$MFT"
       },
       "RegRipper":{
          "Enabled":false,
@@ -139,7 +135,7 @@
    },
    "NixTools":{
       "ps":{
-         "Enabled":false,
+         "Enabled":true,
          "Args":"blah"
       },
       "mrutools":{
