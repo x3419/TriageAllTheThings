@@ -15,6 +15,7 @@ import (
 
 	"github.com/ProtonMail/ui"
 	"github.com/fatih/structs"
+
 )
 
 
@@ -84,6 +85,8 @@ func addToolToUI(myBox *ui.Box, tool string, label *ui.Label, output *ui.Multili
 
 	ui.QueueMain(func() {
 
+
+
 		//newLable := ui.NewLabel("Last output:			\nStatus: Processing")
 		//newText := ui.NewMultilineNonWrappingEntry()
 
@@ -117,15 +120,12 @@ func windowsTools(config Configuration.Config, tsks chan <- Structs.Result) {
 	//----------- GUI
 	err := ui.Main(func() {
 
+
 		myBox := ui.NewVerticalBox()
 		window := ui.NewWindow("Forensic Triager", 600, 350, false)
 		window.SetMargined(true)
-		window.SetChild(myBox)
 
-		// we need to pass these around
-		//newLable := ui.NewLabel("Last output:			\nStatus: Processing")
-		//newText := ui.NewMultilineNonWrappingEntry()
-		//
+		window.SetChild(myBox)
 
 
 		componentMap := make(map[string]Structs.UIComp)
@@ -136,9 +136,15 @@ func windowsTools(config Configuration.Config, tsks chan <- Structs.Result) {
 			enabled := t.Value().(Configuration.Tool).Enabled
 			if(enabled) {
 				//myTool := t.Value().(Configuration.Tool)
-				componentMap[strings.ToLower(t.Name())] = Structs.UIComp{
+				toolName := strings.ToLower(t.Name())
+				compStruct := Structs.UIComp{
 					ui.NewLabel("Last output:	\nStatus: Processing"),
 					ui.NewMultilineNonWrappingEntry()}
+
+				componentMap[toolName] = compStruct
+
+				// this causes tcpflow to crash for some reason
+				addToolToUI(myBox, strings.ToLower(t.Name()), compStruct.Label, compStruct.Output)
 			}
 		}
 
@@ -245,20 +251,20 @@ func buildUi(myBox *ui.Box, uiCompMap map[string]Structs.UIComp, config Configur
 	}
 	if win.Tcpflow.Enabled {
 		uiComp := uiCompMap["tcpflow"]
-		addToolToUI(myBox, "tcpflow", uiComp.Label, uiComp.Output)
+		//addToolToUI(myBox, "tcpflow", uiComp.Label, uiComp.Output)
 		Windows.Tcpflow(win.Tcpflow.Args, uiComp.Label, uiComp.Output)
 	}
 	if win.WinPrefetch.Enabled {
 
 		uiComp := uiCompMap["winprefetch"]
-		addToolToUI(myBox, "WinPrefetch", uiComp.Label, uiComp.Output)
+		//addToolToUI(myBox, "WinPrefetch", uiComp.Label, uiComp.Output)
 		Windows.WinPrefetch(win.WinPrefetch.Args, uiComp.Label, uiComp.Output)
 
 	}
 	if win.MFTDump.Enabled {
 
 		uiComp := uiCompMap["mftdump"]
-		addToolToUI(myBox, "MFTDump", uiComp.Label, uiComp.Output)
+		//addToolToUI(myBox, "MFTDump", uiComp.Label, uiComp.Output)
 		Windows.MftDump(win.MFTDump.Args, uiComp.Label, uiComp.Output)
 	}
 
