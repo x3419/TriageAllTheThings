@@ -7,15 +7,16 @@ import (
 	"encoding/json"
 	"runtime"
 	Configuration "Capstone/Configuration"
-	Windows "Capstone/Windows"
-	Linux "Capstone/Linux"
+	//Windows "Capstone/Windows"
+	//Linux "Capstone/Linux"
 	"Capstone/Structs"
 	"strings"
 	"sync"
-
+	//"Capstone/Osutil"
 	"github.com/ProtonMail/ui"
 	"github.com/fatih/structs"
 
+	"Capstone/Osutil"
 )
 
 
@@ -42,17 +43,20 @@ func main() {
 		}()
 	}
 
+	windowsTools(config, tasks)
+	//
+	//if runtime.GOOS == "windows" {
+	//	windowsTools(config, tasks)
+	//} else if runtime.GOOS == "linux" {
+	//	fmt.Println("GNU/Linux compatibility coming soon!")
+	//} else if runtime.GOOS == "darwin" {
+	//	fmt.Println("OSX compatibility coming soon!")
+	//} else {
+	//	fmt.Println(strings.Title(runtime.GOOS) + " OS is not supported in this project.")
+	//}
 
 
-	if runtime.GOOS == "windows" {
-		windowsTools(config, tasks)
-	} else if runtime.GOOS == "linux" {
-		fmt.Println("GNU/Linux compatibility coming soon!")
-	} else if runtime.GOOS == "darwin" {
-		fmt.Println("OSX compatibility coming soon!")
-	} else {
-		fmt.Println(strings.Title(runtime.GOOS) + " OS is not supported in this project.")
-	}
+
 
 	close(tasks)
 	// wait for the workers to finish
@@ -148,14 +152,14 @@ func windowsTools(config Configuration.Config, tsks chan <- Structs.Result) {
 			}
 		}
 
-
-
 		window.OnClosing(func(*ui.Window) bool {
 			ui.Quit()
 			return true
 		})
 		window.Show()
-		go buildUi(myBox, componentMap, config, tsks)
+
+		var os Osutil.ToolRunner = Osutil.Util{}
+		go os.BuildUi(myBox, componentMap, config, tsks)
 	})
 	if err != nil {
 		panic(err)
@@ -165,113 +169,3 @@ func windowsTools(config Configuration.Config, tsks chan <- Structs.Result) {
 
 }
 
-func buildUi(myBox *ui.Box, uiCompMap map[string]Structs.UIComp, config Configuration.Config, tsks chan <- Structs.Result) {
-
-	win := config.WinTools
-	nix := config.NixTools
-
-	// Windows tools
-	if win.BulkExtractor.Enabled {
-		Windows.BulkExtractor(win.BulkExtractor.Args, tsks)
-	}
-	if win.Fiwalk.Enabled {
-		Windows.Fiwalk(win.Fiwalk.Args, tsks)
-	}
-	if win.Blkcalc.Enabled {
-		Windows.Blkcalc(win.Blkcalc.Args)
-	}
-	if win.Blkcat.Enabled {
-		Windows.Blkcat(win.Blkcat.Args)
-	}
-	if win.Blkls.Enabled {
-		Windows.Blkls(win.Blkls.Args)
-	}
-	if win.Blkstat.Enabled {
-		Windows.Blkstat(win.Blkstat.Args)
-	}
-	if win.Fcat.Enabled {
-		Windows.Fcat(win.Fcat.Args)
-	}
-	if win.Ffind.Enabled {
-		Windows.Ffind(win.Ffind.Args)
-	}
-	if win.Fls.Enabled {
-		Windows.Fls(win.Fls.Args)
-	}
-	if win.Fsstat.Enabled {
-		Windows.Fsstat(win.Fsstat.Args)
-	}
-	if win.Hfind.Enabled {
-		Windows.Hfind(win.Hfind.Args)
-	}
-	if win.Icat.Enabled {
-		Windows.Icat(win.Icat.Args)
-	}
-	if win.Ifind.Enabled {
-		Windows.Ifind(win.Ifind.Args)
-	}
-	if win.Ils.Enabled {
-		Windows.Ils(win.Ils.Args)
-	}
-	if win.Imgcat.Enabled {
-		Windows.Img_cat(win.Imgcat.Args)
-	}
-	if win.Imgstat.Enabled {
-		Windows.Img_stat(win.Imgstat.Args)
-	}
-	if win.Istat.Enabled {
-		Windows.Istat(win.Istat.Args)
-	}
-	if win.Jcat.Enabled {
-		Windows.Jcat(win.Jcat.Args)
-	}
-	if win.Jls.Enabled {
-		Windows.Img_cat(win.Jls.Args)
-	}
-	if win.Mmcat.Enabled {
-		Windows.Mmcat(win.Mmcat.Args)
-	}
-	if win.Mmls.Enabled {
-		Windows.Mmls(win.Mmls.Args)
-	}
-	if win.Mmstat.Enabled {
-		Windows.Mmstat(win.Mmstat.Args)
-	}
-	if win.TskCompareDir.Enabled {
-		Windows.Tsk_comparedir(win.TskCompareDir.Args)
-	}
-	if win.TskGetTimes.Enabled {
-		Windows.Tsk_gettimes(win.TskCompareDir.Args)
-	}
-	if win.TskLoaddb.Enabled {
-		Windows.Tsk_loaddb(win.TskCompareDir.Args)
-	}
-	if win.TskRecover.Enabled {
-		Windows.Tsk_recover(win.TskRecover.Args)
-	}
-	if win.Tcpflow.Enabled {
-		uiComp := uiCompMap["tcpflow"]
-		//addToolToUI(myBox, "tcpflow", uiComp.Label, uiComp.Output)
-		Windows.Tcpflow(win.Tcpflow.Args, uiComp.Label, uiComp.Output)
-	}
-	if win.WinPrefetch.Enabled {
-
-		uiComp := uiCompMap["winprefetch"]
-		//addToolToUI(myBox, "WinPrefetch", uiComp.Label, uiComp.Output)
-		Windows.WinPrefetch(win.WinPrefetch.Args, uiComp.Label, uiComp.Output)
-
-	}
-	if win.MFTDump.Enabled {
-
-		uiComp := uiCompMap["mftdump"]
-		//addToolToUI(myBox, "MFTDump", uiComp.Label, uiComp.Output)
-		Windows.MftDump(win.MFTDump.Args, uiComp.Label, uiComp.Output)
-	}
-
-	// GNU/Linux tools
-
-	if nix.Ps.Enabled {
-		Linux.Ps(nix.Ps.Args)
-	}
-
-}
