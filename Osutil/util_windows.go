@@ -18,10 +18,12 @@ func (u Util) BuildUi(myBox *ui.Box, uiCompMap map[string]Structs.UIComp, toolSt
 
 	// Windows tools
 	if win.BulkExtractor.Enabled {
-		BulkExtractor(win.BulkExtractor.Args, tsks)
+		uiComp := uiCompMap["bulkextractor"]
+		BulkExtractor(win.BulkExtractor.Args, uiComp, toolStatuses)
 	}
 	if win.Fiwalk.Enabled {
-		Fiwalk(win.Fiwalk.Args, tsks)
+		uiComp := uiCompMap["fiwalk"]
+		Fiwalk(win.Fiwalk.Args, uiComp, toolStatuses)
 	}
 	if win.Blkcalc.Enabled {
 		Blkcalc(win.Blkcalc.Args)
@@ -96,9 +98,8 @@ func (u Util) BuildUi(myBox *ui.Box, uiCompMap map[string]Structs.UIComp, toolSt
 		Tsk_recover(win.TskRecover.Args)
 	}
 	if win.Tcpflow.Enabled {
-		uiComp := uiCompMap["tcpFlow"]
-		//addToolToUI(myBox, "tcpflow", uiComp.Label, uiComp.Output)
-		Tcpflow(win.Tcpflow.Args, uiComp.Label, uiComp.Output)
+		uiComp := uiCompMap["tcpflow"]
+		Tcpflow(win.Tcpflow.Args, uiComp, toolStatuses)
 	}
 	if win.WinPrefetch.Enabled {
 
