@@ -18,8 +18,8 @@ func (u Util) BuildUi(myBox *ui.Box, uiCompMap map[string]Structs.UIComp, toolSt
 
 	// Windows tools
 	if win.BulkExtractor.Enabled {
-		uiComp := uiCompMap["bulkextractor"]
-		BulkExtractor(win.BulkExtractor.Args, uiComp, toolStatuses)
+		//uiComp := uiCompMap["bulkextractor"]
+		//BulkExtractor(win.BulkExtractor.Args, uiComp, toolStatuses)
 	}
 	if win.Fiwalk.Enabled {
 		uiComp := uiCompMap["fiwalk"]

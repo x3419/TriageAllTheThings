@@ -12,8 +12,6 @@ import (
 	"syscall"
 	"github.com/ProtonMail/ui"
 	//"Capstone/Configuration"
-	"os"
-	"log"
 )
 
 const TCPFLOW_TIME_LIMIT = time.Hour * 2
@@ -122,24 +120,16 @@ func TcpFlowParse(cmd *exec.Cmd, uiComp Structs.UIComp, toolStatuses *ui.Multili
 		stdout, _ := cmd.StdoutPipe()
 		cmd.Start()
 
-		first := time.Now()
 		totalTime := time.Now()
 		uiComp.Output.Append("TcpFlow: Processing...\n")
 		scanner := bufio.NewScanner(stdout)
-		lastPacketTotal := "0"
 		for scanner.Scan() {
 			m := scanner.Text()
 			if strings.Contains(m, "Packets     :") {
+
 				currPacketTotal := m[strings.Index(m, "Packets     :")+14: len(m)]
+				uiComp.Output.Append("Tcpflow: logged " + currPacketTotal + " packets\n")
 
-				if ( currPacketTotal != lastPacketTotal ) {
-
-					now := time.Now()
-					if (now.Sub(first) > time.Second*10) {
-						uiComp.Output.Append("Tcpflow: logged " + currPacketTotal + " packets\n")
-						first = time.Now()
-					}
-				}
 			} else {
 				uiComp.Output.Append(m + "\n")
 			}
