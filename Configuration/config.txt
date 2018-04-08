@@ -1,18 +1,26 @@
 {
    "WinTools":{
       "BulkExtractor":{
-         "Enabled":false,
+         "Enabled":true,
          "Args":"-o Output/BulkExtractor -R C:/Users/Analyst/Desktop/drive.001"
       },
+      "Tcpflow":{
+         "Enabled":true,
+         "Args":"192.168.65.131 Output/ethernet_capture2.pcap"
+      },
+      "WinPrefetch":{
+         "Enabled":true,
+         "Args":"-d C:/Windows/Prefetch --csv \"C:/Users/Analyst/go/src/Capstone/Output/Prefetch\""
+      },
+      "MFTDump":{
+         "Enabled":true,
+         "Args":"-o Output/MFT.txt C:/Users/Analyst/Desktop/$MFT"
+      },
       "fiwalk":{
-         "Enabled":false,
+         "Enabled":true,
          "Args":"C:/Users/Analyst/Desktop/drive.001"
       },
       "Frag_find":{
-         "Enabled":false,
-         "Args":"blah"
-      },
-      "tcpflow":{
          "Enabled":false,
          "Args":"blah"
       },
@@ -115,18 +123,6 @@
       "TskRecover":{
          "Enabled":false,
          "Args":"blah"
-      },
-      "Tcpflow":{
-         "Enabled":false,
-         "Args":"192.168.65.131 Output/ethernet_capture.pcap"
-      },
-      "WinPrefetch":{
-         "Enabled":true,
-         "Args":"-d C:/Windows/Prefetch --csv \"C:/Users/Analyst/go/src/Capstone/Output/Prefetch\""
-      },
-      "MFTDump":{
-         "Enabled":true,
-         "Args":"-o Output/MFT.txt C:/Users/Analyst/Desktop/$MFT"
       },
       "RegRipper":{
          "Enabled":false,

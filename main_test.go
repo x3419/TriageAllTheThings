@@ -3,6 +3,8 @@ package main
 import (
 	"testing"
 	"Capstone/Configuration"
+	"Capstone/Structs"
+	"github.com/stretchr/testify/assert"
 )
 
 func TestConfig(t *testing.T) {
@@ -32,7 +34,15 @@ func TestConfig(t *testing.T) {
 	if(testConfig3.WinTools.BulkExtractor.Enabled != true){
 		t.Failed()
 	}
+}
 
+func TestGUI(t *testing.T) {
+	configFile := ParseConfig("TestConfig2.txt")
+	tasks := make(chan Structs.Result, 64)
+
+	assert.Panics(t, func() { makeGUI(configFile, tasks) }, "The code did not panic")
+
+	//makeGUI(configFile, tasks)
 
 
 }
