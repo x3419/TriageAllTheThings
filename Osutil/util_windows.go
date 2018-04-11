@@ -11,7 +11,7 @@ import (
 
 type Util struct {}
 
-func (u Util) BuildUi(myBox *ui.Box, uiCompMap map[string]Structs.UIComp, toolStatuses *ui.MultilineEntry, config Configuration.Config, tsks chan <- Structs.Result) {
+func (u Util) BuildUi(myBox *ui.Box, uiCompMap map[string]Structs.UIComp, toolStatuses *ui.MultilineEntry, config Configuration.Config) {
 
 	win := config.WinTools
 	//nix := config.NixTools

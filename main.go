@@ -9,7 +9,6 @@ import (
 	Configuration "Capstone/Configuration"
 	"Capstone/Structs"
 	"strings"
-	"sync"
 	"github.com/ProtonMail/ui"
 	"github.com/fatih/structs"
 	"Capstone/Osutil"
@@ -25,25 +24,8 @@ func main() {
 
 	fmt.Println(strings.Title(runtime.GOOS) + " OS detected\nEnabled tools will begin to run in parallel. This may take some time and will slow the system down, so please be patient.")
 
-	tasks := make(chan Structs.Result, 64)
 
-	// spawn ten worker goroutines
-	var wg sync.WaitGroup
-	for i := 0; i < 10 ; i++ {
-		wg.Add(1)
-		go func() {
-			for results := range tasks {
-				results.CommandFunc(results.Command)
-			}
-			wg.Done()
-		}()
-	}
-
-	makeGUI(config, tasks)
-	close(tasks)
-
-	// wait for the workers to finish
-	wg.Wait()
+	makeGUI(config)
 
 }
 
@@ -67,7 +49,7 @@ func ParseConfig(configFile string) Configuration.Config {
 
 }
 
-func makeGUI(config Configuration.Config, tsks chan <- Structs.Result) {
+func makeGUI(config Configuration.Config) {
 
 	//----------- GUI
 	err := ui.Main(func() {
@@ -170,7 +152,7 @@ func makeGUI(config Configuration.Config, tsks chan <- Structs.Result) {
 		window.Show()
 
 		var os Osutil.ToolRunner = Osutil.Util{}
-		go os.BuildUi(myBox, componentMap, toolStatuses, config, tsks)
+		go os.BuildUi(myBox, componentMap, toolStatuses, config)
 	})
 	if err != nil {
 		panic(err)

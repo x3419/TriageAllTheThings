@@ -209,8 +209,9 @@ func WriteCmdResultToDisk(filename string) func(cmd *exec.Cmd) {
 
 func BulkExtractor(args string, uiComp Structs.UIComp, toolStatuses *ui.MultilineEntry) {
 
-	cmd :=  cmdTool(args, "bulk_extractor32.exe")
-	BulkExtractorParse(cmd, uiComp, toolStatuses)
+	//Commenting out for dev speed related reasons
+	//cmd :=  cmdTool(args, "bulk_extractor32.exe")
+	//BulkExtractorParse(cmd, uiComp, toolStatuses)
 }
 
 func Fiwalk(args string, uiComp Structs.UIComp, toolStatuses *ui.MultilineEntry) {
@@ -342,12 +343,12 @@ func Tsk_recover(args string) {
 }
 
 func Tcpflow(args string, uiComp Structs.UIComp, toolStatuses *ui.MultilineEntry) {
-	cmd :=  cmdTool(args, "RawCap.exe")
-	//runDefault(cmd)
 
-	// Ideally we would want to use this:
-	cmd = makeCmdQuiet(cmd)
-	TcpFlowParse(cmd, uiComp, toolStatuses)
+	//Commenting out for dev speed related reasons
+	//
+	//cmd :=  cmdTool(args, "RawCap.exe")
+	//cmd = makeCmdQuiet(cmd)
+	//TcpFlowParse(cmd, uiComp, toolStatuses)
 }
 
 
@@ -357,8 +358,11 @@ func WinPrefetch( args string, uiComp Structs.UIComp, toolStatuses *ui.Multiline
 }
 
 func MftDump(args string, uiComp Structs.UIComp, toolStatuses *ui.MultilineEntry) {
-	cmd :=  cmdTool(args, "mftdump.exe")
-	MftDumpParse(cmd, uiComp, toolStatuses)
+
+	//Commenting out for dev speed related reasons
+	//
+	//cmd :=  cmdTool(args, "mftdump.exe")
+	//MftDumpParse(cmd, uiComp, toolStatuses)
 }
 
 
