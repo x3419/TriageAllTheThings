@@ -12,7 +12,6 @@ import (
 	"sync"
 	"github.com/ProtonMail/ui"
 	"github.com/fatih/structs"
-
 	"Capstone/Osutil"
 )
 
@@ -65,37 +64,6 @@ func ParseConfig(configFile string) Configuration.Config {
 	}
 
 	return myConfig
-
-}
-
-func addToolToUI(myBox *ui.Box, tool string, label *ui.Label, output *ui.MultilineEntry) {
-
-
-
-	ui.QueueMain(func() {
-
-		group := ui.NewGroup(tool)
-		newBox := ui.NewHorizontalBox()
-
-		labelBox := ui.NewVerticalBox()
-		labelBox.SetPadded(true)
-		labelBox.Append(label, true)
-
-		textBox := ui.NewVerticalBox()
-		textBox.Append(output, true)
-		textBox.SetPadded(true)
-
-		newBox.Append(labelBox, false)
-		newBox.Append(textBox, true)
-
-		group.SetChild(newBox)
-		group.SetMargined(true)
-
-		myBox.Append(group, true)
-		myBox.Append(ui.NewLabel(""), false)
-
-
-	})
 
 }
 
