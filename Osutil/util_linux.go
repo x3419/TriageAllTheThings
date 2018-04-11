@@ -10,9 +10,9 @@ import (
 
 type Util struct {}
 
-func (u Util) BuildUi(myBox *ui.Box, uiCompMap map[string]Structs.UIComp, config Configuration.Config) {
+func (u Util) MakeGUI(config Configuration.Config) {
+	// Implement GNU/Linux
 
-	//win := config.WinTools
 	nix := config.NixTools
 
 	// GNU/Linux tools

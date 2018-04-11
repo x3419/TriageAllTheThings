@@ -7,10 +7,7 @@ import (
 	"encoding/json"
 	"runtime"
 	Configuration "Capstone/Configuration"
-	"Capstone/Structs"
 	"strings"
-	"github.com/ProtonMail/ui"
-	"github.com/fatih/structs"
 	"Capstone/Osutil"
 )
 
@@ -24,8 +21,8 @@ func main() {
 
 	fmt.Println(strings.Title(runtime.GOOS) + " OS detected\nEnabled tools will begin to run in parallel. This may take some time and will slow the system down, so please be patient.")
 
-
-	makeGUI(config)
+	var os Osutil.ToolRunner = Osutil.Util{}
+	os.MakeGUI(config)
 
 }
 
@@ -48,117 +45,3 @@ func ParseConfig(configFile string) Configuration.Config {
 	return myConfig
 
 }
-
-func makeGUI(config Configuration.Config) {
-
-	//----------- GUI
-	err := ui.Main(func() {
-
-		myBox := ui.NewVerticalBox()
-		window := ui.NewWindow("Forensic Triager", 600, 350, false)
-		window.SetMargined(true)
-
-
-
-		dropDown := ui.NewCombobox()
-		myBox.Append(dropDown, false)
-		myBox.Append(ui.NewLabel(""), false) // some padding
-
-
-		tabs := ui.NewTab()
-		statusBox := ui.NewVerticalBox()
-		toolStatuses := ui.NewMultilineEntry()
-		statusBox.Append(toolStatuses, true)
-		tabs.Append("Tools", myBox)
-		tabs.Append("Status", statusBox)
-		window.SetChild(tabs)
-
-
-
-		componentMap := make(map[string]Structs.UIComp)
-		var groupList []*ui.Box
-
-		index := 0
-		t := structs.New(config.WinTools)
-		tools := t.Fields()
-		for _, t := range tools {
-			enabled := t.Value().(Configuration.Tool).Enabled
-			if(enabled) {
-
-				toolName := strings.ToLower(t.Name())
-				compStruct := Structs.UIComp{
-					ui.NewLabel("Output:	\nStatus: Processing"),
-					ui.NewMultilineNonWrappingEntry()}
-
-				index++
-				componentMap[toolName] = compStruct
-
-				dropDown.Append(strings.Title(toolName))
-
-				// copied
-				group := ui.NewHorizontalBox()
-
-				groupList = append(groupList, group)
-				group.Hide()
-
-				newBox := ui.NewHorizontalBox()
-
-				labelBox := ui.NewVerticalBox()
-				labelBox.SetPadded(true)
-				labelBox.Append(compStruct.Label, true)
-
-				textBox := ui.NewVerticalBox()
-				textBox.Append(compStruct.Output, true)
-				textBox.SetPadded(true)
-
-				newBox.Append(labelBox, false)
-				newBox.Append(textBox, true)
-
-				group.Append(newBox, true)
-				//group.SetChild(newBox)
-				//group.SetMargined(true)
-
-				myBox.Append(group, true)
-
-				toolStatuses.Append(strings.Title(toolName) + " - Processing\n")
-
-
-				//addToolToUI(myBox, strings.Title(strings.ToLower(t.Name())), compStruct.Label, compStruct.Output)
-			}
-		}
-
-		groupList[0].Show()
-		dropDown.SetSelected(0)
-
-		dropDown.OnSelected(func(c *ui.Combobox){
-
-			for i:=0; i < index; i++ {
-				if(c.Selected() == i){
-					groupList[i].Show()
-					for j:=0; j < index; j++ {
-						if(i != j){
-							groupList[j].Hide()
-						}
-					}
-				}
-			}
-
-		})
-
-		window.OnClosing(func(*ui.Window) bool {
-			ui.Quit()
-			return true
-		})
-		window.Show()
-
-		var os Osutil.ToolRunner = Osutil.Util{}
-		go os.BuildUi(myBox, componentMap, toolStatuses, config)
-	})
-	if err != nil {
-		panic(err)
-	}
-	//---------- GUI
-
-
-}
-
