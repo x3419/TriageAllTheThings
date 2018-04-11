@@ -1,7 +1,9 @@
 package Structs
 
 import "os/exec"
-import "github.com/ProtonMail/ui"
+import (
+	"github.com/ProtonMail/ui"
+)
 
 type Result struct {
 	Command     *exec.Cmd
@@ -12,3 +14,5 @@ type UIComp struct {
 	Label *ui.Label
 	Output *ui.MultilineEntry
 }
+
+

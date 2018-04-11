@@ -1,0 +1,16 @@
+{
+	"Tools": [
+        {
+            "Name":"BulkExtractor",
+            "Enabled": true,
+            "Args": "-o Output/BulkExtractor -R C:/Users/Analyst/Desktop/drive.001",
+            "Location": "bulk_extractor32.exe"
+        },
+        {
+            "Name":"WinPrefetch",
+            "Enabled":true,
+            "Args":"-d C:/Windows/Prefetch --csv \"C:/Users/Analyst/go/src/Capstone/Output/Prefetch\"",
+            "Location":"PECmd.exe"
+        }
+	]
+}

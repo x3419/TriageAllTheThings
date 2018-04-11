@@ -11,12 +11,10 @@ import (
 	"time"
 	"syscall"
 	"github.com/ProtonMail/ui"
-	//"Capstone/Configuration"
+	"Capstone/Configuration"
 )
 
 const TCPFLOW_TIME_LIMIT = time.Hour * 2
-
-
 
 func BulkExtractorParse(cmd *exec.Cmd, uiComp Structs.UIComp, toolStatuses *ui.MultilineEntry) {
 
@@ -172,6 +170,29 @@ func FiwalkParse(cmd *exec.Cmd, uiComp Structs.UIComp, toolStatuses *ui.Multilin
 
 }
 
+func DefaultParse(name string, cmd *exec.Cmd, uiComp Structs.UIComp, toolStatuses *ui.MultilineEntry) {
+
+
+	go func() {
+		stdout, _ := cmd.StdoutPipe()
+		cmd.Start()
+		uiComp.Output.Append(name + ": Processing...\n")
+		scanner := bufio.NewScanner(stdout)
+		for scanner.Scan() {
+			m := scanner.Text()
+			uiComp.Output.Append(m + "\n")
+		}
+		uiComp.Label.SetText(strings.Replace(uiComp.Label.Text(), "Processing", "Complete", -1))
+		toolStatuses.SetText(strings.Replace(toolStatuses.Text(), strings.Title(strings.ToLower(name)) + " - Processing", strings.Title(strings.ToLower(name)) + " - Complete", 1))
+		toolStatuses.SetText(strings.Replace(toolStatuses.Text(), "\n", "\r\n", -1))
+
+
+		cmd.Wait()
+	}()
+
+
+}
+
 func WriteCmdResultToDisk(filename string) func(cmd *exec.Cmd) {
 	return func(cmd *exec.Cmd) {
 
@@ -207,187 +228,53 @@ func WriteCmdResultToDisk(filename string) func(cmd *exec.Cmd) {
 	}
 }
 
-func BulkExtractor(args string, uiComp Structs.UIComp, toolStatuses *ui.MultilineEntry) {
+func BulkExtractor(tool Configuration.DynamicTool, uiComp Structs.UIComp, toolStatuses *ui.MultilineEntry) {
 
 	//Commenting out for dev speed related reasons
 	//cmd :=  cmdTool(args, "bulk_extractor32.exe")
 	//BulkExtractorParse(cmd, uiComp, toolStatuses)
+	fmt.Println("Running BulkExtractor!")
 }
 
-func Fiwalk(args string, uiComp Structs.UIComp, toolStatuses *ui.MultilineEntry) {
-	cmd :=  cmdTool(args, "fiwalk-0.6.3.exe")
+func Default(tool Configuration.DynamicTool, uiComp Structs.UIComp, toolStatuses *ui.MultilineEntry) {
+
+	//Commenting out for dev speed related reasons
+	cmd :=  cmdTool(tool.Args, tool.Location)
+	DefaultParse(tool.Name, cmd, uiComp, toolStatuses)
+}
+
+func Fiwalk(tool Configuration.DynamicTool, uiComp Structs.UIComp, toolStatuses *ui.MultilineEntry) {
+	cmd :=  cmdTool(tool.Args, "fiwalk-0.6.3.exe")
 	FiwalkParse(cmd, uiComp, toolStatuses)
 }
 
-func Blkcalc(args string) {
-	cmd :=  cmdTool(args, "sleuthkit\\bin\\blkcalc.exe")
-	runDefault(cmd)
-}
-
-func Blkcat(args string) {
-	cmd :=  cmdTool(args, "sleuthkit\\bin\\blkcat.exe")
-	runDefault(cmd)
-}
-
-func Blkls(args string) {
-	cmd :=  cmdTool(args, "sleuthkit\\bin\\blkls.exe")
-	runDefault(cmd)
-}
-
-func Blkstat(args string) {
-	cmd :=  cmdTool(args, "sleuthkit\\bin\\blkstat.exe")
-	runDefault(cmd)
-}
-
-func Fcat(args string) {
-	cmd :=  cmdTool(args, "sleuthkit\\bin\\fcat.exe")
-	runDefault(cmd)
-}
-
-func Ffind(args string) {
-	cmd :=  cmdTool(args, "sleuthkit\\bin\\ffind.exe")
-	runDefault(cmd)
-}
-
-func Fls(args string) {
-	cmd :=  cmdTool(args, "sleuthkit\\bin\\fls.exe")
-	runDefault(cmd)
-}
-
-func Fsstat(args string) {
-	cmd :=  cmdTool(args, "sleuthkit\\bin\\fsstat.exe")
-	runDefault(cmd)
-}
-
-func Hfind(args string) {
-	cmd :=  cmdTool(args, "sleuthkit\\bin\\hfind.exe")
-	runDefault(cmd)
-}
-
-func Icat(args string) {
-	cmd :=  cmdTool(args, "sleuthkit\\bin\\icat.exe")
-	runDefault(cmd)
-}
-
-func Ifind(args string) {
-	cmd :=  cmdTool(args, "sleuthkit\\bin\\ifind.exe")
-	runDefault(cmd)
-}
-
-func Ils(args string) {
-	cmd :=  cmdTool(args, "sleuthkit\\bin\\ils.exe")
-	runDefault(cmd)
-}
-
-func Img_cat(args string) {
-	cmd :=  cmdTool(args, "sleuthkit\\bin\\img_cat.exe")
-	runDefault(cmd)
-}
-
-func Img_stat(args string) {
-	cmd :=  cmdTool(args, "sleuthkit\\bin\\img_stat.exe")
-	runDefault(cmd)
-}
-
-func Istat(args string) {
-	cmd :=  cmdTool(args, "sleuthkit\\bin\\istat.exe")
-	runDefault(cmd)
-}
-
-func Jcat(args string) {
-	cmd :=  cmdTool(args, "sleuthkit\\bin\\jcat.exe")
-	runDefault(cmd)
-}
-
-func Jls(args string) {
-	cmd :=  cmdTool(args, "sleuthkit\\bin\\jls.exe")
-	runDefault(cmd)
-}
-
-func Mmcat(args string) {
-	cmd :=  cmdTool(args, "sleuthkit\\bin\\mmcat.exe")
-	runDefault(cmd)
-}
-
-func Mmls(args string) {
-	cmd :=  cmdTool(args, "sleuthkit\\bin\\mmls.exe")
-	runDefault(cmd)
-}
-
-func Mmstat(args string) {
-	cmd :=  cmdTool(args, "sleuthkit\\bin\\mmstat.exe")
-	runDefault(cmd)
-}
-
-
-func Tsk_comparedir(args string) {
-	cmd :=  cmdTool(args, "sleuthkit\\bin\\tsk_comparedir.exe")
-	runDefault(cmd)
-}
-
-func Tsk_gettimes(args string) {
-	cmd :=  cmdTool(args, "sleuthkit\\bin\\tsk_gettimes.exe")
-	runDefault(cmd)
-}
-
-
-func Tsk_loaddb(args string) {
-	cmd :=  cmdTool(args, "sleuthkit\\bin\\tsk_loaddb.exe")
-	runDefault(cmd)
-}
-
-
-func Tsk_recover(args string) {
-	cmd :=  cmdTool(args, "sleuthkit\\bin\\tsk_recover.exe")
-	runDefault(cmd)
-}
-
-func Tcpflow(args string, uiComp Structs.UIComp, toolStatuses *ui.MultilineEntry) {
+func Tcpflow(tool Configuration.DynamicTool, uiComp Structs.UIComp, toolStatuses *ui.MultilineEntry) {
 
 	//Commenting out for dev speed related reasons
-	//
-	//cmd :=  cmdTool(args, "RawCap.exe")
-	//cmd = makeCmdQuiet(cmd)
-	//TcpFlowParse(cmd, uiComp, toolStatuses)
+
+	cmd :=  cmdTool(tool.Args,"RawCap.exe")
+	cmd = makeCmdQuiet(cmd)
+	TcpFlowParse(cmd, uiComp, toolStatuses)
 }
 
 
-func WinPrefetch( args string, uiComp Structs.UIComp, toolStatuses *ui.MultilineEntry) {
-	cmd :=  cmdTool(args, "PECmd.exe")
+func WinPrefetch(tool Configuration.DynamicTool, uiComp Structs.UIComp, toolStatuses *ui.MultilineEntry) {
+	cmd :=  cmdTool(tool.Args, "PECmd.exe")
 	WinPrefetchParse(cmd, uiComp, toolStatuses)
 }
 
-func MftDump(args string, uiComp Structs.UIComp, toolStatuses *ui.MultilineEntry) {
+func MftDump(tool Configuration.DynamicTool, uiComp Structs.UIComp, toolStatuses *ui.MultilineEntry) {
 
 	//Commenting out for dev speed related reasons
-	//
-	//cmd :=  cmdTool(args, "mftdump.exe")
-	//MftDumpParse(cmd, uiComp, toolStatuses)
+
+	cmd :=  cmdTool(tool.Args, "mftdump.exe")
+	MftDumpParse(cmd, uiComp, toolStatuses)
 }
-
-
-func mrutools(args string) {
-	cmd :=  cmdTool(args, "mrutools.exe")
-	runDefault(cmd)
-}
-
 
 func makeCmdQuiet(cmd *exec.Cmd) *exec.Cmd{
 
 	cmd.SysProcAttr = &syscall.SysProcAttr{HideWindow: true}
 	return cmd
-}
-
-func runDefault(cmd *exec.Cmd) {
-	stdout, _ := cmd.StdoutPipe()
-	cmd.Start()
-
-	scanner := bufio.NewScanner(stdout)
-	for scanner.Scan() {
-		m := scanner.Text()
-		fmt.Println(m)
-	}
-	cmd.Wait()
 }
 
 
