@@ -1,5 +1,5 @@
 
-RelativePath = false
+RelativePath = true
 
 [[Tool]]
 Name = "WinPrefetch"
@@ -18,3 +18,97 @@ Name = "MFTDump"
 Enabled = true
 Args = "-o Output/MFT.txt C:/Users/Analyst/Desktop/$MFT"
 Path = "mftdump.exe"
+
+[[Tool]]
+Name = "Fiwalk"
+Enabled = true
+Args = "C:/Users/Analyst/Desktop/drive.001"
+Path = "fiwalk-0.6.3.exe"
+
+[[Tool]]
+Name = "Tcpflow"
+Enabled = true
+Args = "192.168.65.131 Output/ethernet_capture2.pcap"
+Path = "RawCap.exe"
+
+
+
+
+
+[[Tool]]
+Name = "Blkcalc"
+Enabled = false
+Args = "-d 64 C:/Users/Analyst/Desktop/test.dd"
+Path = "sleuthkit\\bin\\blkcalc.exe"
+
+[[Tool]]
+Name = "Blkcat"
+Enabled = false
+Args = "-f ntfs C:/Users/Analyst/Desktop/test.dd"
+Path = "sleuthkit\\bin\\blkcat.exe"
+
+[[Tool]]
+Name = "Blkls"
+Enabled = false
+Args = "C:/Users/Analyst/Desktop/test.dd"
+Path = "sleuthkit\\bin\\blkls.exe"
+
+[[Tool]]
+Name = "Blkstat"
+Enabled = false
+Args = "C:/Users/Analyst/Desktop/test.dd 64"
+Path = "sleuthkit\\bin\\blkstat.exe"
+
+[[Tool]]
+Name = "Fcat"
+Enabled = false
+Args = "C:/Users/Analyst/Desktop C:/Users/Analyst/Desktop/test.dd"
+Path = "sleuthkit\\bin\\fcat.exe"
+
+[[Tool]]
+Name = "Ffind"
+Enabled = false
+Args = "C:/Users/Analyst/Desktop/test.dd 64"
+Path = "sleuthkit\\bin\\ffind.exe"
+
+[[Tool]]
+Name = "Fls"
+Enabled = false
+Args = "-o 64 C:/Users/Analyst/Desktop/test.dd"
+Path = "sleuthkit\\bin\\fls.exe"
+
+[[Tool]]
+Name = "Fsstat"
+Enabled = false
+Args = "-o 64 C:/Users/Analyst/Desktop/test.dd"
+Path = "sleuthkit\\bin\\fsstat.exe"
+
+[[Tool]]
+Name = "Hfind"
+Enabled = false
+Args = "C:/Users/Analyst/Desktop/test.dd mydb.db"
+Path = "sleuthkit\\bin\\hfind.exe"
+
+[[Tool]]
+Name = "Icat"
+Enabled = false
+Args = "C:/Users/Analyst/Desktop/test.dd 64"
+Path = "sleuthkit\\bin\\icat.exe"
+
+[[Tool]]
+Name = "Ifind"
+Enabled = false
+Args = "-d 64 C:/Users/Analyst/Desktop/test.dd"
+Path = "sleuthkit\\bin\\ifind.exe"
+
+[[Tool]]
+Name = "Imgstat"
+Enabled = false
+Args = "C:/Users/Analyst/Desktop/test.dd"
+Path = "sleuthkit\\bin\\img_cat.exe"
+
+[[Tool]]
+Name = "Mmls"
+Enabled = false
+Args = "C:/Users/Analyst/Desktop/test.dd"
+Path = "sleuthkit\\bin\\mmls.exe"
