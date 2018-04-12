@@ -228,7 +228,7 @@ func WriteCmdResultToDisk(filename string) func(cmd *exec.Cmd) {
 	}
 }
 
-func BulkExtractor(tool Configuration.DynamicTool, uiComp Structs.UIComp, toolStatuses *ui.MultilineEntry) {
+func BulkExtractor(tool Configuration.Tool, uiComp Structs.UIComp, toolStatuses *ui.MultilineEntry) {
 
 	//Commenting out for dev speed related reasons
 	//cmd :=  cmdTool(args, tool.Path)
@@ -236,21 +236,20 @@ func BulkExtractor(tool Configuration.DynamicTool, uiComp Structs.UIComp, toolSt
 	fmt.Println("Running BulkExtractor!")
 }
 
-func Default(tool Configuration.DynamicTool, uiComp Structs.UIComp, toolStatuses *ui.MultilineEntry) {
+func Default(tool Configuration.Tool, uiComp Structs.UIComp, toolStatuses *ui.MultilineEntry) {
 
-	//Commenting out for dev speed related reasons
+
 	cmd :=  cmdTool(tool.Args, tool.Path)
 	DefaultParse(tool.Name, cmd, uiComp, toolStatuses)
 }
 
-func Fiwalk(tool Configuration.DynamicTool, uiComp Structs.UIComp, toolStatuses *ui.MultilineEntry) {
+func Fiwalk(tool Configuration.Tool, uiComp Structs.UIComp, toolStatuses *ui.MultilineEntry) {
 	cmd :=  cmdTool(tool.Args, tool.Path)
 	FiwalkParse(cmd, uiComp, toolStatuses)
 }
 
-func Tcpflow(tool Configuration.DynamicTool, uiComp Structs.UIComp, toolStatuses *ui.MultilineEntry) {
+func Tcpflow(tool Configuration.Tool, uiComp Structs.UIComp, toolStatuses *ui.MultilineEntry) {
 
-	//Commenting out for dev speed related reasons
 
 	cmd :=  cmdTool(tool.Args,tool.Path)
 	cmd = makeCmdQuiet(cmd)
@@ -258,16 +257,15 @@ func Tcpflow(tool Configuration.DynamicTool, uiComp Structs.UIComp, toolStatuses
 }
 
 
-func WinPrefetch(tool Configuration.DynamicTool, uiComp Structs.UIComp, toolStatuses *ui.MultilineEntry) {
+func WinPrefetch(tool Configuration.Tool, uiComp Structs.UIComp, toolStatuses *ui.MultilineEntry) {
 	cmd :=  cmdTool(tool.Args, tool.Path)
 	WinPrefetchParse(cmd, uiComp, toolStatuses)
 }
 
-func MftDump(tool Configuration.DynamicTool, uiComp Structs.UIComp, toolStatuses *ui.MultilineEntry) {
+func MftDump(tool Configuration.Tool, uiComp Structs.UIComp, toolStatuses *ui.MultilineEntry) {
 
-	//Commenting out for dev speed related reasons
 
-	cmd :=  cmdTool(tool.Args, "mftdump.exe")
+	cmd :=  cmdTool(tool.Args, tool.Path)
 	MftDumpParse(cmd, uiComp, toolStatuses)
 }
 

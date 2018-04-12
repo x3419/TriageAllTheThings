@@ -14,5 +14,3 @@ type UIComp struct {
 	Label *ui.Label
 	Output *ui.MultilineEntry
 }
-
-

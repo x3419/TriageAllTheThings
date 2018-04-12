@@ -14,7 +14,7 @@ var RelativePath bool
 
 // Defining the custom functions for tools you would like to do output parsing with (or other stuff like hide windows and whatnot)
 // If function not defined for a given tool, default output will be used
-var WinFunctions = map[string] func(tool Configuration.DynamicTool, uiComp Structs.UIComp, toolStatuses *ui.MultilineEntry) {
+var WinFunctions = map[string] func(tool Configuration.Tool, uiComp Structs.UIComp, toolStatuses *ui.MultilineEntry) {
 	"bulkextractor":BulkExtractor,
 	"tcpflow":Tcpflow,
 	"winprefetch":WinPrefetch,
@@ -23,7 +23,7 @@ var WinFunctions = map[string] func(tool Configuration.DynamicTool, uiComp Struc
 }
 
 
-func BuildUi(myBox *ui.Box, uiCompMap map[string]Structs.UIComp, toolStatuses *ui.MultilineEntry, config Configuration.DynamicConfig) {
+func BuildUi(myBox *ui.Box, uiCompMap map[string]Structs.UIComp, toolStatuses *ui.MultilineEntry, config Configuration.Config) {
 
 	for _,t := range(config.Tool){
 		RelativePath = config.RelativePath
@@ -36,11 +36,10 @@ func BuildUi(myBox *ui.Box, uiCompMap map[string]Structs.UIComp, toolStatuses *u
 			}
 		}
 	}
-
 }
 
 
-func (u Util) MakeGUI(config Configuration.DynamicConfig) {
+func (u Util) MakeGUI(config Configuration.Config) {
 
 	//----------- GUI
 	err := ui.Main(func() {
@@ -145,10 +144,6 @@ func (u Util) MakeGUI(config Configuration.DynamicConfig) {
 		panic(err)
 	}
 	//---------- GUI
-
-
-
-
 
 
 }
