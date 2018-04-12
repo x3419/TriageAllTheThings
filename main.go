@@ -4,10 +4,11 @@ import (
 	"fmt"
 	"flag"
 	"io/ioutil"
-	"encoding/json"
-	"runtime"
 	Configuration "Capstone/Configuration"
+	"github.com/BurntSushi/toml"
+	"log"
 	"strings"
+	"runtime"
 	"Capstone/Osutil"
 )
 
@@ -15,9 +16,8 @@ func main() {
 
 	configPathPtr := flag.String("config", "Configuration/config.txt", "Location of the configuration file")
 	flag.Parse()
-	//var config Configuration.Config = ParseConfig(*configPathPtr)
 
-	var config Configuration.DynamicConfig = DynamicParseConfig(*configPathPtr)
+	var config Configuration.DynamicConfig = TomlParseConfig(*configPathPtr)
 
 	fmt.Println(config)
 
@@ -28,42 +28,18 @@ func main() {
 
 }
 
-func ParseConfig(configFile string) Configuration.Config {
+func TomlParseConfig(configFile string) Configuration.DynamicConfig {
 
 	b, err := ioutil.ReadFile(configFile)
 	if err != nil {
 		fmt.Println("Unable to open config file: ", err)
 	}
 
-	myConfig := Configuration.Config{}
-
-	if err := json.Unmarshal(b, &myConfig); err != nil {
-		fmt.Println("Error! Problem parsing the configuration file - please ensure that it reflects the example on Github.\n", err)
-		panic(err)
-		return Configuration.Config{}
+	var config Configuration.DynamicConfig
+	if _, err := toml.Decode(string(b), &config); err != nil {
+		log.Fatal(err)
 	}
 
-	return myConfig
+	return config
 
 }
-
-
-func DynamicParseConfig(configFile string) Configuration.DynamicConfig {
-
-	b, err := ioutil.ReadFile(configFile)
-	if err != nil {
-		fmt.Println("Unable to open config file: ", err)
-	}
-
-	myConfig := Configuration.DynamicConfig{}
-
-	if err := json.Unmarshal(b, &myConfig); err != nil {
-		fmt.Println("Error! Problem parsing the configuration file - please ensure that it reflects the example on Github.\n", err)
-		panic(err)
-		return Configuration.DynamicConfig{}
-	}
-
-	return myConfig
-
-}
-

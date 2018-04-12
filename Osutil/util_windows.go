@@ -1,8 +1,6 @@
 package Osutil
 
 import (
-	//"Capstone/Windows"
-	//"Capstone/Linux"
 	"github.com/ProtonMail/ui"
 	"Capstone/Configuration"
 	"Capstone/Structs"
@@ -12,6 +10,8 @@ import (
 
 type Util struct {}
 
+
+// Defining the custom functions for tools you would like to do output parsing with (or other stuff like hide windows and whatnot)
 var WinFunctions = map[string] func(tool Configuration.DynamicTool, uiComp Structs.UIComp, toolStatuses *ui.MultilineEntry) {
 	"bulkextractor":BulkExtractor,
 	"tcpflow":Tcpflow,
@@ -23,7 +23,7 @@ var WinFunctions = map[string] func(tool Configuration.DynamicTool, uiComp Struc
 
 func BuildUi(myBox *ui.Box, uiCompMap map[string]Structs.UIComp, toolStatuses *ui.MultilineEntry, config Configuration.DynamicConfig) {
 
-	for _,t := range(config.Tools){
+	for _,t := range(config.Tool){
 		if(t.Enabled){
 			uiComp := uiCompMap[strings.ToLower(t.Name)]
 			if(WinFunctions[strings.ToLower(t.Name)] != nil){
@@ -67,7 +67,7 @@ func (u Util) MakeGUI(config Configuration.DynamicConfig) {
 		var groupList []*ui.Box
 
 		index := 0
-		tools := config.Tools
+		tools := config.Tool
 		for _, t := range tools {
 			enabled := t.Enabled
 			if(enabled) {

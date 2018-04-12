@@ -2,7 +2,7 @@ package Configuration
 
 
 type DynamicConfig struct {
-	Tools []DynamicTool
+	Tool []DynamicTool
 }
 
 type DynamicTool struct {

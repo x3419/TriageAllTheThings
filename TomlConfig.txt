@@ -1,0 +1,5 @@
+[[Tool]]
+Name = "WinPrefetch"
+Enabled = true
+Args = "-d C:/Windows/Prefetch --csv \"C:/Users/Analyst/go/src/Capstone/Output/Prefetch\""
+Location = "PECmd.exe"
