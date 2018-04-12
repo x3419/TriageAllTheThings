@@ -10,8 +10,10 @@ import (
 
 type Util struct {}
 
+var RelativePath bool
 
 // Defining the custom functions for tools you would like to do output parsing with (or other stuff like hide windows and whatnot)
+// If function not defined for a given tool, default output will be used
 var WinFunctions = map[string] func(tool Configuration.DynamicTool, uiComp Structs.UIComp, toolStatuses *ui.MultilineEntry) {
 	"bulkextractor":BulkExtractor,
 	"tcpflow":Tcpflow,
@@ -24,6 +26,7 @@ var WinFunctions = map[string] func(tool Configuration.DynamicTool, uiComp Struc
 func BuildUi(myBox *ui.Box, uiCompMap map[string]Structs.UIComp, toolStatuses *ui.MultilineEntry, config Configuration.DynamicConfig) {
 
 	for _,t := range(config.Tool){
+		RelativePath = config.RelativePath
 		if(t.Enabled){
 			uiComp := uiCompMap[strings.ToLower(t.Name)]
 			if(WinFunctions[strings.ToLower(t.Name)] != nil){
@@ -135,9 +138,9 @@ func (u Util) MakeGUI(config Configuration.DynamicConfig) {
 		})
 		window.Show()
 
-		//var os Osutil.ToolRunner = Osutil.Util{}
 		go BuildUi(myBox, componentMap, toolStatuses, config)
 	})
+
 	if err != nil {
 		panic(err)
 	}

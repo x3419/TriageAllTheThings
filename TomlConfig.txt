@@ -1,5 +1,20 @@
+
+RelativePath = false
+
 [[Tool]]
 Name = "WinPrefetch"
 Enabled = true
 Args = "-d C:/Windows/Prefetch --csv \"C:/Users/Analyst/go/src/Capstone/Output/Prefetch\""
-Location = "PECmd.exe"
+Path = "PECmd.exe"
+
+[[Tool]]
+Name = "BulkExtractor"
+Enabled = true
+Args = "-o Output/BulkExtractor -R C:/Users/Analyst/Desktop/drive.001"
+Path = "bulk_extractor32.exe"
+
+[[Tool]]
+Name = "MFTDump"
+Enabled = true
+Args = "-o Output/MFT.txt C:/Users/Analyst/Desktop/$MFT"
+Path = "mftdump.exe"

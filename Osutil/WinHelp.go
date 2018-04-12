@@ -231,7 +231,7 @@ func WriteCmdResultToDisk(filename string) func(cmd *exec.Cmd) {
 func BulkExtractor(tool Configuration.DynamicTool, uiComp Structs.UIComp, toolStatuses *ui.MultilineEntry) {
 
 	//Commenting out for dev speed related reasons
-	//cmd :=  cmdTool(args, "bulk_extractor32.exe")
+	//cmd :=  cmdTool(args, tool.Path)
 	//BulkExtractorParse(cmd, uiComp, toolStatuses)
 	fmt.Println("Running BulkExtractor!")
 }
@@ -239,12 +239,12 @@ func BulkExtractor(tool Configuration.DynamicTool, uiComp Structs.UIComp, toolSt
 func Default(tool Configuration.DynamicTool, uiComp Structs.UIComp, toolStatuses *ui.MultilineEntry) {
 
 	//Commenting out for dev speed related reasons
-	cmd :=  cmdTool(tool.Args, tool.Location)
+	cmd :=  cmdTool(tool.Args, tool.Path)
 	DefaultParse(tool.Name, cmd, uiComp, toolStatuses)
 }
 
 func Fiwalk(tool Configuration.DynamicTool, uiComp Structs.UIComp, toolStatuses *ui.MultilineEntry) {
-	cmd :=  cmdTool(tool.Args, "fiwalk-0.6.3.exe")
+	cmd :=  cmdTool(tool.Args, tool.Path)
 	FiwalkParse(cmd, uiComp, toolStatuses)
 }
 
@@ -252,14 +252,14 @@ func Tcpflow(tool Configuration.DynamicTool, uiComp Structs.UIComp, toolStatuses
 
 	//Commenting out for dev speed related reasons
 
-	cmd :=  cmdTool(tool.Args,"RawCap.exe")
+	cmd :=  cmdTool(tool.Args,tool.Path)
 	cmd = makeCmdQuiet(cmd)
 	TcpFlowParse(cmd, uiComp, toolStatuses)
 }
 
 
 func WinPrefetch(tool Configuration.DynamicTool, uiComp Structs.UIComp, toolStatuses *ui.MultilineEntry) {
-	cmd :=  cmdTool(tool.Args, "PECmd.exe")
+	cmd :=  cmdTool(tool.Args, tool.Path)
 	WinPrefetchParse(cmd, uiComp, toolStatuses)
 }
 
@@ -279,7 +279,14 @@ func makeCmdQuiet(cmd *exec.Cmd) *exec.Cmd{
 
 
 func cmdTool(args string, tool string) *exec.Cmd {
-	myArgs := []string{"/C", "Tools\\" + tool}
+
+	var myArgs []string
+	if(RelativePath) {
+		myArgs = []string{"/C", "Tools\\" + tool}
+	} else {
+		myArgs = []string{"/C",tool};
+	}
+
 	r := regexp.MustCompile("[^\\s]+")
 	myArgs2 := r.FindAllString(args, -1)
 	myArgs = append(myArgs, myArgs2...)

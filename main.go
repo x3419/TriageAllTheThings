@@ -19,8 +19,6 @@ func main() {
 
 	var config Configuration.DynamicConfig = TomlParseConfig(*configPathPtr)
 
-	fmt.Println(config)
-
 	fmt.Println(strings.Title(runtime.GOOS) + " OS detected\nEnabled tools will begin to run in parallel. This may take some time and will slow the system down, so please be patient.")
 
 	var os Osutil.ToolRunner = Osutil.Util{}
