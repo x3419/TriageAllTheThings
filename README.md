@@ -25,8 +25,24 @@ For rapid, multi-platform incident response
 
 ##### Arguments
   - --config myConfigFile.txt
-  - Default is the location on github
-    - Capstone/Configuration/config.txt
+    - Default is the location on github
+      - Capstone/Configuration/config.txt
+  - --portable = false
+    - Default is true
+    
+##### Making a portable executable
+  - Bundles tools within the executable or as an archive
+  - Implemented using go.rice
+    - https://github.com/GeertJohan/go.rice
+    - go get the package and go build within the github.com/GeertJohan/rice path
+    - add the github.com/GeertJohan/rice path to your environmental variables
+    - rice go-embed
+      - for tools being within the executable
+    - rice embed-syso
+      - for generating a coff .syso file archive that must be in the same folder as the executable
+    - go build
+  - NOTE: When using go.rice to bundle the tools within the executable, you must have your configuration file within the "Configuration" folder
+  
 
 #### Cross compilation
  If you would like to cross compile (compile for an operating system other than the one currently running):
