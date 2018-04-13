@@ -36,6 +36,7 @@ For rapid, multi-platform incident response
     - https://github.com/GeertJohan/go.rice
     - go get the package and go build within the github.com/GeertJohan/rice path
     - add the github.com/GeertJohan/rice path to your environmental variables
+    - cd back into Capstone
     - rice go-embed
       - for tools being within the executable
     - rice embed-syso
