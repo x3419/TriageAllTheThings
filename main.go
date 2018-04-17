@@ -1,18 +1,18 @@
 package main
 
 import (
-	"fmt"
-	"flag"
-	"io/ioutil"
 	Configuration "Capstone/Configuration"
-	"github.com/BurntSushi/toml"
-	"log"
-	"strings"
-	"runtime"
 	"Capstone/Osutil"
+	"flag"
+	"fmt"
+	"github.com/BurntSushi/toml"
 	"github.com/GeertJohan/go.rice"
+	"io/ioutil"
+	"log"
 	"os"
 	"path/filepath"
+	"runtime"
+	"strings"
 )
 
 func main() {
@@ -23,8 +23,6 @@ func main() {
 
 	var config Configuration.Config
 
-	fmt.Println(*portable)
-
 	if *portable {
 
 		// bundling tools together
@@ -33,7 +31,6 @@ func main() {
 		}
 		box, err := conf.FindBox("Tools")
 		configBox, err := conf.FindBox("Configuration") // I'd use the config path ptr dir but rice needs a string literal... :-/
-
 
 		if err != nil {
 			log.Fatalf("error opening rice.Box: %s\n", err)
@@ -48,7 +45,7 @@ func main() {
 
 		//box.Walk("Tools", dumpTools)
 		CreateDirIfNotExist("Tools")
-		for _,t := range(config.Tool){
+		for _, t := range config.Tool {
 			if t.Enabled {
 
 				data, err := box.Bytes(t.Path)
@@ -58,13 +55,13 @@ func main() {
 				}
 
 				var path string
-				if(config.RelativePath){
+				if config.RelativePath {
 					path = "Tools/" + t.Path
 				} else {
 					path = "Tools/" + filepath.Base(t.Path)
 				}
 				err = ioutil.WriteFile(path, data, 755)
-				if(err != nil){
+				if err != nil {
 					log.Fatalf("error unbundling file: %s\n", err)
 				}
 			}
@@ -81,7 +78,6 @@ func main() {
 		config = TomlParseConfig(string(b))
 	}
 
-
 	fmt.Println(strings.Title(runtime.GOOS) + " OS detected\nEnabled tools will begin to run in parallel. This may take some time and will slow the system down, so please be patient.")
 
 	var os Osutil.ToolRunner = Osutil.Util{}
@@ -94,15 +90,15 @@ func dumpTools(path string, info os.FileInfo, err error) error {
 		log.Print(err)
 		return nil
 	}
-	if !info.IsDir(){
+	if !info.IsDir() {
 		data, err := ioutil.ReadFile(path)
 		if err != nil {
 			log.Print(err)
 			return nil
 		}
 		CreateDirIfNotExist("Tools")
-																			// Read Exec
-		err = ioutil.WriteFile("Tools/" + info.Name() + ".exe", data, 755)
+		// Read Exec
+		err = ioutil.WriteFile("Tools/"+info.Name()+".exe", data, 755)
 		fmt.Print("err? ")
 		log.Print(err)
 	}
@@ -120,7 +116,6 @@ func CreateDirIfNotExist(dir string) {
 }
 
 func TomlParseConfig(configString string) Configuration.Config {
-
 
 	var config Configuration.Config
 	if _, err := toml.Decode(configString, &config); err != nil {

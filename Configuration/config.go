@@ -1,14 +1,13 @@
 package Configuration
 
-
 type Config struct {
-	Tool []Tool
+	Tool         []Tool
 	RelativePath bool
 }
 
 type Tool struct {
-	Name string
+	Name    string
 	Enabled bool
-	Args string
-	Path string
+	Args    string
+	Path    string
 }
