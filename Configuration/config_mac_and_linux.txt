@@ -37,7 +37,7 @@ Args = "www.icanhazip.com"
 Path = "curl"
 
 [[Tool]]
-Name = "HiddenDirectoriesNOT_WORKING"
+Name = "HiddenDirectories"
 Enabled = true
 Args = "/ -type d -name \".*\" -print"
 Path = "find"
