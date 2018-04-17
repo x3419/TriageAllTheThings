@@ -1,0 +1,106 @@
+RelativePath = false
+
+[[Tool]]
+Name = "ps"
+Enabled = true
+Args = "-al"
+Path = "ps"
+
+[[Tool]]
+Name = "ls"
+Enabled = true
+Args = "-LR /Users/analyst/"
+Path = "ls"
+
+[[Tool]]
+Name = "date"
+Enabled = true
+Args = ""
+Path = "date"
+
+[[Tool]]
+Name = "uname"
+Enabled = true
+Args = "-a"
+Path = "uname"
+
+[[Tool]]
+Name = "ifconfig"
+Enabled = true
+Args = ""
+Path = "ifconfig"
+
+[[Tool]]
+Name = "ExternalIp"
+Enabled = true
+Args = "www.icanhazip.com"
+Path = "curl"
+
+[[Tool]]
+Name = "HiddenDirectoriesNOT_WORKING"
+Enabled = true
+Args = "/ -type d -name \".*\" -print"
+Path = "find"
+
+[[Tool]]
+Name = "FileTypes"
+Enabled = true
+Args = "*"
+Path = "file"
+
+[[Tool]]
+Name = "df"
+Enabled = true
+Args = "-H"
+Path = "df"
+
+[[Tool]]
+Name = "hdiutil"
+Enabled = true
+Args = "pmap /dev/disk0"
+Path = "hdiutil"
+
+[[Tool]]
+Name = "BashHistory"
+Enabled = true
+Args = "/Users/analyst/.bash_history"
+Path = "cat"
+
+[[Tool]]
+Name = "SwapStrings"
+Enabled = true
+Args = "-o /var/vm/swapfile0"
+Path = "strings"
+
+
+[[Tool]]
+Name = "fiwalk"
+Enabled = false
+Args = "/Users/analyst/Desktop/drive.001"
+Path = "fiwalk"
+
+[[Tool]]
+Name = "Mac OS X Keychain Forensic Tool"
+Enabled = false
+Args = "/Users/analyst/Downloads/chainbreaker/chainbreaker.py -f ~/Users/analyst/Library/Keychains/login.keychain"
+Path = "python"
+
+[[Tool]]
+Name = "bulkextractor"
+Enabled = false
+Args = "-o Output/BulkExtractor -R /Users/analyst/Desktop/drive.001"
+Path = "bulk_extractor"
+
+[[Tool]]
+Name = "sorter"
+Enabled = false
+Args = "/Users/analyst/Desktop/drive.001"
+Path = "sorter"
+
+
+[[Tool]]
+Name = "srch_strings"
+Enabled = false
+Args = "/var/vm/swapfile0"
+Path = "srch_strings"
+
