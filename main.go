@@ -43,6 +43,10 @@ func main() {
 
 		config = TomlParseConfig(configString)
 
+		if(checkConfig(config)){
+			log.Fatal("Directories or files different than specified in configuration file")
+		}
+
 		//box.Walk("Tools", dumpTools)
 		CreateDirIfNotExist("Tools")
 		for _, t := range config.Tool {
@@ -76,6 +80,9 @@ func main() {
 			fmt.Println("Unable to open config file: ", err)
 		}
 		config = TomlParseConfig(string(b))
+		if(checkConfig(config)){
+			log.Fatal("Directories or files different than specified in configuration file")
+		}
 	}
 
 	fmt.Println(strings.Title(runtime.GOOS) + " OS detected\nEnabled tools will begin to run in parallel. This may take some time and will slow the system down, so please be patient.")
@@ -85,8 +92,23 @@ func main() {
 
 }
 
+func checkConfig(config Configuration.Config) bool {
+	okay := "abcdefghijklmnopqrstuvwxyz1234567890_-.\\:"
+	for _, t := range(config.Tool){
+		for _,char := range(t.Path){
+			if(!strings.Contains(okay, strings.ToLower(string(char)))){
+				return false
+			}
+		}
+		if _, err := os.Stat(t.Path); os.IsNotExist(err) {
+			return false
+		}
+	}
+	return true
+}
+
 func dumpTools(path string, info os.FileInfo, err error) error {
-	if err != nil {
+	if err != nil || info == nil {
 		log.Print(err)
 		return nil
 	}
@@ -123,5 +145,4 @@ func TomlParseConfig(configString string) Configuration.Config {
 	}
 
 	return config
-
 }

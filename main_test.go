@@ -3,46 +3,121 @@ package main
 import (
 	"testing"
 	"Capstone/Configuration"
-	"Capstone/Structs"
-	"github.com/stretchr/testify/assert"
+	"os"
 )
 
 func TestConfig(t *testing.T) {
 
-	testConfig := Configuration.Config{}
-
-	var config Configuration.Config = ParseConfig("foo")
-
-	if(config != testConfig){
-		t.Failed()
+	testTool := Configuration.Tool{
+		Name:    "test",
+		Enabled: true,
+		Args:    "test args",
+		Path:    "/folder/directory/executable.exe",
 	}
 
-	testConfig2 := ParseConfig("TestConfig1.txt")
-
-	if(testConfig2.WinTools.Blkstat.Enabled){
-		t.Failed()
-	}
-	if(testConfig2.NixTools.Ps.Enabled){
-		t.Failed()
-	}
-	if(testConfig2.MacTools.Pac4Mac.Enabled){
-		t.Failed()
+	var testConfig Configuration.Config = Configuration.Config{
+		Tool: []Configuration.Tool{
+			testTool,
+		},
+		RelativePath : false,
 	}
 
-	testConfig3 := ParseConfig("TestConfig2.txt")
+	testString := `
+		[[Tool]]
+		Name = "test"
+		Enabled = true
+		Args = "test args"
+		Path = "/folder/directory/executable.exe"
+	`
 
-	if(testConfig3.WinTools.BulkExtractor.Enabled != true){
-		t.Failed()
+	var testConfig2 Configuration.Config = TomlParseConfig(testString)
+
+	compareConfigs(testConfig, testConfig2, t)
+
+	if(checkConfig(testConfig)){
+		t.Fail()
+	}
+
+	if(checkConfig(testConfig2)) {
+		t.Fail()
+	}
+
+}
+
+func TestConfig2(t *testing.T) {
+	var testConfig []Configuration.Config = []Configuration.Config{
+		Configuration.Config{
+			Tool: []Configuration.Tool{
+				Configuration.Tool{
+					Name:    "test",
+					Enabled: true,
+					Args:    "test args",
+					Path:    "/folder/directory/executable.exe",
+				},
+			},
+			RelativePath: false,
+		},
+		Configuration.Config{
+			Tool: []Configuration.Tool{
+				Configuration.Tool{
+					Name:    "test2",
+					Enabled: true,
+					Args:    "?ja@592L",
+					Path:    "C:/NotAFolder",
+				},
+			},
+			RelativePath: false,
+		},
+		Configuration.Config{
+			Tool: []Configuration.Tool{
+				Configuration.Tool{
+					Name:    "test3",
+					Enabled: false,
+					Args:    "||/*-426.",
+					Path:    "??!!~`/\\",
+				},
+			},
+			RelativePath: false,
+		},
+		Configuration.Config{
+			Tool: []Configuration.Tool{
+				Configuration.Tool{
+					Name:    "test4",
+					Enabled: true,
+					Args:    "test args",
+					Path:    "__292m_+\"]",
+				},
+			},
+			RelativePath: false,
+		},
+	}
+
+	for _, c := range(testConfig){
+		if(checkConfig(c)){
+			t.Fail()
+		}
 	}
 }
 
-func TestGUI(t *testing.T) {
-	configFile := ParseConfig("TestConfig2.txt")
-	tasks := make(chan Structs.Result, 64)
+func compareConfigs(config1 Configuration.Config, config2 Configuration.Config, t *testing.T) {
+	for _, t1 := range config2.Tool {
+		for _, t2 := range config2.Tool {
+			if( (t1.Name != t2.Name) ||
+				(t1.Enabled != t2.Enabled) ||
+				(t1.Path != t2.Path) ||
+				(t1.Args != t2.Args)){
+					t.Fail()
+			}
+		}
+	}
+	if(config1.RelativePath != config2.RelativePath){
+		t.Fail()
+	}
+}
 
-	assert.Panics(t, func() { makeGUI(configFile, tasks) }, "The code did not panic")
-
-	//makeGUI(configFile, tasks)
-
-
+func TestDumpTools(t *testing.T){
+	err := dumpTools("/fake/path", os.FileInfo(nil), nil)
+	if(err != nil){
+		t.Fail()
+	}
 }

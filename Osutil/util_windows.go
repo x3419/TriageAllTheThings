@@ -28,8 +28,11 @@ var WinFunctions = map[string]func(tool Configuration.Tool, uiComp Structs.UICom
 	"mftdump":       MftDump,
 }
 
-func BuildUi(myBox *ui.Box, uiCompMap map[string]Structs.UIComp, toolStatuses *ui.MultilineEntry, config Configuration.Config) {
+func BuildUi(myBox *ui.Box, uiCompMap map[string]Structs.UIComp, toolStatuses *ui.MultilineEntry, config Configuration.Config) bool {
 
+	if(myBox == nil || uiCompMap == nil || toolStatuses == nil){
+		return false
+	}
 	for _, t := range config.Tool {
 		RelativePath = config.RelativePath
 		if t.Enabled {
@@ -41,6 +44,7 @@ func BuildUi(myBox *ui.Box, uiCompMap map[string]Structs.UIComp, toolStatuses *u
 			}
 		}
 	}
+	return true
 }
 
 func (u Util) MakeGUI(config Configuration.Config) {
@@ -146,7 +150,7 @@ func (u Util) MakeGUI(config Configuration.Config) {
 }
 
 // -- Below is all the code that was in WinHelp.go. They must now be in this file to ensure
-// -- cross platform compatibility works corectly
+// -- cross platform compatibility works correctly
 const TCPFLOW_TIME_LIMIT = time.Hour * 2
 
 func BulkExtractorParse(cmd *exec.Cmd, uiComp Structs.UIComp, toolStatuses *ui.MultilineEntry) {
@@ -349,9 +353,8 @@ func WriteCmdResultToDisk(filename string) func(cmd *exec.Cmd) {
 func BulkExtractor(tool Configuration.Tool, uiComp Structs.UIComp, toolStatuses *ui.MultilineEntry) {
 
 	//Commenting out for dev speed related reasons
-	//cmd :=  cmdTool(args, tool.Path)
-	//BulkExtractorParse(cmd, uiComp, toolStatuses)
-	fmt.Println("Running BulkExtractor!")
+	cmd :=  cmdTool(tool.Args, tool.Path)
+	BulkExtractorParse(cmd, uiComp, toolStatuses)
 }
 
 func Default(tool Configuration.Tool, uiComp Structs.UIComp, toolStatuses *ui.MultilineEntry) {
@@ -390,6 +393,10 @@ func makeCmdQuiet(cmd *exec.Cmd) *exec.Cmd {
 }
 
 func cmdTool(args string, tool string) *exec.Cmd {
+
+	if(args == "" || tool == "") {
+		return nil
+	}
 
 	var myArgs []string
 	if RelativePath {
