@@ -2,6 +2,10 @@
 
 For rapid, multi-platform incident response
 
+NOTE: The Windows tools included in this repository serve as a starting example configuration. It is recommended that you add your own tools and set the arguments to your own specifications. I have not included the non-default GNU/Linux or Mac OSX tools in this repository because a compilation process is necessary for most open source tools, and different distributions and architectures will compile using different configurations.
+
+Lastly, please pay special attention to the arguments and be sure to set --portable=false when using it without portability 
+
 ### How to build
 
   - Install go
