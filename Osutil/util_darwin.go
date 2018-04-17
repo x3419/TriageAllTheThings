@@ -5,6 +5,7 @@ import (
 	"bufio"
 	"fmt"
 	"io/ioutil"
+	"os"
 	"os/exec"
 	"regexp"
 	"sync"
@@ -46,10 +47,11 @@ func (u Util) MakeGUI(config Configuration.Config) {
 
 }
 
-func defaultFunc(tool Configuration.Tool, wg *sync.WaitGroup) {
+func defaultFunc(tool Configuration.Tool, wg *sync.WaitGroup) error {
 
 	cmd := cmdTool(tool.Args, tool.Path)
-	defaultParse(tool.Name, cmd, wg)
+	err := defaultParse(tool.Name, cmd, wg)
+	return err
 }
 
 func cmdTool(args string, tool string) *exec.Cmd {
@@ -69,10 +71,10 @@ func cmdTool(args string, tool string) *exec.Cmd {
 	return cmd
 }
 
-func defaultParse(name string, cmd *exec.Cmd, wg *sync.WaitGroup) {
+func defaultParse(name string, cmd *exec.Cmd, wg *sync.WaitGroup) error {
 
 	toolsProcessing = append([]string{name}, toolsProcessing...)
-
+	var err error
 	wg.Add(1)
 	go func() {
 
@@ -84,6 +86,7 @@ func defaultParse(name string, cmd *exec.Cmd, wg *sync.WaitGroup) {
 
 		for scanner.Scan() {
 			m := scanner.Text()
+
 			fullOutput += m + "\n"
 			timeNext := time.Now()
 			toolsCurrentProgress := ""
@@ -110,15 +113,14 @@ func defaultParse(name string, cmd *exec.Cmd, wg *sync.WaitGroup) {
 				}
 				comm = false
 			}
+
 		}
 
 		cmd.Wait()
 
 		d1 := []byte(fullOutput)
-		err := ioutil.WriteFile("./Output/"+name+".txt", d1, 0644)
-		if err != nil {
-			panic(err)
-		}
+		CreateDirIfNotExist("./Output/")
+		err = ioutil.WriteFile("./Output/"+name+".txt", d1, 0777)
 
 		for index, element := range toolsProcessing {
 			if element == name {
@@ -129,6 +131,17 @@ func defaultParse(name string, cmd *exec.Cmd, wg *sync.WaitGroup) {
 		toolsComplete = append([]string{name}, toolsComplete...)
 
 		wg.Done()
-	}()
 
+	}()
+	return err
+
+}
+
+func CreateDirIfNotExist(dir string) {
+	if _, err := os.Stat(dir); os.IsNotExist(err) {
+		err = os.MkdirAll(dir, 0777)
+		if err != nil {
+			panic(err)
+		}
+	}
 }

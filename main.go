@@ -43,7 +43,7 @@ func main() {
 
 		config = TomlParseConfig(configString)
 
-		if(checkConfig(config)){
+		if checkConfig(config) {
 			log.Fatal("Directories or files different than specified in configuration file")
 		}
 
@@ -80,7 +80,7 @@ func main() {
 			fmt.Println("Unable to open config file: ", err)
 		}
 		config = TomlParseConfig(string(b))
-		if(checkConfig(config)){
+		if checkConfig(config) {
 			log.Fatal("Directories or files different than specified in configuration file")
 		}
 	}
@@ -94,9 +94,9 @@ func main() {
 
 func checkConfig(config Configuration.Config) bool {
 	okay := "abcdefghijklmnopqrstuvwxyz1234567890_-.\\:"
-	for _, t := range(config.Tool){
-		for _,char := range(t.Path){
-			if(!strings.Contains(okay, strings.ToLower(string(char)))){
+	for _, t := range config.Tool {
+		for _, char := range t.Path {
+			if !strings.Contains(okay, strings.ToLower(string(char))) {
 				return false
 			}
 		}
@@ -129,8 +129,7 @@ func dumpTools(path string, info os.FileInfo, err error) error {
 
 func CreateDirIfNotExist(dir string) {
 	if _, err := os.Stat(dir); os.IsNotExist(err) {
-		err = os.MkdirAll(dir, 0755)
-		fmt.Println(os.Getwd())
+		err = os.MkdirAll(dir, 0644)
 		if err != nil {
 			panic(err)
 		}
