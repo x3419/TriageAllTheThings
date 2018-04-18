@@ -4,7 +4,8 @@ import (
 	"Capstone/Configuration"
 )
 
+// every operating system will implement this to run tools and build UI its own way
+// right now OSX and GNU/Linux aren't implementing GUI because ProtonMail/ui doesn't actually work cross platform despite claims
 type ToolRunner interface {
-	//BuildUi(myBox *ui.Box, uiCompMap map[string]Structs.UIComp, toolStatuses *ui.MultilineEntry, config Configuration.Config)
 	MakeGUI(config Configuration.Config)
 }
