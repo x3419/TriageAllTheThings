@@ -6,6 +6,7 @@ import (
 	"os"
 )
 
+// testing config for expected behavior
 func TestConfig(t *testing.T) {
 
 	testTool := Configuration.Tool{
@@ -44,6 +45,7 @@ func TestConfig(t *testing.T) {
 
 }
 
+// testing checkConfig
 func TestConfig2(t *testing.T) {
 	var testConfig []Configuration.Config = []Configuration.Config{
 		Configuration.Config{
@@ -99,6 +101,7 @@ func TestConfig2(t *testing.T) {
 	}
 }
 
+// return whether two configs are identical 
 func compareConfigs(config1 Configuration.Config, config2 Configuration.Config, t *testing.T) {
 	for _, t1 := range config2.Tool {
 		for _, t2 := range config2.Tool {
@@ -115,6 +118,7 @@ func compareConfigs(config1 Configuration.Config, config2 Configuration.Config, 
 	}
 }
 
+// testing whether dumpTools works correctly
 func TestDumpTools(t *testing.T){
 	err := dumpTools("/fake/path", os.FileInfo(nil), nil)
 	if(err != nil){
