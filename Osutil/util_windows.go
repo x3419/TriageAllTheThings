@@ -28,6 +28,7 @@ var WinFunctions = map[string]func(tool Configuration.Tool, uiComp Structs.UICom
 	"mftdump":       MftDump,
 }
 
+// helps builds the UI and runs the correct parsing function
 func BuildUi(myBox *ui.Box, uiCompMap map[string]Structs.UIComp, toolStatuses *ui.MultilineEntry, config Configuration.Config) bool {
 
 	if(myBox == nil || uiCompMap == nil || toolStatuses == nil){
@@ -47,6 +48,7 @@ func BuildUi(myBox *ui.Box, uiCompMap map[string]Structs.UIComp, toolStatuses *u
 	return true
 }
 
+// builds the UI and puts all the right UI attributes in a map and ships it off to BuildUI
 func (u Util) MakeGUI(config Configuration.Config) {
 
 	//----------- GUI
@@ -68,6 +70,7 @@ func (u Util) MakeGUI(config Configuration.Config) {
 		tabs.Append("Status", statusBox)
 		window.SetChild(tabs)
 
+		// map of all UI attributes that need to be passed around (to update)
 		componentMap := make(map[string]Structs.UIComp)
 		var groupList []*ui.Box
 
@@ -153,6 +156,7 @@ func (u Util) MakeGUI(config Configuration.Config) {
 // -- cross platform compatibility works correctly
 const TCPFLOW_TIME_LIMIT = time.Hour * 2
 
+// custom parse for BulkExtractor
 func BulkExtractorParse(cmd *exec.Cmd, uiComp Structs.UIComp, toolStatuses *ui.MultilineEntry) {
 
 	go func() {
@@ -186,6 +190,7 @@ func BulkExtractorParse(cmd *exec.Cmd, uiComp Structs.UIComp, toolStatuses *ui.M
 
 }
 
+// custom parse for MftDump
 func MftDumpParse(cmd *exec.Cmd, uiComp Structs.UIComp, toolStatuses *ui.MultilineEntry) {
 
 	go func() {
@@ -214,6 +219,7 @@ func MftDumpParse(cmd *exec.Cmd, uiComp Structs.UIComp, toolStatuses *ui.Multili
 
 }
 
+// custom parse for WinPrefetch
 func WinPrefetchParse(cmd *exec.Cmd, uiComp Structs.UIComp, toolStatuses *ui.MultilineEntry) {
 
 	go func() {
@@ -242,6 +248,8 @@ func WinPrefetchParse(cmd *exec.Cmd, uiComp Structs.UIComp, toolStatuses *ui.Mul
 
 }
 
+// custom parse for TcpFlow (RawCap)
+// this just keeps running until TCPFLOW_TIME_LIMIT since the tool will run forever otherwise
 func TcpFlowParse(cmd *exec.Cmd, uiComp Structs.UIComp, toolStatuses *ui.MultilineEntry) {
 
 	go func() {
@@ -275,6 +283,7 @@ func TcpFlowParse(cmd *exec.Cmd, uiComp Structs.UIComp, toolStatuses *ui.Multili
 
 }
 
+
 func FiwalkParse(cmd *exec.Cmd, uiComp Structs.UIComp, toolStatuses *ui.MultilineEntry) {
 
 	go func() {
@@ -296,6 +305,7 @@ func FiwalkParse(cmd *exec.Cmd, uiComp Structs.UIComp, toolStatuses *ui.Multilin
 
 }
 
+// doesn't parse, just uses the output of the executable without any modification
 func DefaultParse(name string, cmd *exec.Cmd, uiComp Structs.UIComp, toolStatuses *ui.MultilineEntry) {
 
 	go func() {
@@ -316,6 +326,7 @@ func DefaultParse(name string, cmd *exec.Cmd, uiComp Structs.UIComp, toolStatuse
 
 }
 
+// self explanatory, just writes the results in a txt file to disk
 func WriteCmdResultToDisk(filename string) func(cmd *exec.Cmd) {
 	return func(cmd *exec.Cmd) {
 
@@ -349,6 +360,10 @@ func WriteCmdResultToDisk(filename string) func(cmd *exec.Cmd) {
 		}
 	}
 }
+
+
+// -- The next few functions handle the creation of the cmd and parsing
+// -- They're needed for things such as hiding extra cmd windows that happen by default
 
 func BulkExtractor(tool Configuration.Tool, uiComp Structs.UIComp, toolStatuses *ui.MultilineEntry) {
 
@@ -392,6 +407,7 @@ func makeCmdQuiet(cmd *exec.Cmd) *exec.Cmd {
 	return cmd
 }
 
+// takes in a executable and argument string and outputs the Cmd object that can be used to execute the tool
 func cmdTool(args string, tool string) *exec.Cmd {
 
 	if(args == "" || tool == "") {
@@ -405,6 +421,7 @@ func cmdTool(args string, tool string) *exec.Cmd {
 		myArgs = []string{"/C", tool}
 	}
 
+	// "a b c" -> ["a", "b", "c"]
 	r := regexp.MustCompile("[^\\s]+")
 	myArgs2 := r.FindAllString(args, -1)
 	myArgs = append(myArgs, myArgs2...)
