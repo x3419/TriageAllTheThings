@@ -17,6 +17,7 @@ import (
 
 func main() {
 
+	// parse arguments
 	configPathPtr := flag.String("config", "Configuration/config.txt", "Location of the configuration file")
 	portable := flag.Bool("portable", true, "Enable the bundling process that embeds tools within the executable")
 	flag.Parse()
@@ -29,6 +30,8 @@ func main() {
 		conf := rice.Config{
 			LocateOrder: []rice.LocateMethod{rice.LocateEmbedded, rice.LocateAppended, rice.LocateFS},
 		}
+		
+		// box it up
 		box, err := conf.FindBox("Tools")
 		configBox, err := conf.FindBox("Configuration") // I'd use the config path ptr dir but rice needs a string literal... :-/
 
@@ -36,6 +39,7 @@ func main() {
 			log.Fatalf("error opening rice.Box: %s\n", err)
 		}
 
+		// unbox it
 		configString, err := configBox.String(filepath.Base(*configPathPtr))
 		if err != nil {
 			log.Fatal("Error unbundling config")
@@ -47,7 +51,7 @@ func main() {
 			log.Fatal("Directories or files different than specified in configuration file")
 		}
 
-		//box.Walk("Tools", dumpTools)
+		//box.Walk("Tools", dumpTools) // not sure why this isn't working as expected :-/ well here's the backup plan...
 		CreateDirIfNotExist("Tools")
 		for _, t := range config.Tool {
 			if t.Enabled {
@@ -75,6 +79,8 @@ func main() {
 		// bundling tools together
 
 	} else {
+		
+		// read config from disk and parse
 		b, err := ioutil.ReadFile(*configPathPtr)
 		if err != nil {
 			fmt.Println("Unable to open config file: ", err)
@@ -92,6 +98,7 @@ func main() {
 
 }
 
+// return whether the config works as expected
 func checkConfig(config Configuration.Config) bool {
 	okay := "abcdefghijklmnopqrstuvwxyz1234567890_-.\\:"
 	for _, t := range config.Tool {
@@ -107,6 +114,8 @@ func checkConfig(config Configuration.Config) bool {
 	return true
 }
 
+// supposed to be a function used on every file in a given folder. 
+// isn't working for go.rice as expected
 func dumpTools(path string, info os.FileInfo, err error) error {
 	if err != nil || info == nil {
 		log.Print(err)
@@ -136,6 +145,7 @@ func CreateDirIfNotExist(dir string) {
 	}
 }
 
+// parses a config from string -> Configuration struct
 func TomlParseConfig(configString string) Configuration.Config {
 
 	var config Configuration.Config
