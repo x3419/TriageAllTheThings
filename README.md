@@ -41,7 +41,7 @@ Lastly, please pay special attention to the arguments and be sure to set --porta
     - go get the package and go build within the github.com/GeertJohan/rice path
     - add the github.com/GeertJohan/rice path to your environmental variables
     - cd back into Capstone
-    - rice go-embed
+    - rice embed-go
       - for tools being within the executable
     - rice embed-syso
       - for generating a coff .syso file archive that must be in the same folder as the executable
