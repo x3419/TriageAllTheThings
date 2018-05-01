@@ -80,7 +80,7 @@ The go.rice library was used in the development process to, when enabled in the 
 
 For the GUI, I experimented with a few different multi platform GUI frameworks and experienced a multitude of problems, from compilation to compatibility. In the end, I found that andlabs/ui (https://github.com/andlabs/ui for more information) seemed to work well on both Windows architectures, and it claimed to be cross platform compatible. During the development process, I found that there was a feature (multi line text box) that if needed (it was) would have to be implemented manually by myself. After searching around, I found that there was a fork of this library called ProtonMail/ui that already implemented that feature, so I decided to use that fork instead of the original. This framework was utililzed by first creating all necessary components based on the enabled tools within the configuration file, and the dynamic components of the GUI (tool progress, for example) was passed around to various functions that needed it for read/write capabilities. The passing of these components was done through the structure UIComp (located in the Structure folder) that contains two of the necessary GUI components. For a detailed depiction, please refer to *Figure 2*. 
 
-![Figure 2](https://i.imgur.com/x5br1WN.png)
+![Figure 2](https://i.imgur.com/4L6lFBR.png)
 
 **Figure 2**
 
