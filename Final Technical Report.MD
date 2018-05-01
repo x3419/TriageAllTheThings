@@ -31,3 +31,23 @@ capstone
 appalachian state
 
 
+### Table of Contents
+Introduction and Project Overview
+
+Design, Development and Test
+
+Results 
+
+Conclusions and Future Work
+
+References
+
+Document Quality
+
+### Introduction and Project Overview
+
+As a digital forensic or incident respont analyst, your job is to examine computers generally involved in some type of criminal behavior. This is done by analyzing various forensic artifacts on the computer; frequently (almost always in one way or another) when something is clicked, written or read on a computer, there is a log of it. It's not always a human friendly log like you might expect, and may require advanced methodologies in order to understand the logs, but they do exist. They're stored in various places by the operating system (such as Windows, Mac OSX, GNU/Linux), both in RAM and on the harddrive. An example of a popular location of forensic artifacts on Windows are hives on the Windows registry, where Windows stores information so it remembers things like what your most recently opened folders were on explorer. Since many of these forensic artifacts must be found in ways more complex than navigating to a folder and finding a text file, the open source community has provided various projects geared toward locating these logs and many times making them more readable for humans. As a result, forensic analysts must often search for relevant projects that suit their needs, and use them one at a time, wasting time and energy. Furthermore, a frequent problem with this process is that there are times when multiple (sometimes hundreds or thousands) of computers need to be investigated at once, which makes this an even more difficult problem to tackle. The scope of this capstone project is to address these problems and to provide an effective solution that would be valuable to digital forensic analysts performing an incident response investigation.  
+
+
+
+
