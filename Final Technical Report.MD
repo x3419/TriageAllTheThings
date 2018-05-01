@@ -103,7 +103,17 @@ This project was tested as follows:
 
 
 ### Results
+Overall, I think that I met all of the main objectives that I outlined at the beginning of this project. I hit many road blocks along the way, and ended up with a much smaller project than I had hoped for, but I'm very satisfied with the results. I expected that I would crank out code very quickly, but soon realized after a few weeks that golang is a harder language than I thought; I had a little experience over the summer learning it, but that was my first time being exposed to it. Had I written this in Java, I think I could have made something far more complex and larger in size. However, that wouldn't have made sense for this project for a number of reasons - it's bloated and has dependencies, though it is multi platform. Regardless, I think that the multiple refactoring and "getting stuck" multiple times set me back quite a bit. Had I contacted Professor Waldon upon initially getting stuck, I would have had more upward mobility; I thought that if I kept tinkering around and thinking that I would have come up with solutions to my problems, but this never actually happen two times throughout the project. Thankfully he was a great resource when I finally contacted him, and help me get around those problems that I was stuck on.
 
+
+
+
+This is a summary of the feature results:
+| Feature       | Implemented as expected | Implemented at all  |
+| ------------- |:-------------:| -----:|
+| col 3 is      | right-aligned | $1600 |
+| col 2 is      | centered      |   $12 |
+| zebra stripes | are neat      |    $1 |
 
 
 
