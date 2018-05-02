@@ -31,7 +31,8 @@ capstone
 appalachian state
 
 ### Table of Contents
-Introduction and Project Overview
+
+[Introduction and Project Overview](#Introduction-and-Project-Overview)
 
 Design, Development and Test
 
@@ -42,6 +43,7 @@ Conclusions and Future Work
 References
 
 Document Quality
+
 
 ### Introduction and Project Overview
 
