@@ -124,6 +124,7 @@ Though this isn't a feature, I believe that it's necessary to discuss the perfor
 
 
 This is a summary of the feature results:
+
 | Feature/Factor  | Implemented as expected | Plan to be improved  |
 | ------------- | ------------- | ------------- |
 | UI  | Yes  | Yes |
@@ -131,6 +132,7 @@ This is a summary of the feature results:
 | Deployment  | Yes  | Yes |
 | Configuration  | Yes  |  No  |
 | Performance  | Yes  | No  |
+
 **Figure 3**
 
 
