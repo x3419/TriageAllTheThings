@@ -125,7 +125,7 @@ Though this isn't a feature, I believe that it's necessary to discuss the perfor
 
 This is a summary of the feature results:
 | Feature/Factor                 | Implemented as expected | Plan to be improved  |
-| ------------------------------ | ------------- | ------ |
+| --- | --- | --- |
 | UI                             | Yes           |    Yes |
 | Cross platform compatibility   | Yes           |    No  |
 | Deployment                     | Yes           |    Yes |
