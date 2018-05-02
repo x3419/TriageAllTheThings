@@ -129,6 +129,7 @@ This project was tested as follows:
 <a name="results"/>
 
 ### Results
+
 Overall, I think that I met all of the main objectives that I outlined at the beginning of this project. I hit many road blocks along the way, and ended up with a much smaller project than I had hoped for, but I'm very satisfied with the results. I expected that I would crank out code very quickly, but soon realized after a few weeks that golang is a harder language than I thought; I had a little experience over the summer learning it, but that was my first time being exposed to it. Had I written this in Java, I think I could have made something far more complex and larger in size. However, that wouldn't have made sense for this project for a number of reasons - it's bloated and has dependencies, though it is multi platform. Regardless, I think that the multiple refactoring and "getting stuck" multiple times set me back quite a bit. Had I contacted Professor Waldon upon initially getting stuck, I would have had more upward mobility; I thought that if I kept tinkering around and thinking that I would have come up with solutions to my problems, but this never actually happen two times throughout the project. Thankfully he was a great resource when I finally contacted him, and helped me get around those problems that I was stuck on.
 
 To speak more about specifics, I will now outline the results for each main feature of the project:
@@ -136,26 +137,31 @@ To speak more about specifics, I will now outline the results for each main feat
 <a name="ui"/>
 
 **UI**
+
 Unfortunately the GUI was only successfully implemented on Windows. It was working on Mac OSX, but many of the components of the UI looked strange and nothing like on Windows, as I have discussed in other sections of this final technical report. However, I'm very satisfied with how the GUI turned out on Windows. It's user friendly, and what I would describe as "bare bones" - forensic analysts only need what is absolutely necessary, because many times incident response engagement are very time sensitive where every second counts. With this in mind, I believe that the GUI was optimal for the target audience. Furthermore, through the usability testing (simply messing around with the GUI trying to break things), the results have been very consistent and indicate a stable build. In terms of the command line interface for Mac OSX and GNU/Linux, I'm also very happy with the results. The only real necessity for incident response analysts is understanding the progress of specific tools; this is accomplished successfully through this project. It would be more helpful, however, to know the specific progress of a given tool in terms of percentage, but this is impossible to do if I would like to keep the dynamic nature of this project. However, it would be great in the future to perhaps contribute to open source digital forensic tools, create a way of tracking progress by percent, and integrating that specific build into this project in the future. 
 
 <a name="cp"/>
 
 **Cross platform compatibility**
+
 This feature was implemented very successfully, thanks to the language that it was written in, golang. The codebase for GNU/Linux and Mac OSX is the same, since they're both derivatives of Unix, but it's an excellent complement to this project. By implementing cross platform compatibility, this project reaches a larger audience and provides more of an opportunity for developers to contribute to the open source project in the future. In my testing, I haven't come across a single issue in regards to compatibility (beyond attempting to implement the GUI) which means the build is stable and consistent. In the future, I plan to implement the GUI for the operating systems that it was not implemented for, through alternative GUI frameworks - perhaps each operating system will need it's own, but that's why I designed the code the way that I did. 
 
-<a name="dep"/>
+<a name="dp"/>
 
 **Deployment**
+
 I'm very happy with the results of this project in regards to the ability to deploy the software with various digital forensic tools bundled within the executable or as an archive. Go.rice was an excellent library to use in this endeavour, and it's provided a stable and consistent addition to the other features. As I've mentioned in the previous sections of this paper, in the future I would like to not have the directory of the configuration file hard-coded when initially bundling the software using go.rice. Also, deployment can become difficult when using many forensic tools of large size (because nobody wants to transfer around a 3 gigabyte file), but this is just the nature of computers. I don't see any reason why this feature would not be extremely helpful to digital forensic analysts, and I think that the results met my objective for the feature.
 
 <a name="config"/>
 
 **Configuration**
+
 The configuration of this software through a configuration file is helpful and straightforward. This is a simple feature, but it successfully met my objective; TOML was an excellent language as opposed to JSON as I had before, because it is much more user friendly. Through my testing, I found that the functions I use to parse the file are stable and consistent, and I would have a hard time understanding how this feature wouldn't be simple and effective for my target audience.
 
 <a name="perf"/>
 
 **Performance**
+
 Though this isn't a feature, I believe that it's necessary to discuss the performance of this software due to it being an important factor for incident response analysts. Though I haven't done any programical performance testing, I have tested this software on three machines of mine that I believe represent a basic spectrum from "very slow" to "very fast". What I have found is that this software runs very well, consistently, on all operating systems, architectures, of both high and low performing machines. This is a very good result to find, because incident response investigations will be used on all different types of machines. Though certain digital forensic tools themselves may not be as stable and consistent as this project itself, it's still important that this tool never crashes to ensure hours of time are not wasted. For this reason, I'm very happy with the results in terms of performance and I think the audience of this software will feel the same way.
 
 
@@ -175,6 +181,7 @@ This is a summary of the feature results:
 <a name="conc"/>
 
 ### Conclusions and Future Work
+
 The problem that this project aimed to address was the process of incident response - with many tools with various complex parts, having a solution that would automate this process would provide a valuable platform for incident response analysts. In particular, having a multitude of different tools being executed separately with many different command line windows open is not the best solution. Often companies must invest time and energy toward creating their own custom software to do what this project does, but in a static and often times confusing manner. This frequently occurs especially for scenarios in which this type of triage must occur on multiple machines using deployment. Avoiding this problem is important, because I consider myself very passionate about cyber security and stopping criminals from stealing intellectual property - if this project can assist in the investigation of a single criminal, then that is something that I can truly be proud of. I believe that what this project has provided will solve this problem by creating a single way in which that execution can occur. The results are effective, efficient, and stable, which are very important to the target audience of this project. Furthermore, the design encourages open source developers to contribute in the future, and to provide feedback that is invaluable to future adaptations of the codebase. What I learned throughout this project is that if I or anyone else ever gets stuck on a problem, it is okay to ask for help - the open source as well as academic community is a great resource and is always willing to give their opinion. Furthermore, I found that it is very important to consider how your target audience will react to different facets of a piece of software, and that if your software is not helpful to that target audience, it's often not useful to anyone. In the future, I hope to work on the "plan to be improved" features specified in *Figure 3* - if I had more time, I would have continued to research various GUI frameworks for golang and find ones that work great for GNU/Linux and Mac OSX. Similarly, I would like to fix that small "string literal" issue in regards to deployment. Luckily the future is bright and programming is a skill that must be honed over time, so I will absolutely work on these deficits in the future and continue to become a better programmer.
 
 <a name="ref"/>
