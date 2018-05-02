@@ -27,10 +27,10 @@ var toolsProcessing = make([]string, 100, 100)
 var toolsComplete = make([]string, 100, 100)
 var timeStart time.Time
 
-// is a goroutine currently outputing progress data
+// comm is a goroutine currently outputing progress data.
 var comm bool = false
 
-// doesn't really make GUI. Instead it runs the tools and eventually outputs tool statuses
+// MakeGUI doesn't really make GUI. Instead it runs the tools and eventually outputs tool statuses.
 func (u Util) MakeGUI(config Configuration.Config) {
 
 	fmt.Println()
@@ -51,7 +51,7 @@ func (u Util) MakeGUI(config Configuration.Config) {
 }
 
 
-// writes the executable output to disk without any parsing
+// defaultFunc writes the executable output to disk without any parsing.
 func defaultFunc(tool Configuration.Tool, wg *sync.WaitGroup) error {
 
 	cmd := cmdTool(tool.Args, tool.Path)
@@ -59,7 +59,7 @@ func defaultFunc(tool Configuration.Tool, wg *sync.WaitGroup) error {
 	return err
 }
 
-// takes arguments and an executable string and returns the executable Cmd
+// cmdTool takes arguments and an executable string and returns the executable Cmd.
 func cmdTool(args string, tool string) *exec.Cmd {
 
 	// check where the executable is located
@@ -79,7 +79,7 @@ func cmdTool(args string, tool string) *exec.Cmd {
 	return cmd
 }
 
-// outputs tool statuses and writes output to file
+// defaultParse outputs tool statuses and writes output to file.
 func defaultParse(name string, cmd *exec.Cmd, wg *sync.WaitGroup) error {
 
 	toolsProcessing = append([]string{name}, toolsProcessing...)
