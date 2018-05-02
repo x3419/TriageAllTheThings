@@ -143,9 +143,15 @@ The problem that this project aimed to address was the process of incident respo
 
 ### References 
 [1] https://github.com/mantarayforensics/mantaray
+
 [2] https://github.com/AJMartel/IRTriage
+
 [3] https://github.com/travisfoley/dfirtriage
+
 [4] https://github.com/Yelp/osxcollector
+
 [5] https://github.com/toml-lang/toml
+
 [6] https://github.com/GeertJohan/go.rice
+
 [7] https://github.com/andlabs/ui
