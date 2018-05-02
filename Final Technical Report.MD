@@ -188,8 +188,6 @@ The problem that this project aimed to address was the process of incident respo
 
 ### References 
 
-P.W.D. Charles, Project Title, (2013), GitHub repository, https://github.com/charlespwd/project-title
-
 [1] Mantarayforensics, MantaRay Automated Computer Forensic Triage Tool (2016), GitHub repository, https://github.com/mantarayforensics/mantaray
 
 [2] AJMartel, Incident Response Triage - Windows Evidence Collection for Forensic Analysis
