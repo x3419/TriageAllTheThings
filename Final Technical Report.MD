@@ -34,7 +34,7 @@ appalachian state
 
 - [Introduction and Project Overview](#Introduction-and-Project-Overview)
     - [Background and Alternative Solutions](#back)
-    - [Features Summary}(#fs)
+    - [Features Summary](#fs)
 
 - [Design, Development and Test](#ddt)
     - [Design](#design)
