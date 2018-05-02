@@ -32,19 +32,20 @@ appalachian state
 
 ### Table of Contents
 
-[Introduction and Project Overview](#Introduction-and-Project-Overview)
+- [Introduction and Project Overview](#Introduction-and-Project-Overview)
 
-Design, Development and Test
+- Design, Development and Test
 
-Results 
+- [Results](#results)
 
-Conclusions and Future Work
+- Conclusions and Future Work
 
-References
+- References
 
-Document Quality
+- Document Quality
+<!-- toc -->
 
-
+<a name="Introduction-and-Project-Overview"/>
 ### Introduction and Project Overview
 
 
