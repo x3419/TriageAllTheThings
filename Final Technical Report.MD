@@ -133,8 +133,8 @@ This is a summary of the feature results:
 | Performance                    | Yes           |    No  |
 **Figure 3**
 
-| Feature/Factor  | Implemented as expected | 
-| ------------- | ------------- |
+| Feature/Factor  | Implemented as expected | Plan to be improved  |
+| ------------- | ------------- | ------------- |
 | UI  | Yes  |
 | Cross platform compatibility  | Yes  |
 | Deployment  | Yes  |
