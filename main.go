@@ -15,7 +15,7 @@ import (
 	"strings"
 )
 
-// main is the main function, first to run, that deals with the config file, boxing/unboxing for delployment on all operating systems
+// main is the main function, first to run, that deals with the config file, boxing/unboxing for delployment on all operating systems.
 func main() {
 
 	// parse arguments
@@ -99,7 +99,7 @@ func main() {
 
 }
 
-// checkConfig return whether the config works as expected
+// checkConfig return whether the config works as expected.
 func checkConfig(config Configuration.Config) bool {
 	okay := "abcdefghijklmnopqrstuvwxyz1234567890_-.\\:"
 	for _, t := range config.Tool {
@@ -147,7 +147,7 @@ func CreateDirIfNotExist(dir string) {
 	}
 }
 
-// TomlParseConfig parses a config from string -> Configuration struct
+// TomlParseConfig parses a config from string -> Configuration struct.
 func TomlParseConfig(configString string) Configuration.Config {
 
 	var config Configuration.Config
