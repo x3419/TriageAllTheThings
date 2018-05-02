@@ -6,6 +6,16 @@ NOTE: The Windows tools included in this repository serve as a starting example 
 
 Lastly, please pay special attention to the arguments and be sure to set --portable=false when using it without portability 
 
+### Screenshots
+
+![Figure 4](https://i.imgur.com/xZet1Mt.png)
+
+![Figure 5](https://i.imgur.com/wsaJExW.png)
+
+![Figure 6](https://i.imgur.com/lEo0muu.png)
+
+
+
 ### How to build
 
   - Install go
