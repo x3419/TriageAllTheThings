@@ -33,22 +33,32 @@ appalachian state
 ### Table of Contents
 
 - [Introduction and Project Overview](#Introduction-and-Project-Overview)
+    - [Background and Alternative Solutions](#back)
+    - [Features Summary}(#fs)
 
 - [Design, Development and Test](#ddt)
+    - [Design](#design)
+    - [Development](#dev)
+    - [Test](#test)
 
 - [Results](#results)
+    - [User Interface](#ui)
+    - [Cross platform compatibility](#cp)
+    - [Deployment](#dp)
+    - [Configuration](#config)
+    - [Performance](#perf)
 
 - [Conclusions and Future Work](#conc)
 
 - [References](#ref)
 
-- Document Quality
 <!-- toc -->
 
 <a name="Introduction-and-Project-Overview"/>
 
 ### Introduction and Project Overview
 
+<a name="back"/>
 
 ##### Background and Alternative Solutions
 As a digital forensic or incident respont analyst, your job is to examine computers generally involved in some type of criminal behavior. This is done by analyzing various forensic artifacts on the computer; frequently (almost always in one way or another) when something is clicked, written or read on a computer, there is a log of it. It's not always a human friendly log like you might expect, and may require advanced methodologies in order to understand the logs, but they do exist. They're stored in various places by the operating system (such as Windows, Mac OSX, GNU/Linux), both in RAM and on the harddrive. An example of a popular location of forensic artifacts on Windows are hives on the Windows registry, where Windows stores information so it remembers things like what your most recently opened folders were on explorer. Since many of these forensic artifacts must be found in ways more complex than navigating to a folder and finding a text file, the open source community has provided various projects geared toward locating these logs and many times making them more readable for humans. As a result, forensic analysts must often search for relevant projects that suit their needs, and use them one at a time, wasting time and energy. Furthermore, a frequent problem with this process is that there are times when multiple (sometimes hundreds or thousands) of computers need to be investigated at once, which makes this an even more difficult problem to tackle. The scope of this capstone project is to address these problems and to provide an effective solution that would be valuable to digital forensic analysts performing an incident response investigation. There are alternative projects that exist online that have the goal of addressing the same problem, such as the following projects:
@@ -59,6 +69,8 @@ As a digital forensic or incident respont analyst, your job is to examine comput
 
 
 While some of these projects do address all of the same problems as I have illuminated, many do not. Furthermore, in the following "features summary" section I will provide a summary that will help in demonstrating why this tool can be more effective than the aforementioned alternative solutions, as many of the features provided in this tool are not provided in the others.
+
+<a name="fs"/>
 
 ##### Features Summary
 Many of the alternative solutions provide a good platform to perform incident response. They have various tools statically bundled into the project, and do an excellent job of utilizing them in a uniform-fashion that makes it friendly for novice users and those that are in a hurry by not requiring manual configuration of each tool.
@@ -71,6 +83,9 @@ This project does this in a different way - while each tool must be independentl
 <a name="ddt"/>
 
 ### Design, Development and Test
+
+<a name="design"/>
+
 ##### Design
 When performing incident response, it's very important that development occurs under the following constraints:
 * Small in size
@@ -90,9 +105,13 @@ For the GUI, I experimented with a few different multi platform GUI frameworks a
 
 **Figure 2**
 
+<a name="dev"/>
+
 ##### Development
 
 This project began with a rough design of how it would be implemented, and more and more pieces were integrated as time went on. After refactoring multiple times throughout this process, the final design was successfully completed. Originally the project began with compatibility only for Windows. I had no GUI, and almost all of the code was in the main file. Configuration data was implemented through JSON; multiple tools had been statically integrated, and the communication about tool command line output had been passed through goroutine channels. After talking to Professor Waldon, he described how golang has the ability to differentiate between different operating systems for a single file by appending an "_[Operating System]" to the file name. Armed with this new information, I integrated the basic empty implementation for each operating system. It was at this point that I set about researching various GUI frameworks and eventually found Proton/ui. The flow of GUI components described in *Figure 2* was then implemented, and the GUI worked great - the goroutine channels had been removed as well, since the output would now be displayed directly through the GUI. After tackling the GUI, I then went back to multi platform implementation; I soon found that while the GUI looked great on Windows, it did not for Mac OSX. Furthermore, I found that the framework would not even compile on GNU/Linux despite spending a week trying to find an effective solution. I decided that since the GUI worked well on a certain version of Mac OSX and very strange on others, that I would disable the GUI for Mac OSX as well as for GNU/Linux. After talking with Professor Waldon again, he told me about TOML and I thought that it was a great language to replace JSON, that I had already implemented. I changed the configuration library, and refactored my code so that tools were no longer static - instead, alternative tools could be added without changing the codebase. It was at this point that I had the final design that you see in *Figure 2*.
+
+<a name="test"/>
 
 ##### Test
 
@@ -114,17 +133,27 @@ Overall, I think that I met all of the main objectives that I outlined at the be
 
 To speak more about specifics, I will now outline the results for each main feature of the project:
 
+<a name="ui"/>
+
 **UI**
 Unfortunately the GUI was only successfully implemented on Windows. It was working on Mac OSX, but many of the components of the UI looked strange and nothing like on Windows, as I have discussed in other sections of this final technical report. However, I'm very satisfied with how the GUI turned out on Windows. It's user friendly, and what I would describe as "bare bones" - forensic analysts only need what is absolutely necessary, because many times incident response engagement are very time sensitive where every second counts. With this in mind, I believe that the GUI was optimal for the target audience. Furthermore, through the usability testing (simply messing around with the GUI trying to break things), the results have been very consistent and indicate a stable build. In terms of the command line interface for Mac OSX and GNU/Linux, I'm also very happy with the results. The only real necessity for incident response analysts is understanding the progress of specific tools; this is accomplished successfully through this project. It would be more helpful, however, to know the specific progress of a given tool in terms of percentage, but this is impossible to do if I would like to keep the dynamic nature of this project. However, it would be great in the future to perhaps contribute to open source digital forensic tools, create a way of tracking progress by percent, and integrating that specific build into this project in the future. 
+
+<a name="cp"/>
 
 **Cross platform compatibility**
 This feature was implemented very successfully, thanks to the language that it was written in, golang. The codebase for GNU/Linux and Mac OSX is the same, since they're both derivatives of Unix, but it's an excellent complement to this project. By implementing cross platform compatibility, this project reaches a larger audience and provides more of an opportunity for developers to contribute to the open source project in the future. In my testing, I haven't come across a single issue in regards to compatibility (beyond attempting to implement the GUI) which means the build is stable and consistent. In the future, I plan to implement the GUI for the operating systems that it was not implemented for, through alternative GUI frameworks - perhaps each operating system will need it's own, but that's why I designed the code the way that I did. 
 
+<a name="dep"/>
+
 **Deployment**
 I'm very happy with the results of this project in regards to the ability to deploy the software with various digital forensic tools bundled within the executable or as an archive. Go.rice was an excellent library to use in this endeavour, and it's provided a stable and consistent addition to the other features. As I've mentioned in the previous sections of this paper, in the future I would like to not have the directory of the configuration file hard-coded when initially bundling the software using go.rice. Also, deployment can become difficult when using many forensic tools of large size (because nobody wants to transfer around a 3 gigabyte file), but this is just the nature of computers. I don't see any reason why this feature would not be extremely helpful to digital forensic analysts, and I think that the results met my objective for the feature.
 
+<a name="config"/>
+
 **Configuration**
 The configuration of this software through a configuration file is helpful and straightforward. This is a simple feature, but it successfully met my objective; TOML was an excellent language as opposed to JSON as I had before, because it is much more user friendly. Through my testing, I found that the functions I use to parse the file are stable and consistent, and I would have a hard time understanding how this feature wouldn't be simple and effective for my target audience.
+
+<a name="perf"/>
 
 **Performance**
 Though this isn't a feature, I believe that it's necessary to discuss the performance of this software due to it being an important factor for incident response analysts. Though I haven't done any programical performance testing, I have tested this software on three machines of mine that I believe represent a basic spectrum from "very slow" to "very fast". What I have found is that this software runs very well, consistently, on all operating systems, architectures, of both high and low performing machines. This is a very good result to find, because incident response investigations will be used on all different types of machines. Though certain digital forensic tools themselves may not be as stable and consistent as this project itself, it's still important that this tool never crashes to ensure hours of time are not wasted. For this reason, I'm very happy with the results in terms of performance and I think the audience of this software will feel the same way.
