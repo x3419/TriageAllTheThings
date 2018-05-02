@@ -140,7 +140,20 @@ To speak more about specifics, I will now outline the results for each main feat
 
 **UI**
 
-Unfortunately the GUI was only successfully implemented on Windows. It was working on Mac OSX, but many of the components of the UI looked strange and nothing like on Windows, as I have discussed in other sections of this final technical report. However, I'm very satisfied with how the GUI turned out on Windows. It's user friendly, and what I would describe as "bare bones" - forensic analysts only need what is absolutely necessary, because many times incident response engagement are very time sensitive where every second counts. With this in mind, I believe that the GUI was optimal for the target audience. Furthermore, throughout the usability testing (simply messing around with the GUI trying to break things), the results have been very consistent and indicate a stable build. In terms of the command line interface for Mac OSX and GNU/Linux, I'm also very happy with the results. The only real necessity for incident response analysts is understanding the progress of specific tools; this is accomplished successfully through this project. It would be more helpful, however, to know the specific progress of a given tool in terms of percentage, but this is impossible to do if I would like to keep the dynamic nature of this project. However, it would be great in the future to perhaps contribute to open source digital forensic tools, create a way of tracking progress by percent, and integrating that specific build into this project in the future. 
+Unfortunately the GUI was only successfully implemented on Windows. It was working on Mac OSX, but many of the components of the UI looked strange and nothing like on Windows, as I have discussed in other sections of this final technical report. However, I'm very satisfied with how the GUI turned out on Windows. It's user friendly, and what I would describe as "bare bones" - forensic analysts only need what is absolutely necessary, because many times incident response engagement are very time sensitive where every second counts. With this in mind, I believe that the GUI was optimal for the target audience. Furthermore, throughout the usability testing (simply messing around with the GUI trying to break things), the results have been very consistent and indicate a stable build. In terms of the command line interface for Mac OSX and GNU/Linux, I'm also very happy with the results. The only real necessity for incident response analysts is understanding the progress of specific tools; this is accomplished successfully through this project. It would be more helpful, however, to know the specific progress of a given tool in terms of percentage, but this is impossible to do if I would like to keep the dynamic nature of this project. However, it would be great in the future to perhaps contribute to open source digital forensic tools, create a way of tracking progress by percent, and integrating that specific build into this project in the future. *Figure 4* - *Figure 6* illustrate the final GUI layout.
+
+[Figure 4](https://i.imgur.com/xZet1Mt.png)
+
+**Figure 4**
+
+[Figure 5](https://i.imgur.com/wsaJExW.png)
+
+**Figure 5**
+
+[Figure 6](https://i.imgur.com/lEo0muu.png)
+
+**Figure 6**
+
 
 <a name="cp"/>
 
