@@ -1,3 +1,4 @@
+// Package Osutil is the package that contains the various code for different operating systems.
 package Osutil
 
 import (
