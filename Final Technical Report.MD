@@ -187,16 +187,20 @@ The problem that this project aimed to address was the process of incident respo
 <a name="ref"/>
 
 ### References 
-[1] https://github.com/mantarayforensics/mantaray
 
-[2] https://github.com/AJMartel/IRTriage
+P.W.D. Charles, Project Title, (2013), GitHub repository, https://github.com/charlespwd/project-title
 
-[3] https://github.com/travisfoley/dfirtriage
+[1] Mantarayforensics, MantaRay Automated Computer Forensic Triage Tool (2016), GitHub repository, https://github.com/mantarayforensics/mantaray
 
-[4] https://github.com/Yelp/osxcollector
+[2] AJMartel, Incident Response Triage - Windows Evidence Collection for Forensic Analysis
+ (2016), GitHub repository, https://github.com/AJMartel/IRTriage
 
-[5] https://github.com/toml-lang/toml
+[3] TravisFoley, dfirtriage, (2017), GitHub repository, https://github.com/travisfoley/dfirtriage
 
-[6] https://github.com/GeertJohan/go.rice
+[4] Yelp, OSXCollector - A forensic evidence collection & analysis toolkit for OS X, (2017), GitHub repository, https://github.com/Yelp/osxcollector
 
-[7] https://github.com/andlabs/ui
+[5] Toml-lang, Tom's Obvious  Minimal Language, (2018), GitHub repository, https://github.com/toml-lang/toml
+
+[6] GeertJohan, go.rice, (2017), GitHub repository, https://github.com/GeertJohan/go.rice
+
+[7] Andlabs, ui: platform-native GUI library for Go, (2016), GitHub repository, https://github.com/andlabs/ui
