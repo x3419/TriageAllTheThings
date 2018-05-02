@@ -1,3 +1,4 @@
+// Package main provides the main package that is ran by every operating system.
 package main
 
 import (
