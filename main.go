@@ -15,6 +15,7 @@ import (
 	"strings"
 )
 
+// main is the main function, first to run, that deals with the config file, boxing/unboxing for delployment on all operating systems
 func main() {
 
 	// parse arguments
@@ -98,7 +99,7 @@ func main() {
 
 }
 
-// return whether the config works as expected
+// checkConfig return whether the config works as expected
 func checkConfig(config Configuration.Config) bool {
 	okay := "abcdefghijklmnopqrstuvwxyz1234567890_-.\\:"
 	for _, t := range config.Tool {
@@ -114,7 +115,7 @@ func checkConfig(config Configuration.Config) bool {
 	return true
 }
 
-// supposed to be a function used on every file in a given folder. 
+// dumpTools is supposed to be a function used on every file in a given folder. 
 // isn't working for go.rice as expected
 func dumpTools(path string, info os.FileInfo, err error) error {
 	if err != nil || info == nil {
@@ -136,6 +137,7 @@ func dumpTools(path string, info os.FileInfo, err error) error {
 	return err
 }
 
+// CreateDirIfNotExist checks whether a directory exists. If it does not, it makes the directory.
 func CreateDirIfNotExist(dir string) {
 	if _, err := os.Stat(dir); os.IsNotExist(err) {
 		err = os.MkdirAll(dir, 0644)
@@ -145,7 +147,7 @@ func CreateDirIfNotExist(dir string) {
 	}
 }
 
-// parses a config from string -> Configuration struct
+// TomlParseConfig parses a config from string -> Configuration struct
 func TomlParseConfig(configString string) Configuration.Config {
 
 	var config Configuration.Config
