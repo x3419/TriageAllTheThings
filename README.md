@@ -75,3 +75,8 @@ Lastly, please pay special attention to the arguments and be sure to set --porta
 #### Resources
   - [Proposal](https://github.com/x3419/Capstone/blob/master/Project%20Proposal.md)
   - [Final Technical Report](https://github.com/x3419/Capstone/blob/master/Final%20Technical%20Report.MD)
+  
+#### Documentation
+If you would like to see the documentation for this project:
+  - godoc main # documentation for the main package
+  - For more information, visit https://godoc.org/golang.org/x/tools/cmd/godoc
