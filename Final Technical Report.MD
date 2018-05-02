@@ -135,9 +135,9 @@ This is a summary of the feature results:
 
 | Feature/Factor  | Implemented as expected | Plan to be improved  |
 | ------------- | ------------- | ------------- |
-| UI  | Yes  |
+| UI  | Yes  | Yes |
 | Cross platform compatibility  | Yes  |
-| Deployment  | Yes  |
+| Deployment  | Yes  | Yes |
 | Configuration  | Yes  | 
 | Performance  | Yes  |
 
