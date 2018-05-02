@@ -26,6 +26,7 @@ Lastly, please pay special attention to the arguments and be sure to set --porta
     - cd Capstone
     - go build
   - Run the executable
+  - Work on project here in this folder if you are a developer and feel free to perform pull requests and contribute in other ways
 
 ##### Arguments
   - --config myConfigFile.txt
@@ -57,3 +58,20 @@ Lastly, please pay special attention to the arguments and be sure to set --porta
     - GOOS=windows GOARCH=386 go build main.go
   - GNU/Linux
     - GOOS=linux GOARCH=386 go build main.go
+    
+    
+ #### Test
+ If you would like to use the tests in this project:
+  - cd into the main Capstone folder for main test
+  - cd into the Osutil folder for Osutil tests
+  - go test
+  
+ #### Quality Control
+ If you would like to use the go linter in this project:
+  - go install github.com/golang/lint
+  - cd into the project folder of your specification
+  - golint filename.go
+
+#### Resources
+  - [Proposal](https://github.com/x3419/Capstone/blob/master/Project%20Proposal.md)
+  - [Final Technical Report](https://github.com/x3419/Capstone/blob/master/Final%20Technical%20Report.MD)
