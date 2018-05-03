@@ -89,6 +89,13 @@ Lastly, please pay special attention to the arguments and be sure to set --porta
   
 #### Documentation
 If you would like to see the documentation for this project:
-  - godoc main # documentation for the main package
+  - godoc Osutil # documentation for the Osutil package
   - If this provides you strange results, use the full path to the package instead of the relative path
-  - For more information, visit https://godoc.org/golang.org/x/tools/cmd/godoc
+  - Golang does not support documentation in the main package by default. To change Golang so that it allows this:
+    - Modify the following line in $GOPATH/src/golang.org/x/tools/godoc/server.go:
+      - - info.IsMain = pkgname == "main"
+      - + info.IsMain = false && pkgname == "main"
+    - Build and install with go install golang.org/x/tools/cmd/godoc
+    - $GOPATH/bin/godoc should now be able to be used on the main package
+    - To further understand this issue, visit https://github.com/golang/go/issues/5727
+  - For more information on godoc, visit https://godoc.org/golang.org/x/tools/cmd/godoc
