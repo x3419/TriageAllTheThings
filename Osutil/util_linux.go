@@ -5,18 +5,19 @@ import (
 	"bufio"
 	"fmt"
 	"io/ioutil"
+	"os"
 	"os/exec"
 	"regexp"
 	"sync"
 	"time"
 )
 
-// -- This is the "debug" version of the UI for GNU/Linux. The UI code from util_windows.go can
-// -- hypothetically work on GNU/Linux but seems to show some type of compilation error.
-// -- For this reason, I have decided to disable the UI for GNU/Linux. Each tool will have an output file
+// -- This is the "debug" version of the UI for Mac OSX. The UI code from util_windows.go will
+// -- work on certain versions of OSX (10.11 supposedly) but seems to act buggy in others.
+// -- For this reason, I have decided to disable the UI for OSX. Each tool will have an output file
 // -- showing the output of each tool. In the future I will implement separate UI frameworks for
 // -- each operating system to ensure stable compatibility.
-// -- NOTE: If you are interested in trying to get the ProtonMail/ui framework working on GNU/Linux, just copy
+// -- NOTE: If you are interested in trying to get the ProtonMail/ui framework working on OSX, just copy
 // -- the code from util_windows.go. The instability made me feel iffy about including it in my final Capstone
 
 type Util struct{}
@@ -49,11 +50,13 @@ func (u Util) MakeGUI(config Configuration.Config) {
 
 }
 
+
 // defaultFunc writes the executable output to disk without any parsing.
-func defaultFunc(tool Configuration.Tool, wg *sync.WaitGroup) {
+func defaultFunc(tool Configuration.Tool, wg *sync.WaitGroup) error {
 
 	cmd := cmdTool(tool.Args, tool.Path)
-	defaultParse(tool.Name, cmd, wg)
+	err := defaultParse(tool.Name, cmd, wg)
+	return err
 }
 
 // cmdTool takes arguments and an executable string and returns the executable Cmd.
@@ -77,10 +80,10 @@ func cmdTool(args string, tool string) *exec.Cmd {
 }
 
 // defaultParse outputs tool statuses and writes output to file.
-func defaultParse(name string, cmd *exec.Cmd, wg *sync.WaitGroup) {
+func defaultParse(name string, cmd *exec.Cmd, wg *sync.WaitGroup) error {
 
 	toolsProcessing = append([]string{name}, toolsProcessing...)
-
+	var err error
 	wg.Add(1)
 	go func() {
 
@@ -92,6 +95,7 @@ func defaultParse(name string, cmd *exec.Cmd, wg *sync.WaitGroup) {
 
 		for scanner.Scan() {
 			m := scanner.Text()
+
 			fullOutput += m + "\n"
 			timeNext := time.Now()
 			toolsCurrentProgress := ""
@@ -120,15 +124,15 @@ func defaultParse(name string, cmd *exec.Cmd, wg *sync.WaitGroup) {
 				}
 				comm = false
 			}
+
 		}
 
 		cmd.Wait()
 
+		// write output
 		d1 := []byte(fullOutput)
-		err := ioutil.WriteFile("./Output/"+name+".txt", d1, 0644)
-		if err != nil {
-			panic(err)
-		}
+		CreateDirIfNotExist("./Output/")
+		err = ioutil.WriteFile("./Output/"+name+".txt", d1, 0777)
 
 		for index, element := range toolsProcessing {
 			if element == name {
@@ -139,6 +143,17 @@ func defaultParse(name string, cmd *exec.Cmd, wg *sync.WaitGroup) {
 		toolsComplete = append([]string{name}, toolsComplete...)
 
 		wg.Done()
-	}()
 
+	}()
+	return err
+
+}
+
+func CreateDirIfNotExist(dir string) {
+	if _, err := os.Stat(dir); os.IsNotExist(err) {
+		err = os.MkdirAll(dir, 0777)
+		if err != nil {
+			panic(err)
+		}
+	}
 }
