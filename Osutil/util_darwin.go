@@ -20,8 +20,10 @@ import (
 // -- NOTE: If you are interested in trying to get the ProtonMail/ui framework working on OSX, just copy
 // -- the code from util_windows.go. The instability made me feel iffy about including it in my final Capstone
 
+// Util specifies that this is an implementation of the interface ToolRunner.
 type Util struct{}
 
+// RelativePath determines whether the relative path is set to true within the configuration file.
 var RelativePath bool
 var toolsProcessing = make([]string, 100, 100)
 var toolsComplete = make([]string, 100, 100)
@@ -149,6 +151,7 @@ func defaultParse(name string, cmd *exec.Cmd, wg *sync.WaitGroup) error {
 
 }
 
+// CreateDirIfNotExists checks whether a directory exists. If it does not, it creates a folder with the name specified by the "dir" parameter.
 func CreateDirIfNotExist(dir string) {
 	if _, err := os.Stat(dir); os.IsNotExist(err) {
 		err = os.MkdirAll(dir, 0777)
