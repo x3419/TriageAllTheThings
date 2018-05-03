@@ -90,4 +90,5 @@ Lastly, please pay special attention to the arguments and be sure to set --porta
 #### Documentation
 If you would like to see the documentation for this project:
   - godoc main # documentation for the main package
+  - If this provides you strange results, use the full path to the package instead of the relative path
   - For more information, visit https://godoc.org/golang.org/x/tools/cmd/godoc
