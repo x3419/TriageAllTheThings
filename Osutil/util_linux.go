@@ -12,12 +12,12 @@ import (
 	"time"
 )
 
-// -- This is the "debug" version of the UI for Mac OSX. The UI code from util_windows.go will
-// -- work on certain versions of OSX (10.11 supposedly) but seems to act buggy in others.
-// -- For this reason, I have decided to disable the UI for OSX. Each tool will have an output file
+// -- This is the "debug" version of the UI for GNU/Linux. The UI code from util_windows.go will
+// -- not for for Linux for some reason.
+// -- For this reason, I have decided to disable the UI for GNU/Linux. Each tool will have an output file
 // -- showing the output of each tool. In the future I will implement separate UI frameworks for
 // -- each operating system to ensure stable compatibility.
-// -- NOTE: If you are interested in trying to get the ProtonMail/ui framework working on OSX, just copy
+// -- NOTE: If you are interested in trying to get the ProtonMail/ui framework working on GNu/Linux, just copy
 // -- the code from util_windows.go. The instability made me feel iffy about including it in my final Capstone
 
 type Util struct{}
