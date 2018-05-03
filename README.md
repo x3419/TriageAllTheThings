@@ -93,8 +93,8 @@ If you would like to see the documentation for this project:
   - If this provides you strange results, use the full path to the package instead of the relative path
   - Golang does not support documentation in the main package by default. To change Golang so that it allows this:
     - Modify the following line in $GOPATH/src/golang.org/x/tools/godoc/server.go:
-      - - info.IsMain = pkgname == "main"
-      - + info.IsMain = false && pkgname == "main"
+      - \- info.IsMain = pkgname == "main"
+      - \+ info.IsMain = false && pkgname == "main"
     - Build and install with go install golang.org/x/tools/cmd/godoc
     - $GOPATH/bin/godoc should now be able to be used on the main package
     - To further understand this issue, visit https://github.com/golang/go/issues/5727
